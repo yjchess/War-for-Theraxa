@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://brisyxd5a65mn"]
+
+[ext_resource type="Script" path="res://menus/campaign_map.gd" id="1_w4pso"]
+[ext_resource type="PackedScene" uid="uid://7m3iswmiocd7" path="res://menus/menu_prefabs_and_resources/campaign_flags.tscn" id="2_ec7yf"]
+
+[node name="Level_Selector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_w4pso")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1925.0
+offset_bottom = 1076.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 200
+text = "Placeholder Map
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Level 1" parent="." instance=ExtResource("2_ec7yf")]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 545.0
+offset_right = 291.0
+offset_bottom = 588.0
+
+[connection signal="level_change" from="Level 1" to="." method="_on_level_change"]

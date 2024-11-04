@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://by3us8bnxbpmd"]
+
+[ext_resource type="PackedScene" uid="uid://c5wkl5y85bqb0" path="res://levels/prefabs/generic_map.tscn" id="1_s8bj2"]
+
+[node name="Level One" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_s8bj2")]
