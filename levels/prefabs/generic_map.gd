@@ -2,6 +2,7 @@ extends Node2D
 @export var width: int
 @export var height: int
 @onready var squares = $Squares
+@onready var units = $Units
 var viewport_width = 1920
 var viewport_height = 1080
 var square_width = 64
@@ -16,6 +17,7 @@ func _ready():
 	var starting_square_x = ((viewport_width / square_width) * square_width - square_width * width) / 2
 	var starting_square_y = ((viewport_height / square_height) * square_height - square_height * height) / 2
 	starting_square_location = [starting_square_x, starting_square_y] 
+	GameData.starting_square_position = starting_square_location
 	
 	for x in width:
 		for y in height:
@@ -23,6 +25,7 @@ func _ready():
 	
 func setup_board(player_pieces, computer_pieces):
 	for piece in player_pieces:
+		print(piece)
 		var color = "blue"
 		var unit = piece[0]
 		var unit_position = piece[1]
@@ -34,11 +37,16 @@ func setup_board(player_pieces, computer_pieces):
 		var unit_position = piece[1]
 		place_piece(color, unit, unit_position)
 	
-func place_piece(color, unit, unit_position):
-	instantiate_unit(color, name, position)
+func place_piece(colour, unit, unit_position):
+	instantiate_unit(colour, unit, unit_position)
 
-func instantiate_unit(color, name, position):
-	pass
+func instantiate_unit(colour, name, position):
+	var instance           = unit.instantiate()
+	instance.unit_color    = colour
+	instance.unit_name     = name
+	instance.unit_position = position
+	instance.place_unit()
+	units.add_child(instance)
 	
 func instantiate_square(x,y):
 	var instance        = square.instantiate()
