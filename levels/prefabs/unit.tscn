@@ -85,7 +85,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [node name="Unit" type="Node2D"]

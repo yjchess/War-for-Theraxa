@@ -2,7 +2,7 @@ extends Node2D
 @export var width: int
 @export var height: int
 @onready var squares = $Squares
-@onready var units = $Units
+#@onready var units = $Units
 var viewport_width = 1920
 var viewport_height = 1080
 var square_width = 64
@@ -45,13 +45,17 @@ func instantiate_unit(colour, name, position):
 	instance.unit_color    = colour
 	instance.unit_name     = name
 	instance.unit_position = position
-	instance.place_unit()
-	units.add_child(instance)
+	#instance.place_unit()
+	var square_parent = get_square(position[0], position[1])
+	square_parent.add_child(instance)
+	#units.add_child(instance)
 	
 func instantiate_square(x,y):
 	var instance        = square.instantiate()
 	instance.x_coord    = x
 	instance.y_coord    = y
+	instance.x_max      = width
+	instance.y_max      = height
 	instance.position.x = starting_square_location[0] + x*64
 	instance.position.y = starting_square_location[1] + y*64
 	instance.override_square_selected.connect(remove_previous_selected_square)
@@ -64,7 +68,10 @@ func get_square(x,y):
 			return square_instance
 
 func remove_previous_selected_square():
+	get_tree().call_group("movable_square_UI", "hide")
+	get_tree().call_group("attackable_square_UI", "hide")
 	var previous_selected_square          = GameData.selected_square
-	var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])
-	previous_selected_square_instance.deselect()
+	if previous_selected_square != null:
+		var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])
+		previous_selected_square_instance.deselect()
 	

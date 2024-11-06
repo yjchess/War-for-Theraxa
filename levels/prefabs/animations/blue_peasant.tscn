@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3ofvjhjdnbuj"]
+
+[ext_resource type="Texture2D" uid="uid://cki8c12qke1bi" path="res://assets/blue_peasant.png" id="1_ialye"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qyhm"]
+atlas = ExtResource("1_ialye")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5dwl"]
+atlas = ExtResource("1_ialye")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nficn"]
+atlas = ExtResource("1_ialye")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojj2w"]
+atlas = ExtResource("1_ialye")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnpku"]
+atlas = ExtResource("1_ialye")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag6oa"]
+atlas = ExtResource("1_ialye")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi0qq"]
+atlas = ExtResource("1_ialye")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4bi5"]
+atlas = ExtResource("1_ialye")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrkg4"]
+atlas = ExtResource("1_ialye")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br1rj"]
+atlas = ExtResource("1_ialye")
+region = Rect2(450, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wnrd"]
+atlas = ExtResource("1_ialye")
+region = Rect2(500, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h0mra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qyhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5dwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nficn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojj2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnpku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag6oa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi0qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4bi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrkg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br1rj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wnrd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="blue_peasant" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_h0mra")
+autoplay = "default"
