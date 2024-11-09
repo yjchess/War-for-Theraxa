@@ -1,0 +1,340 @@
+[gd_scene load_steps=17 format=3 uid="uid://dwgsx2w7idvfb"]
+
+[ext_resource type="Texture2D" uid="uid://8qrsmfcvft4q" path="res://assets/icons/food.png" id="1_6lhph"]
+[ext_resource type="Theme" uid="uid://bthw2qxujypve" path="res://levels/prefabs/canvas/label_theme.tres" id="1_u1iey"]
+[ext_resource type="StyleBox" uid="uid://bw8jvfxujxcr" path="res://levels/prefabs/canvas/panel_label.tres" id="2_a15xl"]
+[ext_resource type="Texture2D" uid="uid://cxv2tj1w8x7mw" path="res://assets/icons/gold.png" id="3_5ewgd"]
+[ext_resource type="StyleBox" uid="uid://c5inynch50rvn" path="res://levels/prefabs/canvas/UI_style_box_flat.tres" id="3_34rj1"]
+[ext_resource type="Texture2D" uid="uid://by2k145i0om63" path="res://assets/commander_jensen.png" id="4_82e2s"]
+[ext_resource type="StyleBox" uid="uid://cexyqumssgh8i" path="res://levels/prefabs/canvas/content_theme.tres" id="4_c7w63"]
+[ext_resource type="Theme" uid="uid://b45ll6nreyph4" path="res://menus/menu_prefabs_and_resources/main_button_theme.tres" id="4_vemqb"]
+[ext_resource type="Texture2D" uid="uid://clp8vebvs2xl2" path="res://assets/icons/movement.png" id="6_gta24"]
+[ext_resource type="Texture2D" uid="uid://buvl1tlm0wddb" path="res://assets/icons/build.png" id="7_s7dqi"]
+[ext_resource type="Texture2D" uid="uid://csageplhjhe6b" path="res://assets/icons/gather.png" id="10_usatw"]
+[ext_resource type="Texture2D" uid="uid://c8wc8cf2d50s2" path="res://assets/icons/attack.png" id="11_aotit"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltr7"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.145098, 0.145098, 0.145098, 0.498039)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exhj1"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gkcr"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q430c"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[node name="Level_UI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Resources" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -286.0
+offset_bottom = 140.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nltr7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Resources"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Resources/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Resources/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Food_Icon" type="TextureRect" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_6lhph")
+
+[node name="Food" type="Label" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_u1iey")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Resources/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Gold_Icon" type="TextureRect" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("3_5ewgd")
+
+[node name="Gold" type="Label" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_u1iey")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(1920, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Minimap" type="VBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/HBoxContainer/Minimap"]
+custom_minimum_size = Vector2(384, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_a15xl")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/Minimap/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_u1iey")
+text = "Minimap"
+horizontal_alignment = 1
+
+[node name="Minimap" type="PanelContainer" parent="Control/HBoxContainer/Minimap"]
+custom_minimum_size = Vector2(384, 384)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_exhj1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Portrait" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Portrait_Label" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Portrait"]
+visible = false
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("2_a15xl")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Portrait/Portrait_Label"]
+layout_mode = 2
+theme = ExtResource("1_u1iey")
+text = "Name"
+horizontal_alignment = 1
+
+[node name="Unit_Portrait" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Portrait"]
+custom_minimum_size = Vector2(260, 260)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_34rj1")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Portrait/Unit_Portrait"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("4_c7w63")
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Portrait/Unit_Portrait/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("4_82e2s")
+
+[node name="Description_Dialogue" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Text_Label" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue"]
+custom_minimum_size = Vector2(640, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("2_a15xl")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Label"]
+layout_mode = 2
+theme = ExtResource("1_u1iey")
+text = "Commander Jensen"
+horizontal_alignment = 1
+
+[node name="Text_Box" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue"]
+custom_minimum_size = Vector2(640, 200)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_34rj1")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box"]
+custom_minimum_size = Vector2(600, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("4_c7w63")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer/MarginContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0.788235, 0.341176, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[b] [fill]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses! [/fill][/b]"
+
+[node name="Statistics" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Statistics_Label" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics"]
+custom_minimum_size = Vector2(350, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("2_a15xl")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Statistics_Label"]
+layout_mode = 2
+theme = ExtResource("1_u1iey")
+text = "Statistics"
+horizontal_alignment = 1
+
+[node name="Stats_Box" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics"]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("3_34rj1")
+
+[node name="NA_PanelContainer" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box"]
+custom_minimum_size = Vector2(300, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gkcr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/NA_PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/NA_PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.788235, 0.341176, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[b] [center]N / A 
+(Only available for campaign units)[/center][/b]"
+
+[node name="Actions" type="VBoxContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+
+[node name="Actions_Label" type="PanelContainer" parent="Control/HBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("2_a15xl")
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/Actions/Actions_Label"]
+layout_mode = 2
+theme = ExtResource("1_u1iey")
+text = "Actions"
+horizontal_alignment = 1
+
+[node name="Actions" type="PanelContainer" parent="Control/HBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_q430c")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/Actions/Actions"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="Control/HBoxContainer/Actions/Actions/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="TextureButton" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_gta24")
+
+[node name="TextureButton2" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_s7dqi")
+
+[node name="TextureButton3" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("10_usatw")
+
+[node name="TextureButton4" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("11_aotit")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 83.0
+offset_bottom = 82.0
+scale = Vector2(1, 0.995827)
+theme = ExtResource("4_vemqb")
+theme_override_font_sizes/font_size = 30
+text = " [☰] "

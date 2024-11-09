@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://bb6n1nr8bdm4m"]
+
+[ext_resource type="Texture2D" uid="uid://cu7g0gruniupm" path="res://assets/red_warrior.png" id="1_lpb20"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnfkk"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkq7q"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmque"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t134"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lexu"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6x3uq"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ifdh"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al60x"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb66f"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75rqi"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(450, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtk7e"]
+atlas = ExtResource("1_lpb20")
+region = Rect2(500, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eaub4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnfkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkq7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmque")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t134")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lexu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6x3uq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ifdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al60x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb66f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75rqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtk7e")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="red_warrior" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_eaub4")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(32, 32)

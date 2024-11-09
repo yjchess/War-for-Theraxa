@@ -12,7 +12,9 @@ var moved = false
 
 func _ready():
 	map = get_parent().get_parent().get_parent()
-
+	load_unit_animations()
+	
+	
 func get_unit_possible_moves():
 	var possible_squares = []
 	if moved == false:
@@ -26,6 +28,11 @@ func move(x_coord, y_coord):
 	reparent(new_square, false)
 	unit_position = [x_coord, y_coord]
 	moved = true
+
+func load_unit_animations():
+	var animated_sprite = load("res://levels/prefabs/animations/"+unit_color+"_"+unit_name+".tscn")
+	var instance = animated_sprite.instantiate()
+	add_child(instance)
 
 #func place_unit():
 	#position.x = unit_position[0]*64 + GameData.starting_square_position[0]

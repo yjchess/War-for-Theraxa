@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://cjpwr7unpvqst"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xpf7m"]
+load_path = "res://.godot/imported/red_peasant.png-7123a1d6517c5d6b6adcbd5df8912cc4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rxe2"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xat1o"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rjpq"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjije"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqdyb"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqeug"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nl3n"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnd78"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tylrl"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d06vl"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(450, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phaj5"]
+atlas = SubResource("CompressedTexture2D_xpf7m")
+region = Rect2(500, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb6o5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rxe2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xat1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rjpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjije")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqdyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqeug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nl3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnd78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tylrl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d06vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phaj5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="red_peasant" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_lb6o5")
+autoplay = "default"
+offset = Vector2(32, 32)

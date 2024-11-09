@@ -1,53 +1,52 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqtfysx6it3ru"]
+[gd_scene load_steps=14 format=3 uid="uid://81h4gl36rl6p"]
 
-[ext_resource type="Texture2D" uid="uid://d3s2hphfr5xlo" path="res://assets/blue_warrior.png" id="1_621wo"]
-[ext_resource type="Script" path="res://levels/prefabs/unit.gd" id="1_pgruw"]
+[ext_resource type="Texture2D" uid="uid://d3s2hphfr5xlo" path="res://assets/blue_warrior.png" id="1_md5vb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_re5py"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(0, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jd5n"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(50, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yg03l"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(100, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u8okk"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(150, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eijhe"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(200, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toxiw"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(250, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t15k4"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(300, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kl4lt"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(350, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hl16x"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(400, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_emxjd"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(450, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxrdw"]
-atlas = ExtResource("1_621wo")
+atlas = ExtResource("1_md5vb")
 region = Rect2(500, 0, 50, 50)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7gkmj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_rs6hp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -88,12 +87,8 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Unit" type="Node2D"]
-script = ExtResource("1_pgruw")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
+[node name="blue_warrior" type="AnimatedSprite2D"]
 position = Vector2(32, 32)
-sprite_frames = SubResource("SpriteFrames_7gkmj")
+sprite_frames = SubResource("SpriteFrames_rs6hp")
 animation = &"idle"
 autoplay = "idle"

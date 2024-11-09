@@ -84,9 +84,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [node name="blue_peasant" type="AnimatedSprite2D"]
+position = Vector2(32, 32)
 sprite_frames = SubResource("SpriteFrames_h0mra")
 autoplay = "default"
+frame_progress = 0.931877
