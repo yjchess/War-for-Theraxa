@@ -6,11 +6,11 @@ var x_max: int
 var y_max: int
 var selected = false
 var map
+
 signal override_square_selected
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map = get_parent().get_parent()
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,9 +61,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			if self.get_node_or_null("Unit")!= null:
 				var unit = self.get_node_or_null("Unit")
 				for move in unit.get_unit_possible_moves():
-					if move[0] < x_max && move[0] > -1 && move[1] < y_max && move[1] > -1:
-						if !(move[0] == x_coord && move[1] == y_coord):
-							map.get_square(move[0],move[1]).display_movable()
+					map.get_square(move[0],move[1]).display_movable()
 
 		else:
 			emit_signal("override_square_selected")
@@ -78,3 +76,19 @@ func display_attackable():
 	
 func remove_unit():
 	get_node("Unit").queue_free()
+
+func has_unit():
+	if get_node_or_null("Unit") != null: return true
+	else: return false
+
+func has_building():
+	if get_node_or_null("Building") != null: return true
+	else: return false
+
+func get_player():
+	var player
+	if get_node_or_null("Unit") != null:
+		#print("NOT NULL")
+		player = get_node_or_null("Unit").player
+	else: player = "neutral"
+	return player

@@ -14,14 +14,20 @@ var starting_square_location
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
+	GameData.map_height = height
+	GameData.map_width = width
+	
 	var starting_square_x = ((viewport_width / square_width) * square_width - square_width * width) / 2
 	var starting_square_y = ((viewport_height / square_height) * square_height - square_height * height) / 2
 	starting_square_location = [starting_square_x, starting_square_y] 
 	GameData.starting_square_position = starting_square_location
 	
-	for x in width:
-		for y in height:
+	for y in height:
+		for x in width:
+		
 			instantiate_square(x,y)
+	
+	GameData.squares = squares.get_children()
 	
 func setup_board(player_pieces, computer_pieces):
 	for piece in player_pieces:
@@ -74,4 +80,3 @@ func remove_previous_selected_square():
 	if previous_selected_square != null:
 		var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])
 		previous_selected_square_instance.deselect()
-	
