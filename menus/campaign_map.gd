@@ -12,8 +12,6 @@ func _process(delta):
 
 
 func _on_level_change(level):
-	print("CHANGING SCENE")
 	var level_path = "res://levels/"+level+".tscn"
-	print(level_path)
 	get_tree().change_scene_to_file(level_path)
 	pass # Replace with function body.

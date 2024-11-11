@@ -43,14 +43,18 @@ func deselect():
 func _on_area_2d_input_event(viewport, event, shape_idx):
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-
 		selected = !selected
+		
+		if $Attackable.visible == true:
+			GameData.selected_unit.attack(x_coord, y_coord)
+		
 		if $Movable.visible == true:
 			GameData.selected_unit.move(x_coord, y_coord)
 			
 		if selected == true:
 			if get_node_or_null("Unit") != null && $Attackable.visible != true:
 				GameData.selected_unit = $Unit
+				GameData.update_unit_ui()
 			
 			if GameData.selected_square != null:
 				emit_signal("override_square_selected")
@@ -60,8 +64,12 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			
 			if self.get_node_or_null("Unit")!= null:
 				var unit = self.get_node_or_null("Unit")
-				for move in unit.get_unit_possible_moves():
-					map.get_square(move[0],move[1]).display_movable()
+				if unit.unit_color =="blue":
+					for move in unit.get_unit_possible_moves():
+						map.get_square(move[0],move[1]).display_movable()
+					
+					for attack in unit.get_unit_possible_attacks():
+						map.get_square(attack[0], attack[1]).display_attackable()
 
 		else:
 			emit_signal("override_square_selected")
@@ -81,8 +89,21 @@ func has_unit():
 	if get_node_or_null("Unit") != null: return true
 	else: return false
 
+func has_enemy_unit(color):
+	if get_node_or_null("Unit") != null:
+		if (color == "red" && get_node("Unit").unit_color =="blue") || (color=="blue" && get_node("Unit").unit_color=="red"):
+			return true
+	else: return false
+
+
 func has_building():
 	if get_node_or_null("Building") != null: return true
+	else: return false
+
+func has_enemy_building(color):
+	if get_node_or_null("Building") != null:
+		if (color == "red" && get_node("Building").unit_color =="blue") || (color=="blue" && get_node("Building").unit_color=="red"):
+			return true
 	else: return false
 
 func get_player():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dwgsx2w7idvfb"]
+[gd_scene load_steps=22 format=3 uid="uid://dwgsx2w7idvfb"]
 
 [ext_resource type="Texture2D" uid="uid://8qrsmfcvft4q" path="res://assets/icons/food.png" id="1_6lhph"]
 [ext_resource type="Script" path="res://levels/prefabs/canvas/Level_UI.gd" id="1_abefp"]
@@ -6,13 +6,17 @@
 [ext_resource type="StyleBox" uid="uid://bw8jvfxujxcr" path="res://levels/prefabs/canvas/panel_label.tres" id="2_a15xl"]
 [ext_resource type="Texture2D" uid="uid://cxv2tj1w8x7mw" path="res://assets/icons/gold.png" id="3_5ewgd"]
 [ext_resource type="StyleBox" uid="uid://c5inynch50rvn" path="res://levels/prefabs/canvas/UI_style_box_flat.tres" id="3_34rj1"]
-[ext_resource type="Texture2D" uid="uid://by2k145i0om63" path="res://assets/commander_jensen.png" id="4_82e2s"]
 [ext_resource type="StyleBox" uid="uid://cexyqumssgh8i" path="res://levels/prefabs/canvas/content_theme.tres" id="4_c7w63"]
 [ext_resource type="Theme" uid="uid://b45ll6nreyph4" path="res://menus/menu_prefabs_and_resources/main_button_theme.tres" id="4_vemqb"]
 [ext_resource type="Texture2D" uid="uid://clp8vebvs2xl2" path="res://assets/icons/movement.png" id="6_gta24"]
 [ext_resource type="Texture2D" uid="uid://buvl1tlm0wddb" path="res://assets/icons/build.png" id="7_s7dqi"]
+[ext_resource type="Texture2D" uid="uid://by2k145i0om63" path="res://assets/portraits/commander_jensen.png" id="8_v53jx"]
+[ext_resource type="Texture2D" uid="uid://dpbelq1xveggs" path="res://assets/icons/health.png" id="9_t6qdj"]
+[ext_resource type="LabelSettings" uid="uid://cxohrja4h6u74" path="res://levels/prefabs/canvas/quick_label_settings.tres" id="9_uotkd"]
 [ext_resource type="Texture2D" uid="uid://csageplhjhe6b" path="res://assets/icons/gather.png" id="10_usatw"]
 [ext_resource type="Texture2D" uid="uid://c8wc8cf2d50s2" path="res://assets/icons/attack.png" id="11_aotit"]
+[ext_resource type="Texture2D" uid="uid://p22tavk3ly8f" path="res://assets/icons/ranged_attack.png" id="12_hop2l"]
+[ext_resource type="Texture2D" uid="uid://bv0yi2acbptd3" path="res://assets/icons/attack_range_v2.png" id="13_3l5ek"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltr7"]
 content_margin_left = 6.0
@@ -61,35 +65,46 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="Resources" type="PanelContainer" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(286, 0)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -286.0
+offset_left = -112.0
 offset_bottom = 140.0
 grow_horizontal = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Resources" type="PanelContainer" parent="Control/VBoxContainer/MarginContainer2"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nltr7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Resources"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/MarginContainer2/Resources"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Resources/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Resources/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Food_Icon" type="TextureRect" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Food_Icon" type="TextureRect" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_6lhph")
 
-[node name="Food" type="Label" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Food" type="Label" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_u1iey")
@@ -97,20 +112,39 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Resources/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Gold_Icon" type="TextureRect" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Gold_Icon" type="TextureRect" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("3_5ewgd")
 
-[node name="Gold" type="Label" parent="Control/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Gold" type="Label" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_u1iey")
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_vemqb")
+theme_override_colors/font_color = Color(0, 0.521569, 0.521569, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 50
+text = "End Turn"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 custom_minimum_size = Vector2(1920, 0)
@@ -191,9 +225,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("4_c7w63")
 
-[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Portrait/Unit_Portrait/PanelContainer"]
+[node name="Portrait" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Portrait/Unit_Portrait/PanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("4_82e2s")
+texture = ExtResource("8_v53jx")
 
 [node name="Description_Dialogue" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -207,7 +242,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_styles/panel = ExtResource("2_a15xl")
 
-[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Label"]
+[node name="Name" type="Label" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Label"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_u1iey")
 text = "Commander Jensen"
@@ -231,7 +267,12 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0.788235, 0.341176, 0, 1)
@@ -239,7 +280,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[b] [fill]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses! [/fill][/b]"
+text = "[b][fill]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses! [/fill][/b]"
+fit_content = true
 
 [node name="Statistics" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -266,6 +308,7 @@ size_flags_vertical = 8
 theme_override_styles/panel = ExtResource("3_34rj1")
 
 [node name="NA_PanelContainer" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box"]
+visible = false
 custom_minimum_size = Vector2(300, 160)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -286,6 +329,142 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[b] [center]N / A 
 (Only available for campaign units)[/center][/b]"
+
+[node name="Stats_Panel" type="PanelContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box"]
+custom_minimum_size = Vector2(300, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gkcr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="GridContainer" type="GridContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Hp / Max Hp"
+texture = ExtResource("9_t6qdj")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = ":"
+label_settings = ExtResource("9_uotkd")
+
+[node name="health" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "23/23"
+label_settings = ExtResource("9_uotkd")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Melee Damage"
+texture = ExtResource("11_aotit")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer2"]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("9_uotkd")
+
+[node name="melee_damage" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "8"
+label_settings = ExtResource("9_uotkd")
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+tooltip_text = "Ranged Damage"
+texture = ExtResource("12_hop2l")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = ":"
+label_settings = ExtResource("9_uotkd")
+
+[node name="ranged_damage" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "0"
+label_settings = ExtResource("9_uotkd")
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer4"]
+layout_mode = 2
+tooltip_text = "Attack Range"
+texture = ExtResource("13_3l5ek")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer4"]
+layout_mode = 2
+text = ":"
+label_settings = ExtResource("9_uotkd")
+
+[node name="attack_range" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1"
+label_settings = ExtResource("9_uotkd")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer5"]
+layout_mode = 2
+tooltip_text = "Movement Range"
+texture = ExtResource("6_gta24")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = ":"
+label_settings = ExtResource("9_uotkd")
+horizontal_alignment = 1
+
+[node name="movement_range" type="Label" parent="Control/HBoxContainer/HBoxContainer/Statistics/Stats_Box/Stats_Panel/MarginContainer/GridContainer/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "3"
+label_settings = ExtResource("9_uotkd")
+horizontal_alignment = 1
 
 [node name="Actions" type="VBoxContainer" parent="Control/HBoxContainer"]
 layout_mode = 2
@@ -350,3 +529,5 @@ scale = Vector2(1, 0.995827)
 theme = ExtResource("4_vemqb")
 theme_override_font_sizes/font_size = 30
 text = " [☰] "
+
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/Button" to="." method="_on_end_turn_button_pressed"]
