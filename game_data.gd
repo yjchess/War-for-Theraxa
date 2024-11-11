@@ -23,7 +23,7 @@ func connect_button():
 func end_turn():
 	get_tree().call_group("movable_square_UI", "hide")
 	get_tree().call_group("attackable_square_UI", "hide")
-	update_units()
+	#update_units()
 	
 	turn += 1
 	if turn == 3:
@@ -34,16 +34,20 @@ func end_turn():
 		reset_computer_moves()
 		calculate_level_moves()
 
-func update_units():
-	print(computer_units)
-	for object in computer_units:
-		if object == null:
-			computer_units.erase(object)
-	print(computer_units)
+#func update_units():
+#	print(computer_units)
+#	for object in computer_units:
+#		if object == null:
+#			computer_units.erase(object)
+#	print(computer_units)
 	
-	for object in player_units:
-		if object == null:
-			player_units.erase(object)
+#	for object in player_units:
+#		if object == null:
+#			player_units.erase(object)
+
+func remove_unit_from_arrays(unit):
+	computer_units.erase(unit)
+	player_units.erase(unit)
 
 func reset_player_moves():
 	for unit in player_units:

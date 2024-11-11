@@ -141,14 +141,10 @@ func load_unit_animations():
 	add_child(instance)
 
 func die():
+	GameData.remove_unit_from_arrays(self)
 	tree_exited.connect(signal_death)
 	queue_free()
-
-
-#func place_unit():
-	#position.x = unit_position[0]*64 + GameData.starting_square_position[0]
-	#position.y = unit_position[1]*64 + GameData.starting_square_position[1]
-	#pass
+	
 
 #the following uses the tree_exited signal
 func signal_death():
