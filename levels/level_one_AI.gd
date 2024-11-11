@@ -23,6 +23,10 @@ func turn():
 		if calculated_attack != null:
 			unit.attack(calculated_attack[0], calculated_attack[1])
 	
+	if GameData.turns_played == 3.5:
+		print("PLACE WIZARD")
+		GameData.map.place_piece("red", "wizard", [0,0], 3)
+	
 	GameData.end_turn()
 
 func update_computer_units():
@@ -137,15 +141,23 @@ func calculate_best_attack_options(unit):
 	return greatest_damage_weakest_enemy(unit)
 
 func greatest_damage_weakest_enemy(unit):
-	var potential_enemies = get_potential_enemies(unit)
+	
+	var lowest_health = 999
+	var lowest_enemy
+	var potential_enemies_squares = unit.get_unit_possible_attacks()
+	var potential_enemies = []
+	
+	if len(potential_enemies_squares) == 0:
+		return null
 
-func get_potential_enemies(unit):
-	#var lower_bound = unit.unit_position - unit.attack_range
-	#var upper_bound = unit.unit_position + unit.attack_range + 1
-	#var player_unit_locations
-	#for player_unit in player_units:
-	#	player_unit_locations.append(player_unit.unit_position)
-	#for x in range(lower_bound, upper_bound):
-	#	for y in range(lower_bound, upper_bound):
-	#		if [x,y] in player_unit_locations:
-				pass
+	
+	for square in potential_enemies_squares:
+		potential_enemies.append(GameData.map.get_square(square[0], square[1]).get_node("Unit"))
+	
+	for enemy in potential_enemies:
+		if enemy.health < lowest_health:
+			lowest_enemy = enemy
+	
+	return lowest_enemy.unit_position
+
+	

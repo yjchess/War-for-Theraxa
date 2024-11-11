@@ -62,6 +62,15 @@ func _ready():
 			unit_portrait       = "res://assets/portraits/warrior.png"
 			description         = "The cavalry warrior is a mighty beast. They stride quickly into battle with mobile maneuvers and deep strikes"
 	
+		"wizard": 
+			movement_range = 1
+			health              = 3
+			melee_damage        = 1
+			ranged_damage       = 6
+			attack_range        = 2
+			unit_portrait       = "res://assets/portraits/wizard.png"
+			description         = "The wizard is a vital piece of any army, capable of casting powerful spells and turning the tides of battle."
+	
 	max_health = health
 
 func get_unit_possible_moves():

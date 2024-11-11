@@ -9,6 +9,7 @@ func _ready():
 	GameData.ui = ui
 	GameData.update_minimap()
 	GameData.connect_button()
+	GameData.map = map
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

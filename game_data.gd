@@ -8,6 +8,7 @@ var map_width
 var map_height
 
 #turn = 1 for player, 2 for computer
+var turns_played = 0
 var turn = 1
 var squares
 var ui
@@ -25,6 +26,8 @@ func end_turn():
 	get_tree().call_group("attackable_square_UI", "hide")
 	#update_units()
 	
+	#a full turn is when the player and computer both finish moving
+	turns_played += 0.5
 	turn += 1
 	if turn == 3:
 		turn = 1
@@ -34,29 +37,20 @@ func end_turn():
 		reset_computer_moves()
 		calculate_level_moves()
 
-#func update_units():
-#	print(computer_units)
-#	for object in computer_units:
-#		if object == null:
-#			computer_units.erase(object)
-#	print(computer_units)
-	
-#	for object in player_units:
-#		if object == null:
-#			player_units.erase(object)
-
 func remove_unit_from_arrays(unit):
 	computer_units.erase(unit)
 	player_units.erase(unit)
 
 func reset_player_moves():
 	for unit in player_units:
-		unit.moved = false
+		unit.moved = false	
+		unit.attacked = false
 
 func reset_computer_moves():
 	for unit in computer_units:
 		unit.moved = false
-
+		unit.attacked = false
+		
 func calculate_level_moves():
 	ai.turn()
 

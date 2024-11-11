@@ -1,0 +1,25 @@
+For next time:
+
+Must do:
+	
+1. create abilities / skills for units (focus on wizard first)
+2. write code for cutscenes, ensure player can't interact with board until dialogue is over
+3. add background music and sound effects
+4. add menu functionality within levels
+5. add win screen
+ 
+Should do:
+
+1. create a flashing effect on a unit when they take damage
+2. create an attack animation for each unit
+3. Add achievements
+4. create a file to store player progress
+
+
+Could do:
+	
+1. Better movement code
+	units actually move to squares
+	units cannot jump over other units - must go around
+2. Add transitions when changing scenes
+3. attack animation plays in the middle of screen when a unit attacks another unit i.e. advance wars
