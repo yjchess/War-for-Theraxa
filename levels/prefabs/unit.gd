@@ -21,6 +21,7 @@ var kills = 0
 var abilities = []
 var ability_node = preload("res://levels/prefabs/ability.tscn")
 @onready var abilities_holder = $Abilities_Holder
+@onready var square = get_parent()
 
 var x_max
 var y_max
@@ -86,6 +87,7 @@ func _ready():
 			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
 	
 	max_health = health
+	unit_position = [square.x_coord, square.y_coord]
 	
 	if len(abilities) > 0:
 		for ability in abilities:

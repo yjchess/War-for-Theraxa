@@ -24,6 +24,7 @@ func connect_button():
 func end_turn():
 	get_tree().call_group("movable_square_UI", "hide")
 	get_tree().call_group("attackable_square_UI", "hide")
+	get_tree().call_group("abilities", "increment_cooldown")
 	#update_units()
 	
 	#a full turn is when the player and computer both finish moving
@@ -72,7 +73,7 @@ func update_unit_ui():
 
 
 func get_squares(x_one, x_two, y_one, y_two):
-	var squares
+	var squares = []
 
 	for x in range (x_one, x_two+1):
 		for y in range (y_one, y_two+1):

@@ -21,8 +21,8 @@ var campaign_dialogue = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	map.setup_board(player_troops, computer_troops)
 	GameData.ui = ui
+	map.setup_board(player_troops, computer_troops)
 	GameData.update_minimap()
 	GameData.connect_button()
 	GameData.map = map

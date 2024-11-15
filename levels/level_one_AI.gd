@@ -19,11 +19,10 @@ func turn():
 			unit.move(calculated_move[0], calculated_move[1])
 	
 	for unit in computer_units:
-		if unit.abilities_holder.get_children_count() > 0:
-			var calculated_ability = calculate_best_ability_options(unit)[0]
-			var calculated_location = calculate_best_ability_options(unit)[1]
+		if unit.abilities_holder.get_child_count() > 0:
+			var calculated_ability = calculate_best_ability_options(unit)
 			if calculated_ability != null:
-				unit.use_ability(calculated_ability, calculated_location)
+				unit.use_ability(calculated_ability[0], calculated_ability[1])
 			
 	for unit in computer_units:
 		var calculated_attack = calculate_best_attack_options(unit)
@@ -57,7 +56,7 @@ func fastest_route(unit, destination):
 	if len(possible_moves) > 0 && unit.unit_position != destination:
 		for possible_move in possible_moves:
 			closest_move = get_closest(destination, closest_move, possible_move)
-		closest_move = get_closest(destination, closest_move, unit.unit_position,)
+		closest_move = get_closest(destination, closest_move, unit.unit_position)
 	
 	if closest_move == unit.unit_position:
 		return null
@@ -173,15 +172,22 @@ func calculate_best_ability_options(unit):
 	var chosen_location = null
 	for ability in unit.abilities_holder.get_children():
 		#operating on the logic that later skills are more powerful
-		if ability.check_cooldown(ability) == 0 && ability.has_viable_squares(ability):
-			chosen_ability = ability
+		if ability.check_cooldown() == 0 && ability.has_viable_placements():
+			chosen_ability = ability.name
 		else:
 			return null
 		
 		if ability.type_viable == "empty":
 			var target = calculate_closest_enemy(unit)
-			var distance_to_target = 999
+			
+			if target == null:
+				target = [0,0]
+			else:
+				target = target.unit_position
+				
 			for square in ability.viable_squares():
 				chosen_location = get_closest(target, chosen_location, square)
-			
+				
+		else:
+			chosen_location = ability.viable_squares()[0]
 	return [chosen_ability, chosen_location]

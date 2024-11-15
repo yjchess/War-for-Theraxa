@@ -53,6 +53,8 @@ func setup_board(player_pieces, computer_pieces):
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
 	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
+	GameData.update_minimap()
+	
 
 func instantiate_unit(colour, name, position, movement_id):
 	var instance           = unit.instantiate()

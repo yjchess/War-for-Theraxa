@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://levels/prefabs/Ability.gd" id="1_eto8s"]
 
-[node name="Ability" type="Node2D"]
+[node name="Ability" type="Node2D" groups=["abilities"]]
 script = ExtResource("1_eto8s")

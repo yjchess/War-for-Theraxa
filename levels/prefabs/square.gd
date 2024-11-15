@@ -13,10 +13,6 @@ func _ready():
 	map = get_parent().get_parent()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func change_panel_stylebox(border_length, color):
 	var stylebox = $Panel.get_theme_stylebox("panel")
 	stylebox.border_width_left = border_length
