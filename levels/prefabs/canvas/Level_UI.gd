@@ -1,12 +1,18 @@
 extends CanvasLayer
-@onready var minimap = $Control/HBoxContainer/Minimap/Minimap/GridContainer
+@onready var minimap = $%minimap
 var minimap_square = preload("res://levels/prefabs/canvas/minimap_square.tscn")
 signal end_turn
+signal dialogue_finished
+@onready var mouseblocker = $MouseBlocker/Area2D
+var skipped = false
 
 func _ready():
 	minimap.columns = GameData.map_width
 	populate_minimap_grid()
-	
+	mouseblocker.mid_dialogue.connect(skip)
+
+func skip():
+	skipped = true
 			
 func populate_minimap_grid():
 	for x in GameData.map_width:
@@ -51,9 +57,36 @@ func update_statistics(health, max_health, melee_damage, ranged_damage, attack_r
 	$%attack_range.text = str(attack_range)
 	$%movement_range.text = str(movement_range)
 	
-	pass
-
+func update_cutscene_dialogue(portrait, name, dialogue):
+	update_portrait(portrait)
+	update_description(name, dialogue)
+	
+	var total_characters = $%Description.get_total_character_count()
+	$%Description.visible_characters = 0	
+	
+	skipped = false
+	for character in total_characters:
+		await get_tree().create_timer(0.0625).timeout
+		if skipped == true:
+			break
+		if $%Description.visible_ratio != 1:
+			$%Description.visible_characters += 1
+	
+	if skipped == false:
+		print("dialogue_finished signal sent")
+		emit_signal("dialogue_finished")
+		
+	#print($%Description.visible_ratio)
+	#$MouseBlocker.visible = false
+	
 
 func _on_end_turn_button_pressed():
 	emit_signal("end_turn")
 	pass # Replace with function body.
+
+func disable_mouseblocker():
+	$MouseBlocker.visible = false
+
+func enable_mouseblocker():
+	$MouseBlocker.visible = true
+

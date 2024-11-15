@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwgsx2w7idvfb"]
+[gd_scene load_steps=26 format=3 uid="uid://dwgsx2w7idvfb"]
 
 [ext_resource type="Texture2D" uid="uid://8qrsmfcvft4q" path="res://assets/icons/food.png" id="1_6lhph"]
 [ext_resource type="Script" path="res://levels/prefabs/canvas/Level_UI.gd" id="1_abefp"]
 [ext_resource type="Theme" uid="uid://bthw2qxujypve" path="res://levels/prefabs/canvas/label_theme.tres" id="1_u1iey"]
 [ext_resource type="StyleBox" uid="uid://bw8jvfxujxcr" path="res://levels/prefabs/canvas/panel_label.tres" id="2_a15xl"]
+[ext_resource type="Script" path="res://levels/prefabs/canvas/MouseBlocker.gd" id="2_dsma8"]
 [ext_resource type="Texture2D" uid="uid://cxv2tj1w8x7mw" path="res://assets/icons/gold.png" id="3_5ewgd"]
 [ext_resource type="StyleBox" uid="uid://c5inynch50rvn" path="res://levels/prefabs/canvas/UI_style_box_flat.tres" id="3_34rj1"]
 [ext_resource type="StyleBox" uid="uid://cexyqumssgh8i" path="res://levels/prefabs/canvas/content_theme.tres" id="4_c7w63"]
@@ -68,6 +69,9 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwhjv"]
+size = Vector2(1920, 1080)
+
 [node name="Level_UI" type="CanvasLayer"]
 script = ExtResource("1_abefp")
 
@@ -75,8 +79,8 @@ script = ExtResource("1_abefp")
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
@@ -236,7 +240,8 @@ custom_minimum_size = Vector2(384, 384)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_exhj1")
 
-[node name="GridContainer" type="GridContainer" parent="Control/HBoxContainer/Minimap/Minimap"]
+[node name="minimap" type="GridContainer" parent="Control/HBoxContainer/Minimap/Minimap"]
+unique_name_in_owner = true
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
@@ -339,8 +344,10 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[b][fill]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses! [/fill][/b]"
+text = "[b]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses![/b]"
 fit_content = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/HBoxContainer/HBoxContainer/Description_Dialogue/Text_Box/PanelContainer/MarginContainer/VBoxContainer"]
 
 [node name="Statistics" type="VBoxContainer" parent="Control/HBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -589,4 +596,27 @@ theme = ExtResource("4_vemqb")
 theme_override_font_sizes/font_size = 30
 text = " [☰] "
 
+[node name="MouseBlocker" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Area2D" type="Area2D" parent="MouseBlocker"]
+script = ExtResource("2_dsma8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseBlocker/Area2D"]
+position = Vector2(960, 540)
+shape = SubResource("RectangleShape2D_qwhjv")
+
 [connection signal="pressed" from="Control/VBoxContainer/MarginContainer/Button" to="." method="_on_end_turn_button_pressed"]
+[connection signal="gui_input" from="MouseBlocker" to="MouseBlocker/Area2D" method="_gui_input"]

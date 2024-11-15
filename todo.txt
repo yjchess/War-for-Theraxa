@@ -7,6 +7,7 @@ Must do:
 3. add background music and sound effects
 4. add menu functionality within levels
 5. add win screen
+6. for level 1 - if cavalry reaches the end - have reinforcements help the enemy
  
 Should do:
 
