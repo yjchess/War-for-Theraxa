@@ -19,6 +19,13 @@ func turn():
 			unit.move(calculated_move[0], calculated_move[1])
 	
 	for unit in computer_units:
+		if unit.abilities_holder.get_children_count() > 0:
+			var calculated_ability = calculate_best_ability_options(unit)[0]
+			var calculated_location = calculate_best_ability_options(unit)[1]
+			if calculated_ability != null:
+				unit.use_ability(calculated_ability, calculated_location)
+			
+	for unit in computer_units:
 		var calculated_attack = calculate_best_attack_options(unit)
 		if calculated_attack != null:
 			unit.attack(calculated_attack[0], calculated_attack[1])
@@ -161,3 +168,20 @@ func greatest_damage_weakest_enemy(unit):
 	return lowest_enemy.unit_position
 
 	
+func calculate_best_ability_options(unit):
+	var chosen_ability = null
+	var chosen_location = null
+	for ability in unit.abilities_holder.get_children():
+		#operating on the logic that later skills are more powerful
+		if ability.check_cooldown(ability) == 0 && ability.has_viable_squares(ability):
+			chosen_ability = ability
+		else:
+			return null
+		
+		if ability.type_viable == "empty":
+			var target = calculate_closest_enemy(unit)
+			var distance_to_target = 999
+			for square in ability.viable_squares():
+				chosen_location = get_closest(target, chosen_location, square)
+			
+	return [chosen_ability, chosen_location]

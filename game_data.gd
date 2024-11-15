@@ -69,3 +69,14 @@ func update_unit_ui():
 	ui.update_portrait(selected_unit.unit_portrait)
 	ui.update_description(selected_unit.unit_name, selected_unit.description)
 	ui.update_statistics(selected_unit.health, selected_unit.max_health, selected_unit.melee_damage, selected_unit.ranged_damage, selected_unit.attack_range, selected_unit.movement_range)
+
+
+func get_squares(x_one, x_two, y_one, y_two):
+	var squares
+
+	for x in range (x_one, x_two+1):
+		for y in range (y_one, y_two+1):
+			if x > -1 && x < map_width && y >-1 && y < map_height:
+				squares.append(map.get_square(x,y))
+	
+	return squares

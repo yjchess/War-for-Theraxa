@@ -18,6 +18,10 @@ var player
 var description
 var kills = 0
 
+var abilities = []
+var ability_node = preload("res://levels/prefabs/ability.tscn")
+@onready var abilities_holder = $Abilities_Holder
+
 var x_max
 var y_max
 
@@ -68,10 +72,24 @@ func _ready():
 			melee_damage        = 1
 			ranged_damage       = 6
 			attack_range        = 2
+			abilities           = ["summon_skeleton"]
 			unit_portrait       = "res://assets/portraits/wizard.png"
 			description         = "The wizard is a vital piece of any army, capable of casting powerful spells and turning the tides of battle."
+			
+		"skeleton":
+			movement_range = 1
+			health         = 3
+			melee_damage   = 3
+			ranged_damage  = 0
+			attack_range   = 1
+			unit_portrait  = "res://assets/portraits/wizard.png"
+			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
 	
 	max_health = health
+	
+	if len(abilities) > 0:
+		for ability in abilities:
+			instantiate_ability(ability)
 
 func get_unit_possible_moves():
 	var possible_squares = []
@@ -129,6 +147,7 @@ func move(x_coord, y_coord):
 func attack(x_coord, y_coord):
 	var damage
 	attacked = true
+	moved = true
 	
 	if x_coord in [unit_position[0]-1, unit_position[0], unit_position[0]+1] && y_coord in [unit_position[1]-1, unit_position[1], unit_position[1]+1]:
 		damage = melee_damage
@@ -158,3 +177,14 @@ func die():
 #the following uses the tree_exited signal
 func signal_death():
 	GameData.update_minimap()
+
+func use_ability(ability_name, ability_location):
+	match ability_name:
+		"summon_skeleton": abilities_holder.get_node("summon_skeleton").summon_skeleton(unit_color, ability_location)
+		#"summon_skeleton": ability_handler.summon_skeleton(unit_color, ability_location)
+
+func instantiate_ability(ability_name):
+	var instance = ability_node.instantiate()
+	instance.ability_name = ability_name
+	instance.name         = ability_name
+	abilities_holder.add_child(instance)
