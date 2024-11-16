@@ -3,6 +3,9 @@ extends Node2D
 @onready var ui = $CanvasLayer
 @onready var mouseblocker = $CanvasLayer/MouseBlocker/Area2D
 
+var achievements = [["Beat the level",false], ["Don't let enemy troops call for reinforcements",false], ["Win without losing a single troop", false]]
+var special_achievements = [["Beat the level after letting reinforcements come", false], ["Let reinforcements arrive and beat them without losing a unit", false]]
+
 var player_troops =   [["warrior", [1,10]],["warrior", [2,10]], ["archer", [1,11]],["archer", [2,11]], ["warrior", [9,10]],["warrior", [10,10]], ["archer", [9,11]],["archer", [10,11]]]
 var computer_troops = [["warrior", [1,1], 3], ["warrior", [2,1], 3], ["cavalry_warrior", [1,0], 1], ["warrior", [9,1],3], ["warrior", [10,1],3], ["cavalry_warrior", [10,0],2]]
 var current_dialogue = 0
@@ -21,6 +24,8 @@ var campaign_dialogue = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameData.turns_played = 0
+	GameData.level = self
 	GameData.ui = ui
 	map.setup_board(player_troops, computer_troops)
 	GameData.update_minimap()
@@ -74,3 +79,10 @@ func new_dialogue():
 		ui.enable_mouseblocker()
 		ui.update_cutscene_dialogue(dialogue.portrait, dialogue.name, dialogue.description)
 		
+func check_winner():
+	if len(GameData.player_units) == 0:
+		return "computer"
+	elif GameData.turns_played > 4 && len(GameData.computer_units) == 0:
+		achievements[0][1] = true
+		return "player"
+	return null

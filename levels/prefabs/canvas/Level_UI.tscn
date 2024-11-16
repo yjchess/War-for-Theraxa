@@ -612,6 +612,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Area2D" type="Area2D" parent="MouseBlocker"]
+visible = false
 script = ExtResource("2_dsma8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseBlocker/Area2D"]

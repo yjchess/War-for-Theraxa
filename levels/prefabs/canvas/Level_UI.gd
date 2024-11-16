@@ -1,6 +1,8 @@
 extends CanvasLayer
 @onready var minimap = $%minimap
 var minimap_square = preload("res://levels/prefabs/canvas/minimap_square.tscn")
+var victory_screen = preload("res://levels/prefabs/victory_screen.tscn")
+var defeat_screen = preload("res://levels/prefabs/defeat_screen.tscn")
 signal end_turn
 signal dialogue_finished
 @onready var mouseblocker = $MouseBlocker/Area2D
@@ -90,3 +92,14 @@ func disable_mouseblocker():
 func enable_mouseblocker():
 	$MouseBlocker.visible = true
 
+func show_winner(winner, achievements, special_achievements):
+	if winner == "player":
+		var instance = victory_screen.instantiate()
+		instance.populate_achievements(achievements)
+		instance.populate_special_achievements(special_achievements)
+		add_child(instance)
+	elif winner == "computer":
+		var instance = defeat_screen.instantiate()
+		instance.populate_achievements(achievements)
+		instance.populate_special_achievements(special_achievements)
+		add_child(instance)

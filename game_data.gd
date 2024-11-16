@@ -14,6 +14,7 @@ var squares
 var ui
 var ai
 var map
+var level
 
 var computer_units
 var player_units
@@ -26,6 +27,9 @@ func end_turn():
 	get_tree().call_group("attackable_square_UI", "hide")
 	get_tree().call_group("abilities", "increment_cooldown")
 	#update_units()
+	var winner = level.check_winner()
+	if winner != null:
+		ui.show_winner(winner, level.achievements, level.special_achievements)
 	
 	#a full turn is when the player and computer both finish moving
 	turns_played += 0.5
@@ -81,3 +85,4 @@ func get_squares(x_one, x_two, y_one, y_two):
 				squares.append(map.get_square(x,y))
 	
 	return squares
+

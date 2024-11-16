@@ -1,6 +1,7 @@
 extends Node2D
 var computer_units = []
 var player_units = []
+var reinforcements = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,6 +29,10 @@ func turn():
 		var calculated_attack = calculate_best_attack_options(unit)
 		if calculated_attack != null:
 			unit.attack(calculated_attack[0], calculated_attack[1])
+	
+	for unit in computer_units:
+		if unit.unit_position[1] == 11:
+			unit.movement_behaviour_id = 3
 	
 	if GameData.turns_played == 3.5:
 		print("PLACE WIZARD")
