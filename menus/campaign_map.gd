@@ -15,3 +15,8 @@ func _on_level_change(level):
 	var level_path = "res://levels/"+level+".tscn"
 	get_tree().change_scene_to_file(level_path)
 	pass # Replace with function body.
+
+
+func _on_castle_button_pressed():
+	get_tree().change_scene_to_file("res://levels/castle.tcsn")
+	pass # Replace with function body.

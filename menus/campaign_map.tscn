@@ -71,3 +71,4 @@ layout_mode = 2
 texture_normal = ExtResource("3_utwwb")
 
 [connection signal="level_change" from="Level 1" to="." method="_on_level_change"]
+[connection signal="pressed" from="MarginContainer/PanelContainer2/TextureButton" to="." method="_on_castle_button_pressed"]
