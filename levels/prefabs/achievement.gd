@@ -4,14 +4,15 @@ extends Control
 #@export var tooltip_content = "Achievement for beating the level"
 @export var achieved = false
 @export var special: bool = false
-
+@export var super_special:bool = false
 func _ready():
 	
 	#tooltip_text = tooltip_content
 	
 	if special:
 		$Special.visible = true
-		$Enabled.visible = false
+	elif super_special:
+		$Super_Special.visible = true
 	
 	if achieved:
 		enable()

@@ -92,14 +92,16 @@ func disable_mouseblocker():
 func enable_mouseblocker():
 	$MouseBlocker.visible = true
 
-func show_winner(winner, achievements, special_achievements):
+func show_winner(winner, achievements, special_achievements, super_special_achievements):
 	if winner == "player":
 		var instance = victory_screen.instantiate()
 		instance.populate_achievements(achievements)
 		instance.populate_special_achievements(special_achievements)
+		instance.populate_super_special_achievements(super_special_achievements)
 		add_child(instance)
 	elif winner == "computer":
 		var instance = defeat_screen.instantiate()
 		instance.populate_achievements(achievements)
 		instance.populate_special_achievements(special_achievements)
+		instance.populate_super_special_achievements(super_special_achievements)
 		add_child(instance)

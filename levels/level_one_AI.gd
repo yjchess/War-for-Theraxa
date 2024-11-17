@@ -2,6 +2,7 @@ extends Node2D
 var computer_units = []
 var player_units = []
 var reinforcements = false
+var reinforcement_units = ["warrior", "warrior", "archer", "cavalry_warrior"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -33,11 +34,24 @@ func turn():
 	for unit in computer_units:
 		if unit.unit_position[1] == 11:
 			unit.movement_behaviour_id = 3
+			reinforcements = true
 	
 	if GameData.turns_played == 3.5:
 		print("PLACE WIZARD")
 		GameData.map.place_piece("red", "wizard", [0,0], 3)
 	
+	if reinforcements == true:
+		var free_squares = GameData.get_free_square([0,11],[11,11])
+		if free_squares != []:
+			for square in free_squares:
+				var x = square.x_coord
+				var y = square.y_coord
+				if len(reinforcement_units) > 0:
+					GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
+					reinforcement_units.pop_at(0)
+				else:
+					break
+				
 	GameData.end_turn()
 
 func update_computer_units():

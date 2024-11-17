@@ -2,9 +2,11 @@ extends Node2D
 @onready var map = $Generic_Map
 @onready var ui = $CanvasLayer
 @onready var mouseblocker = $CanvasLayer/MouseBlocker/Area2D
+var lost_player_unit = false
 
 var achievements = [["Beat the level",false], ["Don't let enemy troops call for reinforcements",false], ["Win without losing a single troop", false]]
 var special_achievements = [["Beat the level after letting reinforcements come", false], ["Let reinforcements arrive and beat them without losing a unit", false]]
+var super_special_achievements = [["Beat reinforments, don't use campaign upgrades, have 2+ units at the end", false]]
 
 var player_troops =   [["warrior", [1,10]],["warrior", [2,10]], ["archer", [1,11]],["archer", [2,11]], ["warrior", [9,10]],["warrior", [10,10]], ["archer", [9,11]],["archer", [10,11]]]
 var computer_troops = [["warrior", [1,1], 3], ["warrior", [2,1], 3], ["cavalry_warrior", [1,0], 1], ["warrior", [9,1],3], ["warrior", [10,1],3], ["cavalry_warrior", [10,0],2]]
@@ -84,5 +86,20 @@ func check_winner():
 		return "computer"
 	elif GameData.turns_played > 4 && len(GameData.computer_units) == 0:
 		achievements[0][1] = true
+		evaluate_achievements()
 		return "player"
 	return null
+
+func evaluate_achievements():
+	if $AI.reinforcements != true:
+		achievements[1][1] = true
+	elif achievements[0][1] == true:
+		special_achievements[0][1] = true
+		
+	if lost_player_unit != true:
+		achievements[2][1] = true
+	if lost_player_unit != true && $AI.reinforcements == true:
+		special_achievements[1][1] = true
+	
+	if GameData.campaign_upgrades == [] && len(GameData.player_units) >=2:
+		super_special_achievements[0][1] = true

@@ -179,6 +179,8 @@ func die():
 #the following uses the tree_exited signal
 func signal_death():
 	GameData.update_minimap()
+	if unit_color == "blue":
+		GameData.level.lost_player_unit = true
 
 func use_ability(ability_name, ability_location):
 	match ability_name:

@@ -1,5 +1,7 @@
 extends Node
 
+var campaign_upgrades = []
+
 var selected_square
 var starting_square_position
 var selected_unit
@@ -29,7 +31,7 @@ func end_turn():
 	#update_units()
 	var winner = level.check_winner()
 	if winner != null:
-		ui.show_winner(winner, level.achievements, level.special_achievements)
+		ui.show_winner(winner, level.achievements, level.special_achievements, level.super_special_achievements)
 	
 	#a full turn is when the player and computer both finish moving
 	turns_played += 0.5
@@ -86,3 +88,11 @@ func get_squares(x_one, x_two, y_one, y_two):
 	
 	return squares
 
+func get_free_square(bound_one, bound_two):
+	var free_squares = []
+	var possible_free_squares = get_squares(bound_one[0], bound_two[0], bound_one[1], bound_two[1])
+	for square in possible_free_squares:
+		if square.has_unit() == false && square.has_building() == false:
+			free_squares.append(square)
+	
+	return free_squares

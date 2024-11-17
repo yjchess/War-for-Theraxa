@@ -10,6 +10,9 @@ func populate_special_achievements(achievements):
 	for achievement in achievements:
 		create_achievement("special", achievement[0], achievement[1])
 
+func populate_super_special_achievements(achievements):
+	for achievement in achievements:
+		create_achievement("super_special", achievement[0], achievement[1])
 
 func create_achievement(type, tooltip, display):
 	var instance = achievement.instantiate()
@@ -17,9 +20,13 @@ func create_achievement(type, tooltip, display):
 	
 	if type == "normal":
 		$%Achievements.add_child(instance)
-	else:
+	elif type == "special":
 		instance.special = true
 		$%Special_Achievements.add_child(instance)
+	else:
+		instance.super_special = true
+		$%Super_Special_Achievements.add_child(instance)
+		
 	
 	if display == true:
 		instance.achieved = true
