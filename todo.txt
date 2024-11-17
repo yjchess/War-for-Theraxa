@@ -2,19 +2,16 @@ For next time:
 
 Must do:
 	
-1. create abilities / skills for units (focus on wizard first)
-2. write code for cutscenes, ensure player can't interact with board until dialogue is over
-3. add background music and sound effects
-4. add menu functionality within levels
-5. add win screen
-6. for level 1 - if cavalry reaches the end - have reinforcements help the enemy
+1. add background music and sound effects
+2. add menu functionality within levels
+3. finish making upgrade menu (normal upgrades cost 3 yellow + 2 blue, special upgrades cost 1 purple + 2 blue)
+4. make a save system
+
  
 Should do:
 
 1. create a flashing effect on a unit when they take damage
 2. create an attack animation for each unit
-3. Add achievements
-4. create a file to store player progress
 
 
 Could do:
