@@ -75,7 +75,7 @@ func update_cutscene_dialogue(portrait, name, dialogue):
 			$%Description.visible_characters += 1
 	
 	if skipped == false:
-		print("dialogue_finished signal sent")
+		#print("dialogue_finished signal sent")
 		emit_signal("dialogue_finished")
 		
 	#print($%Description.visible_ratio)
@@ -98,10 +98,17 @@ func show_winner(winner, achievements, special_achievements, super_special_achie
 		instance.populate_achievements(achievements)
 		instance.populate_special_achievements(special_achievements)
 		instance.populate_super_special_achievements(super_special_achievements)
+		instance.show_previously_achieved(GameData.previously_achieved)		
 		add_child(instance)
+		
 	elif winner == "computer":
 		var instance = defeat_screen.instantiate()
 		instance.populate_achievements(achievements)
 		instance.populate_special_achievements(special_achievements)
 		instance.populate_super_special_achievements(super_special_achievements)
+		instance.show_previously_achieved(GameData.previously_achieved)
 		add_child(instance)
+
+
+func _on_open_menu_pressed():
+	$Level_Menu.visible = true

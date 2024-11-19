@@ -18,5 +18,6 @@ func _on_level_change(level):
 
 
 func _on_castle_button_pressed():
-	get_tree().change_scene_to_file("res://levels/castle.tcsn")
+	print("CASTLE BUTTON PRESSED")
+	get_tree().change_scene_to_file("res://levels/castle.tscn")
 	pass # Replace with function body.

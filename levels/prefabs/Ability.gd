@@ -50,7 +50,7 @@ func has_viable_placements():
 		return false
 
 func summon_skeleton(color, square_location):
-	print("SUMMONING SKELETON")
+	#print("SUMMONING SKELETON")
 	if cooldown_progress == cooldown:
 		GameData.map.place_piece(color, "skeleton", square_location, 3)
 		cooldown_progress = 0

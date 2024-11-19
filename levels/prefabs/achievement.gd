@@ -5,8 +5,9 @@ extends Control
 @export var achieved = false
 @export var special: bool = false
 @export var super_special:bool = false
-func _ready():
-	
+@export var already_achieved = false
+
+func _ready():	
 	#tooltip_text = tooltip_content
 	
 	if special:
@@ -16,7 +17,9 @@ func _ready():
 	
 	if achieved:
 		enable()
-
+	
+	if already_achieved:
+		disabled.hide()
 
 func enable():
 	for i in range(50):

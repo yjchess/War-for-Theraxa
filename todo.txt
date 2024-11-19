@@ -6,6 +6,7 @@ Must do:
 2. add menu functionality within levels
 3. finish making upgrade menu (normal upgrades cost 3 yellow + 2 blue, special upgrades cost 1 purple + 2 blue)
 4. make a save system
+5. improve campaign_map visuals
 
  
 Should do:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://levels/level 1.gd" id="1_7euov"]
 [ext_resource type="PackedScene" uid="uid://c5wkl5y85bqb0" path="res://levels/prefabs/generic_map.tscn" id="1_s8bj2"]
 [ext_resource type="PackedScene" uid="uid://dwgsx2w7idvfb" path="res://levels/prefabs/canvas/Level_UI.tscn" id="3_mlw8r"]
-[ext_resource type="Script" path="res://levels/level_one_AI.gd" id="4_smuh0"]
+[ext_resource type="Script" path="res://levels/prefabs/level_one_AI.gd" id="4_5r1jh"]
 
 [node name="Level One" type="Node2D"]
 script = ExtResource("1_7euov")
@@ -17,4 +17,4 @@ position = Vector2(0, -96)
 anchor_mode = 0
 
 [node name="AI" type="Node2D" parent="."]
-script = ExtResource("4_smuh0")
+script = ExtResource("4_5r1jh")

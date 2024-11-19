@@ -14,6 +14,26 @@ func populate_super_special_achievements(achievements):
 	for achievement in achievements:
 		create_achievement("super_special", achievement[0], achievement[1])
 
+func show_previously_achieved(previous_achievements):
+	print(previous_achievements)
+	var count = 0
+	for achievement in previous_achievements[0]:
+		if achievement == true:
+			$%Achievements.get_child(count).already_achieved = true
+		count += 1
+	
+	count = 0
+	for special_achievement in previous_achievements[1]:
+		if special_achievement == true:
+			$%Special_Achievements.get_child(count).already_achieved = true
+		count += 1
+	
+	count = 0
+	for super_special_achievement in previous_achievements[1]:
+		if super_special_achievement == true:
+			$%Super_Special_Achievements.get_child(count).already_achieved = true
+		count += 1
+			
 func create_achievement(type, tooltip, display):
 	var instance = achievement.instantiate()
 	instance.tooltip_text = tooltip
@@ -33,6 +53,4 @@ func create_achievement(type, tooltip, display):
 
 
 func _on_redo_pressed():
-	print("RELOAD")
 	get_tree().reload_current_scene()
-	pass # Replace with function body.

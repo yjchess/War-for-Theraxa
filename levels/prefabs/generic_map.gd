@@ -54,7 +54,6 @@ func setup_board(player_pieces, computer_pieces):
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
 	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
 	GameData.update_minimap()
-	
 
 func instantiate_unit(colour, name, position, movement_id):
 	var instance           = unit.instantiate()
@@ -71,7 +70,26 @@ func instantiate_unit(colour, name, position, movement_id):
 	else:
 		player_units.append(instance)
 	#units.add_child(instance)
-	
+
+func instantiate_unit_detailed(colour, name, position, movement_id, health, max_health, moved, attacked):
+	var instance                   = unit.instantiate()
+	instance.unit_color            = colour
+	instance.unit_name             = name
+	instance.unit_position         = position
+	instance.movement_behaviour_id = movement_id
+	instance.health                = health
+	instance.max_health            = max_health
+	instance.moved                 = moved
+	instance.attacked              = attacked
+
+	#instance.place_unit()
+	var square_parent = get_square(position[0], position[1])
+	square_parent.add_child(instance)
+	if instance.unit_color == "red":
+		computer_units.append(instance)
+	else:
+		player_units.append(instance)
+
 func instantiate_square(x,y):
 	var instance        = square.instantiate()
 	instance.x_coord    = x
@@ -99,3 +117,14 @@ func remove_previous_selected_square():
 
 func update_minimap_squares():
 	GameData.squares = squares.get_children()
+
+func place_serialized_units(playerUnits, computerUnits):
+	for unit in playerUnits:
+		instantiate_unit_detailed("blue", unit.unit_name, unit.unit_position, unit.unit_movement_behaviour_id, unit.unit_health, unit.unit_max_health, unit.unit_moved, unit.unit_attacked)
+		
+	for unit in computerUnits:
+		instantiate_unit_detailed("red", unit.unit_name, unit.unit_position, unit.unit_movement_behaviour_id, unit.unit_health, unit.unit_max_health, unit.unit_moved, unit.unit_attacked)
+	
+	GameData.computer_units = computer_units
+	GameData.player_units = player_units
+	GameData.update_minimap()

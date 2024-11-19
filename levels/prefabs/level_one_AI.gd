@@ -3,6 +3,7 @@ var computer_units = []
 var player_units = []
 var reinforcements = false
 var reinforcement_units = ["warrior", "warrior", "archer", "cavalry_warrior"]
+var game_over = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -13,46 +14,47 @@ func _process(delta):
 	pass
 
 func turn():
-	update_computer_units()
-	update_player_units()
-	for unit in computer_units:
-		var calculated_move = calculate_best_movement_option(unit)
-		if calculated_move != null:
-			unit.move(calculated_move[0], calculated_move[1])
-	
-	for unit in computer_units:
-		if unit.abilities_holder.get_child_count() > 0:
-			var calculated_ability = calculate_best_ability_options(unit)
-			if calculated_ability != null:
-				unit.use_ability(calculated_ability[0], calculated_ability[1])
-			
-	for unit in computer_units:
-		var calculated_attack = calculate_best_attack_options(unit)
-		if calculated_attack != null:
-			unit.attack(calculated_attack[0], calculated_attack[1])
-	
-	for unit in computer_units:
-		if unit.unit_position[1] == 11:
-			unit.movement_behaviour_id = 3
-			reinforcements = true
-	
-	if GameData.turns_played == 3.5:
-		print("PLACE WIZARD")
-		GameData.map.place_piece("red", "wizard", [0,0], 3)
-	
-	if reinforcements == true:
-		var free_squares = GameData.get_free_square([0,11],[11,11])
-		if free_squares != []:
-			for square in free_squares:
-				var x = square.x_coord
-				var y = square.y_coord
-				if len(reinforcement_units) > 0:
-					GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
-					reinforcement_units.pop_at(0)
-				else:
-					break
+	if game_over == false:
+		update_computer_units()
+		update_player_units()
+		for unit in computer_units:
+			var calculated_move = calculate_best_movement_option(unit)
+			if calculated_move != null:
+				unit.move(calculated_move[0], calculated_move[1])
+		
+		for unit in computer_units:
+			if unit.abilities_holder.get_child_count() > 0:
+				var calculated_ability = calculate_best_ability_options(unit)
+				if calculated_ability != null:
+					unit.use_ability(calculated_ability[0], calculated_ability[1])
 				
-	GameData.end_turn()
+		for unit in computer_units:
+			var calculated_attack = calculate_best_attack_options(unit)
+			if calculated_attack != null:
+				unit.attack(calculated_attack[0], calculated_attack[1])
+		
+		for unit in computer_units:
+			if unit.unit_position[1] == 11:
+				unit.movement_behaviour_id = 3
+				reinforcements = true
+		
+		if GameData.turns_played == 3.5:
+			print("PLACE WIZARD")
+			GameData.map.place_piece("red", "wizard", [0,0], 3)
+		
+		if reinforcements == true:
+			var free_squares = GameData.get_free_square([0,11],[11,11])
+			if free_squares != []:
+				for square in free_squares:
+					var x = square.x_coord
+					var y = square.y_coord
+					if len(reinforcement_units) > 0:
+						GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
+						reinforcement_units.pop_at(0)
+					else:
+						break
+					
+		GameData.end_turn()
 
 func update_computer_units():
 	computer_units = GameData.computer_units
