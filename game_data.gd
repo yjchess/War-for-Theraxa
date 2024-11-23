@@ -4,6 +4,8 @@ var is_loading = false
 var current_scene
 
 var campaign_upgrades = []
+var common_upgrades = [[0,0], [0,0]]
+var rare_upgrades   = [[0]]
 var campaign_achievements = [
 	[
 		[false, false, false],
@@ -11,6 +13,15 @@ var campaign_achievements = [
 		[false]
 	]
 ]
+
+var total_gold_gems   = 0
+var total_blue_gems   = 0
+var total_purple_gems = 0
+
+var available_gold_gems   = 0
+var available_blue_gems   = 0
+var available_purple_gems = 0
+
 #previously_achieved is dynamically used to fill in achievements that had been previously achieved but are not new
 var previously_achieved = []
 
@@ -121,6 +132,8 @@ func set_winner(winner):
 
 
 func save_game():
+	calculate_total_gems()
+	calculate_available_gems()
 
 	serialized_computer_units = []
 	serialized_player_units = []
@@ -137,13 +150,16 @@ func save_game():
 	saveData["currentScene"] = current_scene
 	
 	if "levels/level" in saveData["currentScene"]:
-		saveData["turnsPlayed"] = turns_played
-		saveData["playerUnits"] = serialized_player_units
+		saveData["turnsPlayed"]   = turns_played
+		saveData["playerUnits"]   = serialized_player_units
 		saveData["computerUnits"] = serialized_computer_units
 	
-	saveData["campaignUpgrades"] = campaign_upgrades
+	saveData["commonUpgrades"]       = common_upgrades
+	saveData["rareUpgrades"]         = rare_upgrades
+	saveData["campaignUpgrades"]     = campaign_upgrades
+	saveData["previouslyAchieved"]   = previously_achieved
 	saveData["campaignAchievements"] = campaign_achievements
-	saveData["levelsUnlocked"] = levels_unlocked
+	saveData["levelsUnlocked"]       = levels_unlocked
 	
 	var jsonString = JSON.stringify(saveData)
 	var jsonFile = FileAccess.open("res://savegame.json", FileAccess.WRITE)
@@ -161,7 +177,8 @@ func load_game():
 	var json = jsonFile.get_as_text()
 	var saveData = JSON.parse_string(json)
 	
-	campaign_upgrades     = saveData["campaignUpgrades"]
+	common_upgrades       = saveData["commonUpgrades"]
+	rare_upgrades         = saveData["rareUpgrades"]
 	campaign_achievements = saveData["campaignAchievements"] 
 	levels_unlocked       = saveData["levelsUnlocked"]
 	current_scene         = saveData["currentScene"]
@@ -170,6 +187,7 @@ func load_game():
 		turns_played              = saveData["turnsPlayed"]
 		serialized_player_units   = saveData["playerUnits"]
 		serialized_computer_units = saveData["computerUnits"]
+		previously_achieved       = saveData["previouslyAchieved"]
 	
 	if get_tree().current_scene.scene_file_path == current_scene:
 		get_tree().reload_current_scene()
@@ -180,3 +198,37 @@ func load_game():
 		
 	is_loading = false
 	jsonFile.close()
+
+func calculate_total_gems():
+	
+	total_gold_gems   = 0
+	total_blue_gems   = 0
+	total_purple_gems = 0
+	
+	for achievement_set in campaign_achievements:
+		for gem in achievement_set[0]:
+			if gem == true:
+				total_gold_gems   += 1
+		
+		for gem in achievement_set[1]:
+			if gem == true:
+				total_blue_gems   += 1
+		
+		for gem in achievement_set[2]:
+			if gem == true:
+				total_purple_gems += 1
+
+func calculate_available_gems():
+	var used_gold_gems = 0
+	var used_blue_gems = 0
+	for upgrade in common_upgrades:
+		used_gold_gems += upgrade[0]
+		used_blue_gems += upgrade [1]
+	
+	var used_purple_gems = 0
+	for upgrade in rare_upgrades:
+		used_purple_gems += upgrade[0]
+		
+	available_gold_gems   = total_gold_gems   - used_gold_gems
+	available_blue_gems   = total_blue_gems   - used_blue_gems
+	available_purple_gems = total_purple_gems - used_purple_gems

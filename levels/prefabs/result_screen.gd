@@ -15,7 +15,6 @@ func populate_super_special_achievements(achievements):
 		create_achievement("super_special", achievement[0], achievement[1])
 
 func show_previously_achieved(previous_achievements):
-	print(previous_achievements)
 	var count = 0
 	for achievement in previous_achievements[0]:
 		if achievement == true:
@@ -54,3 +53,10 @@ func create_achievement(type, tooltip, display):
 
 func _on_redo_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_next_pressed():
+	get_tree().change_scene_to_file("res://levels/castle.tscn")
+
+func _on_map_pressed():
+	get_tree().change_scene_to_file("res://menus/campaign_map.tscn")

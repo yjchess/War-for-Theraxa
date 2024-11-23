@@ -55,6 +55,8 @@ func turn():
 						break
 					
 		GameData.end_turn()
+	else:
+		print("GAME OVER")
 
 func update_computer_units():
 	computer_units = GameData.computer_units

@@ -29,13 +29,14 @@ var campaign_dialogue = [
 func _ready():
 	GameData.level = self
 	GameData.ui = ui
-	
+	$AI.game_over = false
 	if GameData.is_loading == false:
-		GameData.turns_played = 0		
+		GameData.turns_played = 0	
 		map.setup_board(player_troops, computer_troops)
 	else:
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
-
+		GameData.is_loading = false
+		
 	GameData.update_minimap()
 	GameData.connect_button()
 	GameData.map = map
@@ -89,18 +90,17 @@ func new_dialogue():
 		
 func check_winner():
 	if len(GameData.player_units) == 0:
-		print("Updating Achievements from Computer Win")
-		update_previous_achievements()
 		return "computer"
 	elif GameData.turns_played > 4 && len(GameData.computer_units) == 0:
-		print("Updating Achievements from Player Win")
-		update_previous_achievements()
+		$AI.game_over = true
 		achievements[0][1] = true
 		evaluate_achievements()
 		return "player"
 	return null
 
 func evaluate_achievements():
+	GameData.previously_achieved = GameData.campaign_achievements[level_num-1].duplicate(true)
+
 	if $AI.reinforcements != true:
 		achievements[1][1] = true
 	elif achievements[0][1] == true:
@@ -113,11 +113,8 @@ func evaluate_achievements():
 	
 	if GameData.campaign_upgrades == [] && len(GameData.player_units) >=2 && $AI.reinforcements == true:
 		super_special_achievements[0][1] = true
-
-func update_previous_achievements():
-	#It is vital that you do this step before evaluate_achievements or GameData.previously_achieved will be the same as achieved
-	GameData.previously_achieved = GameData.campaign_achievements[level_num-1]
-	print(GameData.previously_achieved)
+	
+	
 	var corresponding_saved_achievements = GameData.campaign_achievements[level_num-1].duplicate()
 	
 	var count = 0
@@ -137,5 +134,5 @@ func update_previous_achievements():
 		if achievement[1] == true:
 			corresponding_saved_achievements[2][count] = true
 		count += 1
-	
+
 	GameData.campaign_achievements[level_num-1] = corresponding_saved_achievements

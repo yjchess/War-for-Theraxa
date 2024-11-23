@@ -98,7 +98,7 @@ func show_winner(winner, achievements, special_achievements, super_special_achie
 		instance.populate_achievements(achievements)
 		instance.populate_special_achievements(special_achievements)
 		instance.populate_super_special_achievements(super_special_achievements)
-		instance.show_previously_achieved(GameData.previously_achieved)		
+		instance.show_previously_achieved(GameData.previously_achieved)
 		add_child(instance)
 		
 	elif winner == "computer":

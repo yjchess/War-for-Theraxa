@@ -92,7 +92,11 @@ func _ready():
 	if len(abilities) > 0:
 		for ability in abilities:
 			instantiate_ability(ability)
-
+	
+	#apply player upgrades
+	if unit_color == "blue":
+		apply_upgrades()
+	
 func get_unit_possible_moves():
 	var possible_squares = []
 	if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
@@ -192,3 +196,69 @@ func instantiate_ability(ability_name):
 	instance.ability_name = ability_name
 	instance.name         = ability_name
 	abilities_holder.add_child(instance)
+
+func apply_upgrades():
+	var warrior_upgrades = GameData.common_upgrades[0]
+	if unit_name == "warrior" && warrior_upgrades != [0,0]:
+		if warrior_upgrades[0] >= 1:
+			health     += 2
+			max_health += 2
+		
+		if warrior_upgrades[0] >= 2:
+			health     += 2
+			max_health += 2
+		
+		if warrior_upgrades[0] >= 3:
+			melee_damage +=1
+		
+		if warrior_upgrades[1] >= 1:
+			abilities.append("Parry")
+		
+		if warrior_upgrades[1] >= 2:
+			abilities.append("Net")
+	
+	var archer_upgrades = GameData.common_upgrades[1]
+	if unit_name == "archer" && archer_upgrades != [0,0]:
+		if archer_upgrades[0] >= 1:
+			melee_damage += 1
+		
+		if archer_upgrades[0] >= 2:
+			ranged_damage += 1
+		
+		if warrior_upgrades[0] >= 3:
+			health += 2
+			max_health += 2
+		
+		if warrior_upgrades[1] >= 1:
+			abilities.append("Pinning Shot")
+		
+		if warrior_upgrades[1] >= 2:
+			abilities.append("Fleet Footed")
+
+#used before saving - as loading will rebuild the upgrades
+func remove_upgrades():
+	var warrior_upgrades = GameData.common_upgrades[0]
+	if unit_name == "warrior" && warrior_upgrades != [0,0]:
+		if warrior_upgrades[0] >= 1:
+			health     -= 2
+			max_health -= 2
+		
+		if warrior_upgrades[0] >= 2:
+			health     -= 2
+			max_health -= 2
+		
+		if warrior_upgrades[0] >= 3:
+			melee_damage -=1
+
+	
+	var archer_upgrades = GameData.common_upgrades[1]
+	if unit_name == "archer" && archer_upgrades != [0,0]:
+		if archer_upgrades[0] >= 1:
+			melee_damage -= 1
+		
+		if archer_upgrades[0] >= 2:
+			ranged_damage -= 1
+		
+		if warrior_upgrades[0] >= 3:
+			health -= 2
+			max_health -= 2
