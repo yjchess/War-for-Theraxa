@@ -49,6 +49,17 @@ offset_top = 545.0
 offset_right = 291.0
 offset_bottom = 588.0
 
+[node name="Level 2" parent="." instance=ExtResource("2_ec7yf")]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 431.0
+offset_right = 480.0
+offset_bottom = 491.0
+
+[node name="Line2D" type="Line2D" parent="Level 2"]
+points = PackedVector2Array(-136, 134, 24, 21)
+default_color = Color(0.854902, 0.647059, 0.12549, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -71,4 +82,5 @@ layout_mode = 2
 texture_normal = ExtResource("3_utwwb")
 
 [connection signal="level_change" from="Level 1" to="." method="_on_level_change"]
+[connection signal="level_change" from="Level 2" to="." method="_on_level_change"]
 [connection signal="pressed" from="MarginContainer/PanelContainer2/TextureButton" to="." method="_on_castle_button_pressed"]

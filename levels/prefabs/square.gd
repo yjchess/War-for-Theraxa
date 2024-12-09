@@ -46,12 +46,21 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		
 		if $Movable.visible == true:
 			GameData.selected_unit.move(x_coord, y_coord)
+		
+		if $Abilitable.visible == true:
+			GameData.selected_ability.use_ability(GameData.selected_ability.ability_name)
 			
 		if selected == true:
 			if get_node_or_null("Unit") != null && $Attackable.visible != true:
+				GameData.selected_building = null
 				GameData.selected_unit = $Unit
 				GameData.update_unit_ui()
 			
+			elif get_node_or_null("Building") != null && $Attackable.visible != true:
+				GameData.selected_unit = null
+				GameData.selected_building = $Building
+				GameData.update_building_ui()
+				
 			if GameData.selected_square != null:
 				emit_signal("override_square_selected")
 			
@@ -77,6 +86,9 @@ func display_movable():
 
 func display_attackable():
 	get_node("Attackable").visible = true
+
+func display_abilitable():
+	get_node("Abilitable").visible = true
 	
 func remove_unit():
 	get_node("Unit").queue_free()
@@ -98,14 +110,15 @@ func has_building():
 
 func has_enemy_building(color):
 	if get_node_or_null("Building") != null:
-		if (color == "red" && get_node("Building").unit_color =="blue") || (color=="blue" && get_node("Building").unit_color=="red"):
+		if (color == "red" && get_node("Building").building_color =="blue") || (color=="blue" && get_node("Building").building_color=="red"):
 			return true
 	else: return false
 
 func get_player():
 	var player
 	if get_node_or_null("Unit") != null:
-		#print("NOT NULL")
 		player = get_node_or_null("Unit").player
-	else: player = "neutral"
+	elif get_node_or_null("Building") != null:
+		player = get_node_or_null("Building").player
+	else: player = "none"
 	return player

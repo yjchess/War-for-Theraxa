@@ -32,6 +32,8 @@ var levels_unlocked = 1
 var selected_square
 var starting_square_position
 var selected_unit
+var selected_building
+var selected_ability
 
 var map_width
 var map_height
@@ -47,6 +49,9 @@ var level
 
 var computer_units
 var player_units
+
+var computer_buildings
+var player_buildings
 
 func connect_button():
 	ui.end_turn.connect(end_turn)
@@ -104,6 +109,13 @@ func update_unit_ui():
 	ui.update_portrait(selected_unit.unit_portrait)
 	ui.update_description(selected_unit.unit_name, selected_unit.description)
 	ui.update_statistics(selected_unit.health, selected_unit.max_health, selected_unit.melee_damage, selected_unit.ranged_damage, selected_unit.attack_range, selected_unit.movement_range)
+	ui.update_abilities(selected_unit.abilities)
+	
+func update_building_ui():
+	ui.update_portrait(selected_building.building_portrait)
+	ui.update_description(selected_building.building_name, selected_building.description)
+	ui.update_statistics(selected_building.health, selected_building.max_health, 0, 0, 0, 0)
+	ui.update_abilities(selected_building.abilities)
 
 
 func get_squares(x_one, x_two, y_one, y_two):
@@ -126,7 +138,6 @@ func get_free_square(bound_one, bound_two):
 	return free_squares
 
 func set_winner(winner):
-	level.update_previous_achievements()
 	ui.show_winner(winner, level.achievements, level.special_achievements, level.super_special_achievements)
 
 
@@ -232,3 +243,8 @@ func calculate_available_gems():
 	available_gold_gems   = total_gold_gems   - used_gold_gems
 	available_blue_gems   = total_blue_gems   - used_blue_gems
 	available_purple_gems = total_purple_gems - used_purple_gems
+
+func ability_pressed(ability):
+	if GameData.selected_unit != null:
+		selected_unit.get_ability(ability).show_viable_moves()
+		

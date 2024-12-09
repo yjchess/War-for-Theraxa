@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dwgsx2w7idvfb"]
+[gd_scene load_steps=28 format=3 uid="uid://dwgsx2w7idvfb"]
 
 [ext_resource type="Texture2D" uid="uid://8qrsmfcvft4q" path="res://assets/icons/food.png" id="1_6lhph"]
 [ext_resource type="Script" path="res://levels/prefabs/canvas/Level_UI.gd" id="1_abefp"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c8wc8cf2d50s2" path="res://assets/icons/attack.png" id="11_aotit"]
 [ext_resource type="Texture2D" uid="uid://p22tavk3ly8f" path="res://assets/icons/ranged_attack.png" id="12_hop2l"]
 [ext_resource type="Texture2D" uid="uid://bv0yi2acbptd3" path="res://assets/icons/attack_range_v2.png" id="13_3l5ek"]
+[ext_resource type="PackedScene" uid="uid://cajyqv18vt7kn" path="res://levels/prefabs/canvas/ability_button.tscn" id="16_a4r3m"]
 [ext_resource type="PackedScene" uid="uid://cqeiu1prvmjvg" path="res://levels/prefabs/level_menu.tscn" id="19_n5ppt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltr7"]
@@ -563,26 +564,26 @@ layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="GridContainer" parent="Control/HBoxContainer/Actions/Actions/MarginContainer"]
+[node name="abilities_container" type="GridContainer" parent="Control/HBoxContainer/Actions/Actions/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
 
-[node name="TextureButton" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+[node name="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/abilities_container" instance=ExtResource("16_a4r3m")]
 layout_mode = 2
-texture_normal = ExtResource("6_gta24")
 
-[node name="TextureButton2" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+[node name="TextureButton2" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/abilities_container"]
 layout_mode = 2
 texture_normal = ExtResource("7_s7dqi")
 
-[node name="TextureButton3" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+[node name="TextureButton3" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/abilities_container"]
 layout_mode = 2
 texture_normal = ExtResource("10_usatw")
 
-[node name="TextureButton4" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/GridContainer"]
+[node name="TextureButton4" type="TextureButton" parent="Control/HBoxContainer/Actions/Actions/MarginContainer/abilities_container"]
 layout_mode = 2
 texture_normal = ExtResource("11_aotit")
 

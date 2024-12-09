@@ -15,6 +15,8 @@ func populate_super_special_achievements(achievements):
 		create_achievement("super_special", achievement[0], achievement[1])
 
 func show_previously_achieved(previous_achievements):
+	if previous_achievements == []: return
+	
 	var count = 0
 	for achievement in previous_achievements[0]:
 		if achievement == true:

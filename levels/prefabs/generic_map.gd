@@ -9,11 +9,14 @@ var square_width = 64
 var square_height = 64
 var square = preload("res://levels/prefabs/square.tscn")
 var unit   = preload("res://levels/prefabs/unit.tscn")
+var building = preload("res://levels/prefabs/building.tscn")
 var starting_square_location
 
 @onready var ai = $"../AI"
 var computer_units = []
+var computer_buildings = []
 var player_units = []
+var player_buildings = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
@@ -34,27 +37,60 @@ func _ready():
 	
 	GameData.squares = squares.get_children()
 	
-func setup_board(player_pieces, computer_pieces):
-	for piece in player_pieces:
-		var color = "blue"
-		var unit = piece[0]
-		var unit_position = piece[1]
-		place_piece(color, unit, unit_position, null)
+func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings):
 	
-	for piece in computer_pieces:
-		var color                 = "red"
-		var unit                  = piece[0]
-		var unit_position         = piece[1]
-		var ai_movement_behaviour = piece[2]
-		place_piece(color, unit, unit_position, ai_movement_behaviour)
+	if player_pieces != [[]]:
+		for piece in player_pieces:
+			var color = "blue"
+			var unit = piece[0]
+			var unit_position = piece[1]
+			place_piece(color, unit, unit_position, null)
+	
+	if computer_pieces != [[]]:
+		for piece in computer_pieces:
+			var color                 = "red"
+			var unit                  = piece[0]
+			var unit_position         = piece[1]
+			var ai_movement_behaviour = piece[2]
+			place_piece(color, unit, unit_position, ai_movement_behaviour)
+	
+	if player_buildings != [[]]:
+		for building in player_buildings:
+			var color             = "blue"
+			var building_name     = building[0]
+			var building_position = building[1]
+			place_building(color, building_name, building_position, null)
+			pass
+	
+	if computer_buildings != [[]]:
+		for building in computer_buildings:
+			var color             = "red"
+			var building_name     = building[0]
+			var building_position = building[1]
+			place_building(color, building_name, building_position, null)
+			pass
+			
+	if neutral_buildings != [[]]:
+		for building in neutral_buildings:
+			var color             = "dark_green"
+			var building_name     = building[0]
+			var building_position = building[1]
+			place_building(color, building_name, building_position, null)
+			pass
 	
 	GameData.computer_units = computer_units
 	GameData.player_units = player_units
+	GameData.player_buildings = player_buildings
+	GameData.computer_buildings = computer_buildings
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
 	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
 	GameData.update_minimap()
 
+func place_building(color, building_name, building_position, building_behaviour):
+	instantiate_building(color, building_name, building_position, building_behaviour)
+	GameData.update_minimap()
+	
 func instantiate_unit(colour, name, position, movement_id):
 	var instance           = unit.instantiate()
 	instance.unit_color    = colour
@@ -67,9 +103,23 @@ func instantiate_unit(colour, name, position, movement_id):
 	square_parent.add_child(instance)
 	if instance.unit_color == "red":
 		computer_units.append(instance)
-	else:
+	elif instance.unit_color == "blue":
 		player_units.append(instance)
 	#units.add_child(instance)
+
+func instantiate_building(color, building_name, building_position, building_behaviour):
+	var instance = building.instantiate()
+	instance.building_color = color
+	instance.building_name = building_name
+	instance.building_position = building_position
+	#instance.building_behaviour = building_behaviour
+	
+	var square_parent = get_square(building_position[0], building_position[1])
+	square_parent.add_child(instance)
+	if instance.building_color == "red":
+		computer_buildings.append(instance)
+	else:
+		player_buildings.append(instance)
 
 func instantiate_unit_detailed(colour, name, position, movement_id, health, max_health, moved, attacked):
 	var instance                   = unit.instantiate()
@@ -108,8 +158,11 @@ func get_square(x,y):
 			return square_instance
 
 func remove_previous_selected_square():
-	get_tree().call_group("movable_square_UI", "hide")
+	
+	get_tree().call_group("movable_square_UI"   , "hide")
 	get_tree().call_group("attackable_square_UI", "hide")
+	get_tree().call_group("abilitable_square_UI", "hide")
+	
 	var previous_selected_square          = GameData.selected_square
 	if previous_selected_square != null:
 		var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])

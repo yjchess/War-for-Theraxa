@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7mxpp8utv0uj"]
+[gd_scene load_steps=7 format=3 uid="uid://7mxpp8utv0uj"]
 
 [ext_resource type="Script" path="res://levels/prefabs/square.gd" id="1_jdf3m"]
 
@@ -26,6 +26,15 @@ border_color = Color(0.14902, 0.14902, 0.14902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpw8x"]
 resource_local_to_scene = true
 bg_color = Color(0.894118, 0.0745098, 0, 0.486275)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1r8d"]
+resource_local_to_scene = true
+bg_color = Color(0.517647, 0.32549, 0, 0.784314)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -60,6 +69,13 @@ offset_right = 65.0
 offset_bottom = 65.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kpw8x")
+
+[node name="Abilitable" type="Panel" parent="." groups=["abilitable_square_UI"]]
+visible = false
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1r8d")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

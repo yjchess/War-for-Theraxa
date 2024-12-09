@@ -8,6 +8,8 @@ signal dialogue_finished
 @onready var mouseblocker = $MouseBlocker/Area2D
 var skipped = false
 
+var ability_button = preload("res://levels/prefabs/canvas/ability_button.tscn")
+
 func _ready():
 	minimap.columns = GameData.map_width
 	populate_minimap_grid()
@@ -37,12 +39,14 @@ func change_minimap_square(type, index):
 	
 	minimap.get_child(index).get_node("Player_Controlled").visible = false
 	minimap.get_child(index).get_node("Computer_Controlled").visible = false
-	minimap.get_child(index).get_node("Neutral").visible = false	
+	minimap.get_child(index).get_node("Neutral").visible = false
+	minimap.get_child(index).get_node("None").visible = false
 	#print(type)
 	match type:
 		"player"  :minimap.get_child(index).get_node("Player_Controlled").visible = true
-		"computer":	minimap.get_child(index).get_node("Computer_Controlled").visible = true
-		"neutral" :minimap.get_child(index).get_node("Neutral").visible = true	
+		"computer":minimap.get_child(index).get_node("Computer_Controlled").visible = true
+		"neutral" :minimap.get_child(index).get_node("Neutral").visible = true
+		"none"    :minimap.get_child(index).get_node("None").visible = true
 
 func update_portrait(portrait):
 	var texture = load(portrait)
@@ -112,3 +116,19 @@ func show_winner(winner, achievements, special_achievements, super_special_achie
 
 func _on_open_menu_pressed():
 	$Level_Menu.visible = true
+
+func update_abilities(abilities):
+	if len(abilities) > 0:
+		var image
+		
+		for ability_shown in %abilities_container.get_children():
+			ability_shown.queue_free()
+		
+		for ability in abilities:
+			var instance = ability_button.instantiate()
+			instance.ability_name = ability
+			%abilities_container.add_child(instance)
+	else:
+		if %abilities_container.get_child_count() > 0:
+			for ability_shown in %abilities_container.get_children():
+				ability_shown.queue_free()

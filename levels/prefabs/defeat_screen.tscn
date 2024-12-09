@@ -177,4 +177,6 @@ theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 50
 text = "DEFEAT :("
 
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/Button" to="." method="_on_next_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/Button2" to="." method="_on_redo_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/Button3" to="." method="_on_map_pressed"]

@@ -42,40 +42,48 @@ func _ready():
 	else: player = "neutral"
 	
 	match unit_name:
+		"peasant":
+			movement_range = 2
+			health         = 3
+			melee_damage   = 1
+			attack_range   = 1
+			unit_portrait  = "res://assets/portraits/archer.png"
+			description    = "The uniniitiated conscript."
+		
 		"warrior": 
 			movement_range = 2
-			health              = 7
-			melee_damage        = 3
-			attack_range        = 1
-			unit_portrait       = "res://assets/portraits/warrior.png"
-			description         = "The bread and butter of your army. A stable, well armoured melee unit. Useful as a meatshield or to overwhelm enemies in numbers."
+			health         = 7
+			melee_damage   = 3
+			attack_range   = 1
+			unit_portrait  = "res://assets/portraits/warrior.png"
+			description    = "The bread and butter of your army. A stable, well armoured melee unit. Useful as a meatshield or to overwhelm enemies in numbers."
 			
 		"archer": 
 			movement_range = 2
-			health              = 6
-			melee_damage        = 1
-			ranged_damage       = 4
-			attack_range        = 3
-			unit_portrait       = "res://assets/portraits/archer.png"
-			description         = "The archer is a simple ranged unit. They are capable of taking down enemies from afar, but beware their vulnerable health."
+			health         = 6
+			melee_damage   = 1
+			ranged_damage  = 4
+			attack_range   = 3
+			unit_portrait  = "res://assets/portraits/archer.png"
+			description    = "The archer is a simple ranged unit. They are capable of taking down enemies from afar, but beware their vulnerable health."
 		
 		"cavalry_warrior": 
 			movement_range = 3
-			health              = 15
-			melee_damage        = 5
-			attack_range        = 1
-			unit_portrait       = "res://assets/portraits/warrior.png"
-			description         = "The cavalry warrior is a mighty beast. They stride quickly into battle with mobile maneuvers and deep strikes"
+			health         = 15
+			melee_damage   = 5
+			attack_range   = 1
+			unit_portrait  = "res://assets/portraits/warrior.png"
+			description    = "The cavalry warrior is a mighty beast. They stride quickly into battle with mobile maneuvers and deep strikes"
 	
 		"wizard": 
 			movement_range = 1
-			health              = 3
-			melee_damage        = 1
-			ranged_damage       = 6
-			attack_range        = 2
-			abilities           = ["summon_skeleton"]
-			unit_portrait       = "res://assets/portraits/wizard.png"
-			description         = "The wizard is a vital piece of any army, capable of casting powerful spells and turning the tides of battle."
+			health         = 3
+			melee_damage   = 1
+			ranged_damage  = 6
+			attack_range   = 2
+			abilities      = ["summon_skeleton"]
+			unit_portrait  = "res://assets/portraits/wizard.png"
+			description    = "The wizard is a vital piece of any army, capable of casting powerful spells and turning the tides of battle."
 			
 		"skeleton":
 			movement_range = 1
@@ -92,6 +100,10 @@ func _ready():
 	if len(abilities) > 0:
 		for ability in abilities:
 			instantiate_ability(ability)
+	
+	var common_abilities = ["movement", "attack", "build", "gather", "ranged_attack"]
+	for ability in common_abilities:
+		abilities.append(ability)
 	
 	#apply player upgrades
 	if unit_color == "blue":
@@ -192,10 +204,11 @@ func use_ability(ability_name, ability_location):
 		#"summon_skeleton": ability_handler.summon_skeleton(unit_color, ability_location)
 
 func instantiate_ability(ability_name):
-	var instance = ability_node.instantiate()
-	instance.ability_name = ability_name
-	instance.name         = ability_name
-	abilities_holder.add_child(instance)
+	if ability_name not in ["movement", "attack", "build", "gather", "ranged_attack"]:
+		var instance = ability_node.instantiate()
+		instance.ability_name = ability_name
+		instance.name         = ability_name
+		abilities_holder.add_child(instance)
 
 func apply_upgrades():
 	var warrior_upgrades = GameData.common_upgrades[0]
@@ -262,3 +275,8 @@ func remove_upgrades():
 		if warrior_upgrades[0] >= 3:
 			health -= 2
 			max_health -= 2
+
+func get_ability(ability_name):
+	for ability in abilities_holder:
+		if ability.name == ability_name:
+			return ability
