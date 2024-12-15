@@ -88,7 +88,6 @@ func update_cutscene_dialogue(portrait, name, dialogue):
 
 func _on_end_turn_button_pressed():
 	emit_signal("end_turn")
-	pass # Replace with function body.
 
 func disable_mouseblocker():
 	$MouseBlocker.visible = false

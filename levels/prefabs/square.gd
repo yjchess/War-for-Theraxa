@@ -11,6 +11,7 @@ signal override_square_selected
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map = get_parent().get_parent()
+	add_to_group("squares")
 
 
 func change_panel_stylebox(border_length, color):

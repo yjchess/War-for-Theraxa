@@ -35,9 +35,11 @@ func _ready():
 	x_max = GameData.map_width
 	y_max = GameData.map_height
 	
-	if unit_color == "red": 
+	if unit_color == "red":
+		add_to_group("computer_unit") 
 		player = "computer"
-	elif unit_color == "blue": 
+	elif unit_color == "blue":
+		add_to_group("player_unit")  
 		player = "player"
 	else: player = "neutral"
 	
@@ -111,11 +113,11 @@ func _ready():
 	
 func get_unit_possible_moves():
 	var possible_squares = []
-	if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
-		if moved == false:
-			for x in range(unit_position[0] - movement_range, unit_position[0] + movement_range+1):
-				for y in range(unit_position[1] - movement_range, unit_position[1] + movement_range+1):
-					possible_squares.append([x,y])
+	#if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
+	if moved == false:
+		for x in range(unit_position[0] - movement_range, unit_position[0] + movement_range+1):
+			for y in range(unit_position[1] - movement_range, unit_position[1] + movement_range+1):
+				possible_squares.append([x,y])
 		return validate_possible_moves(possible_squares)
 	
 	else:
@@ -123,11 +125,11 @@ func get_unit_possible_moves():
 
 func get_unit_possible_attacks():
 	var possible_attacks = []
-	if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
-		if attacked == false:
-			for x in range(unit_position[0] - attack_range, unit_position[0] + attack_range+1):
-				for y in range(unit_position[1] - attack_range, unit_position[1] + attack_range + 1):
-					possible_attacks.append([x,y])
+	#if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
+	if attacked == false:
+		for x in range(unit_position[0] - attack_range, unit_position[0] + attack_range+1):
+			for y in range(unit_position[1] - attack_range, unit_position[1] + attack_range + 1):
+				possible_attacks.append([x,y])
 		return validate_possible_attacks(possible_attacks)
 	else:
 		return []
@@ -187,7 +189,7 @@ func load_unit_animations():
 	add_child(instance)
 
 func die():
-	GameData.remove_unit_from_arrays(self)
+	#GameData.remove_unit_from_arrays(self)
 	tree_exited.connect(signal_death)
 	queue_free()
 	
