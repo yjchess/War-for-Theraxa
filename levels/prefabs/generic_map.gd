@@ -1,6 +1,6 @@
 extends Node2D
-@export var width: int
-@export var height: int
+@export var width = 12
+@export var height = 12
 @onready var squares = $Squares
 #@onready var units = $Units
 var viewport_width = 1920
@@ -17,25 +17,27 @@ var computer_units = []
 var computer_buildings = []
 var player_units = []
 var player_buildings = []
+
+signal update_minimap
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
-	GameData.map = self
+	#GameData.map = self
 	GameData.map_height = height
 	GameData.map_width = width
-	GameData.ai = ai
+	#GameData.ai = ai
 	
 	var starting_square_x = ((viewport_width / square_width) * square_width - square_width * width) / 2
 	var starting_square_y = ((viewport_height / square_height) * square_height - square_height * height) / 2
 	starting_square_location = [starting_square_x, starting_square_y] 
-	GameData.starting_square_position = starting_square_location
+	#GameData.starting_square_position = starting_square_location
 	
 	for y in height:
 		for x in width:
 		
 			instantiate_square(x,y)
 	
-	GameData.squares = squares.get_children()
+	#GameData.squares = squares.get_children()
 	
 func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings):
 	
@@ -78,18 +80,18 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 			place_building(color, building_name, building_position, null)
 			pass
 	
-	GameData.computer_units = computer_units
-	GameData.player_units = player_units
-	GameData.player_buildings = player_buildings
-	GameData.computer_buildings = computer_buildings
+	#GameData.computer_units = computer_units
+	#GameData.player_units = player_units
+	#GameData.player_buildings = player_buildings
+	#GameData.computer_buildings = computer_buildings
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
 	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
-	GameData.update_minimap()
+	#GameData.update_minimap()
 
 func place_building(color, building_name, building_position, building_behaviour):
 	instantiate_building(color, building_name, building_position, building_behaviour)
-	GameData.update_minimap()
+	#GameData.update_minimap()
 	
 func instantiate_unit(colour, name, position, movement_id):
 	var instance           = unit.instantiate()
@@ -97,6 +99,7 @@ func instantiate_unit(colour, name, position, movement_id):
 	instance.unit_name     = name
 	instance.unit_position = position
 	instance.movement_behaviour_id = movement_id
+	instance.update_minimap.connect(update_minimap_squares)
 
 	#instance.place_unit()
 	var square_parent = get_square(position[0], position[1])
@@ -106,6 +109,9 @@ func instantiate_unit(colour, name, position, movement_id):
 	elif instance.unit_color == "blue":
 		player_units.append(instance)
 	#units.add_child(instance)
+
+func update_minimap_squares():
+	emit_signal("update_minimap")
 
 func instantiate_building(color, building_name, building_position, building_behaviour):
 	var instance = building.instantiate()
@@ -168,8 +174,8 @@ func remove_previous_selected_square():
 		var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])
 		previous_selected_square_instance.deselect()
 
-func update_minimap_squares():
-	GameData.squares = squares.get_children()
+#func update_minimap_squares():
+#	GameData.squares = squares.get_children()
 
 func place_serialized_units(playerUnits, computerUnits):
 	for unit in playerUnits:
@@ -178,6 +184,23 @@ func place_serialized_units(playerUnits, computerUnits):
 	for unit in computerUnits:
 		instantiate_unit_detailed("red", unit.unit_name, unit.unit_position, unit.unit_movement_behaviour_id, unit.unit_health, unit.unit_max_health, unit.unit_moved, unit.unit_attacked)
 	
-	GameData.computer_units = computer_units
-	GameData.player_units = player_units
-	GameData.update_minimap()
+
+
+func get_free_square(bound_one, bound_two):
+	var free_squares = []
+	var possible_free_squares = get_squares(bound_one[0], bound_two[0], bound_one[1], bound_two[1])
+	for square in possible_free_squares:
+		if square.has_unit() == false && square.has_building() == false:
+			free_squares.append(square)
+	
+	return free_squares
+
+func get_squares(x_one, x_two, y_one, y_two):
+	var squares = []
+
+	for x in range (x_one, x_two+1):
+		for y in range (y_one, y_two+1):
+			if x > -1 && x < width && y >-1 && y < height:
+				squares.append(get_square(x,y))
+	
+	return squares

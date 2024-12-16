@@ -6,6 +6,7 @@ var defeat_screen = preload("res://levels/prefabs/defeat_screen.tscn")
 signal end_turn
 signal dialogue_finished
 @onready var mouseblocker = $MouseBlocker/Area2D
+@onready var squares = get_tree().get_nodes_in_group("squares")
 var skipped = false
 
 var ability_button = preload("res://levels/prefabs/canvas/ability_button.tscn")
@@ -26,13 +27,9 @@ func populate_minimap_grid():
 	
 	#update_minimap_grid(GameData.squares)
 
-func update_minimap_grid(squares):
-	var minimap = GameData.calculate_minimap(squares)
-	
-	var i = -1
-	for square in minimap:
-		i+=1
-		change_minimap_square(square, i)
+func update_minimap_grid():
+	for i in len(squares):
+		change_minimap_square(squares[i].get_player(), i)
 
 		
 func change_minimap_square(type, index):

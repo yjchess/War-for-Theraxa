@@ -4,7 +4,6 @@ extends Node2D
 @onready var ai = $AI
 @onready var mouseblocker = $CanvasLayer/MouseBlocker/Area2D
 @onready var dialogue = $Dialogue
-@onready var squares = get_tree().get_nodes_in_group("squares")
 var lost_player_unit = false
 var level_num = 1
 var turns_played = 0
@@ -35,8 +34,8 @@ func _ready():
 	
 	player_units = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
-	
-	ui.update_minimap_grid(squares)
+	map.update_minimap.connect(ui.update_minimap_grid)
+	ui.update_minimap_grid()
 	ui.end_turn.connect(end_turn)
 	GameData.map = map
 	
@@ -129,9 +128,20 @@ func end_turn():
 		#GameData.turn = 2
 		print("Computer Turn")
 		reset_computer_moves()
-		ai.turn(computer_units.call(), player_units.call())
-		#ai.turn(get_tree().get_nodes_in_group("computer_unit"), get_tree().get_nodes_in_group("player_unit"))
+		ai.turn(computer_units.call(), player_units.call(), turns_played)
+		if ai.reinforcements == true:
+			var free_squares = map.get_free_square([0,11],[11,11])
+			if free_squares != []:
+				for square in free_squares:
+					var x = square.x_coord
+					var y = square.y_coord
+					if len(ai.reinforcement_units) > 0:
+						map.place_piece("red", ai.reinforcement_units[0], [x,y], 3)
+						ai.reinforcement_units.pop_at(0)
+					else:
+						break
 		end_turn()
+
 
 func reset_player_moves():
 	for unit in player_units.call():

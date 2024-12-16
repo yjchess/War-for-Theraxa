@@ -27,13 +27,14 @@ var x_max
 var y_max
 
 var movement_behaviour_id
+signal update_minimap
 
 func _ready():
 	map = get_parent().get_parent().get_parent()
 	load_unit_animations()
 	
-	x_max = GameData.map_width
-	y_max = GameData.map_height
+	x_max = 12
+	y_max = 12
 	
 	if unit_color == "red":
 		add_to_group("computer_unit") 
@@ -161,7 +162,8 @@ func move(x_coord, y_coord):
 	reparent(new_square, false)
 	unit_position = [x_coord, y_coord]
 	moved = true
-	GameData.update_minimap()
+	#GameData.update_minimap()
+	emit_signal("update_minimap")
 
 
 func attack(x_coord, y_coord):
@@ -196,7 +198,7 @@ func die():
 
 #the following uses the tree_exited signal
 func signal_death():
-	GameData.update_minimap()
+	emit_signal("update_minimap")
 	if unit_color == "blue":
 		GameData.level.lost_player_unit = true
 

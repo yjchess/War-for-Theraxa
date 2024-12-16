@@ -356,8 +356,6 @@ sources/0 = SubResource("TileSetAtlasSource_ao5qi")
 
 [node name="Generic_Map" type="Node2D"]
 script = ExtResource("1_ej7ft")
-width = 12
-height = 12
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(4, 4)
