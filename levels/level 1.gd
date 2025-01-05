@@ -32,6 +32,8 @@ func _ready():
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
 		GameData.is_loading = false
 	
+	map.determine_viable_squares.connect(determine_viable_squares)
+	map.summon_unit.connect(summon)
 	player_units = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
 	map.update_minimap.connect(ui.update_minimap_grid)
@@ -52,12 +54,28 @@ func _ready():
 	dialogue.new_dialogue()
 	
 
+func determine_viable_squares(type_viable, entity, bounds):
+	var viable_squares = []
+	var new_bounds = []
+	
+	for coord in bounds:
+		if coord[0] > 0 and coord[1] > 0 and coord[0] < map.width and coord[1] < map.height:
+			new_bounds.append(coord)
+			
+	if "empty" in type_viable:
+		if  len(map.get_free_squares(new_bounds)) > 0:
+			for square in map.get_free_squares(new_bounds):
+				viable_squares.append(square)
+	
+	entity.viable_squares = viable_squares
 
+func summon(colour, unit, unit_position, ai_movement_behaviour):
+	map.place_piece(colour, unit, unit_position, ai_movement_behaviour)
 
 func check_winner():
-	print(len(player_units.call()))
+	#print(len(player_units.call()))
 	if len(player_units.call()) == 0:
-		print("Player units are 0")
+		#print("Player units are 0")
 		return "computer"
 	elif turns_played > 4 && len(computer_units.call()) == 0:
 		$AI.game_over = true
@@ -128,18 +146,23 @@ func end_turn():
 		#GameData.turn = 2
 		print("Computer Turn")
 		reset_computer_moves()
+			
 		ai.turn(computer_units.call(), player_units.call(), turns_played)
 		if ai.reinforcements == true:
-			var free_squares = map.get_free_square([0,11],[11,11])
+			var potential_reinforcement_squares = range(12).map(func(i): return [i, 11])
+			var free_squares = map.get_free_squares(potential_reinforcement_squares)
 			if free_squares != []:
 				for square in free_squares:
-					var x = square.x_coord
-					var y = square.y_coord
+					var x = square[0]
+					var y = square[1]
 					if len(ai.reinforcement_units) > 0:
 						map.place_piece("red", ai.reinforcement_units[0], [x,y], 3)
 						ai.reinforcement_units.pop_at(0)
 					else:
 						break
+		
+		if turns_played == 3.5:
+			map.place_piece("red", "wizard", [0,0], 3)
 		end_turn()
 
 

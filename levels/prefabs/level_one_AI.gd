@@ -4,6 +4,9 @@ extends Node2D
 var reinforcements = false
 var reinforcement_units = ["warrior", "warrior", "archer", "cavalry_warrior"]
 var game_over = false
+var viable_squares = []
+signal determine_viable_squares
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -36,21 +39,26 @@ func turn(computer_units, player_units, turns_played):
 				unit.movement_behaviour_id = 3
 				reinforcements = true
 		
-		if turns_played == 3.5:
-			print("PLACE WIZARD")
-			GameData.map.place_piece("red", "wizard", [0,0], 3)
-		
-		#if reinforcements == true:
-		#	var free_squares = GameData.get_free_square([0,11],[11,11])
-		#	if free_squares != []:
-		#		for square in free_squares:
-		#			var x = square.x_coord
-		#			var y = square.y_coord
-		#			if len(reinforcement_units) > 0:
-		#				GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
-		#				reinforcement_units.pop_at(0)
-		#			else:
-		#				break
+		#if turns_played == 3.5:
+		#	print("PLACE WIZARD")
+		#	GameData.map.place_piece("red", "wizard", [0,0], 3)
+			
+		if reinforcements == true:
+			var bounds = []
+			for x in range (0, 11):
+				for y in range(0,11):
+					bounds.append([x,y])
+
+			emit_signal("determine_viable_squares", "empty", self, bounds)			
+			if viable_squares != []:
+				for square in viable_squares:
+					var x = square.x_coord
+					var y = square.y_coord
+					if len(reinforcement_units) > 0:
+						GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
+						reinforcement_units.pop_at(0)
+					else:
+						break
 					
 		#GameData.end_turn()
 	else:
@@ -187,6 +195,7 @@ func calculate_best_ability_options(unit, player_units):
 	var chosen_ability = null
 	var chosen_location = null
 	for ability in unit.abilities_holder.get_children():
+		ability.determine_viable_squares()
 		#operating on the logic that later skills are more powerful
 		if ability.check_cooldown() == 0 && ability.has_viable_placements():
 			chosen_ability = ability.name
@@ -200,10 +209,10 @@ func calculate_best_ability_options(unit, player_units):
 				target = [0,0]
 			else:
 				target = target.unit_position
-				
-			for square in ability.viable_squares():
+			
+			for square in ability.viable_squares:
 				chosen_location = get_closest(target, chosen_location, square)
 				
 		else:
-			chosen_location = ability.viable_squares()[0]
+			chosen_location = ability.viable_squares[0]
 	return [chosen_ability, chosen_location]

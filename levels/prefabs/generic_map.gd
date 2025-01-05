@@ -19,6 +19,8 @@ var player_units = []
 var player_buildings = []
 
 signal update_minimap
+signal determine_viable_squares
+signal summon_unit
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
@@ -100,6 +102,8 @@ func instantiate_unit(colour, name, position, movement_id):
 	instance.unit_position = position
 	instance.movement_behaviour_id = movement_id
 	instance.update_minimap.connect(update_minimap_squares)
+	instance.determine_viable_squares.connect(determine_viable)
+	instance.summon_unit.connect(summon_unit_signal)
 
 	#instance.place_unit()
 	var square_parent = get_square(position[0], position[1])
@@ -112,6 +116,12 @@ func instantiate_unit(colour, name, position, movement_id):
 
 func update_minimap_squares():
 	emit_signal("update_minimap")
+
+func determine_viable(type_viable, entity, bounds):
+	emit_signal("determine_viable_squares", type_viable, entity, bounds)
+
+func summon_unit_signal(colour, name, position, movement_id):
+	emit_signal("summon_unit", colour, name, position, movement_id)
 
 func instantiate_building(color, building_name, building_position, building_behaviour):
 	var instance = building.instantiate()
@@ -185,7 +195,15 @@ func place_serialized_units(playerUnits, computerUnits):
 		instantiate_unit_detailed("red", unit.unit_name, unit.unit_position, unit.unit_movement_behaviour_id, unit.unit_health, unit.unit_max_health, unit.unit_moved, unit.unit_attacked)
 	
 
-
+func get_free_squares(bounds):
+	
+	var free_squares = []
+	for square in get_squares_from_array(bounds):
+		if square.has_unit() == false && square.has_building() == false:
+			free_squares.append([square.x_coord, square.y_coord])
+	
+	return free_squares
+	
 func get_free_square(bound_one, bound_two):
 	var free_squares = []
 	var possible_free_squares = get_squares(bound_one[0], bound_two[0], bound_one[1], bound_two[1])
@@ -203,4 +221,12 @@ func get_squares(x_one, x_two, y_one, y_two):
 			if x > -1 && x < width && y >-1 && y < height:
 				squares.append(get_square(x,y))
 	
+	return squares
+
+func get_squares_from_array(array_of_coords):
+	var squares = []
+	#print(array_of_coords)
+	for coord in array_of_coords:
+		#print("coord: ",coord)
+		squares.append(get_square(coord[0], coord[1]))
 	return squares

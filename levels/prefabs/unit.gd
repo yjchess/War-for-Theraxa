@@ -28,6 +28,8 @@ var y_max
 
 var movement_behaviour_id
 signal update_minimap
+signal determine_viable_squares
+signal summon_unit
 
 func _ready():
 	map = get_parent().get_parent().get_parent()
@@ -212,8 +214,18 @@ func instantiate_ability(ability_name):
 		var instance = ability_node.instantiate()
 		instance.ability_name = ability_name
 		instance.name         = ability_name
+		instance.determine_viable.connect(determine_viable)
+		instance.summon_unit.connect(summon_unit_signal)
 		abilities_holder.add_child(instance)
 
+func determine_viable(type_viable, entity, bounds):
+	#propagated through to map --> level
+	emit_signal("determine_viable_squares", type_viable, entity, bounds)
+
+func summon_unit_signal(colour, unit, unit_position, ai_movement_behaviour):
+	#propagated through to map --> level
+	emit_signal("summon_unit", colour, unit, unit_position, ai_movement_behaviour)
+	
 func apply_upgrades():
 	var warrior_upgrades = GameData.common_upgrades[0]
 	if unit_name == "warrior" && warrior_upgrades != [0,0]:

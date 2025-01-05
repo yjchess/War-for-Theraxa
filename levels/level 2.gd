@@ -44,7 +44,7 @@ func _ready():
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
 		GameData.is_loading = false
 		
-	GameData.update_minimap()
+	#GameData.update_minimap()
 	GameData.connect_button()
 	GameData.map = map
 	

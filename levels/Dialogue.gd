@@ -27,7 +27,7 @@ func new_dialogue():
 		return
 		
 	if current_dialogue > len(campaign_dialogue[current_dialogue_set])-1:
-		print(current_dialogue)
+		#print(current_dialogue)
 		current_dialogue_set += 1
 		current_dialogue = 0
 		emit_signal("enable_mouse")
@@ -63,7 +63,8 @@ func finished_without_skipping():
 		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
 		
 	elif start_new_dialogue == false:
-		var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
-		emit_signal("disable_mouse")
-		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
+		if current_dialogue < len(campaign_dialogue[current_dialogue_set])-1:
+			var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
+			emit_signal("disable_mouse")
+			emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
 		

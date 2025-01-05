@@ -22,3 +22,34 @@ Could do:
 	units cannot jump over other units - must go around
 2. Add transitions when changing scenes
 3. attack animation plays in the middle of screen when a unit attacks another unit i.e. advance wars
+
+
+
+
+Information:
+	
+	GameData
+	Level
+		Generic Map
+			TileMap
+			Squares
+				Square
+					Area2D
+						CollisionShape2D
+					Panel
+					Movable
+					Attackable
+					Abilitable
+					Unit
+						Abilities_Holder
+							<Ability>
+				<Square>
+				....
+		CanvasLayer
+			Control #contains minimap, ability buttons etc
+			MouseBlocker
+			Level_Menu
+		Camera2D
+		AI
+		Dialogue
+		Achievements
