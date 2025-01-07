@@ -21,6 +21,18 @@ var player_buildings = []
 signal update_minimap
 signal determine_viable_squares
 signal summon_unit
+
+signal square_selected
+signal unit_selected
+signal building_selected
+
+signal unit_attack
+signal unit_move
+signal unit_ability
+
+signal show_movable
+signal show_attackable
+signal show_abilitable
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
@@ -164,14 +176,38 @@ func instantiate_square(x,y):
 	instance.y_max      = height
 	instance.position.x = starting_square_location[0] + x*64
 	instance.position.y = starting_square_location[1] + y*64
-	instance.override_square_selected.connect(remove_previous_selected_square)
+	instance.square_selected.connect(square_selected_signal)
+	instance.unit_selected  .connect(unit_selected_signal)
+	instance.unit_attack    .connect(unit_attack_signal)
+	instance.unit_move      .connect(unit_move_signal)
+	instance.unit_ability   .connect(unit_ability_signal)
+	instance.show_movable   .connect(show_movable_signal)
+	instance.show_attackable.connect(show_attackable_signal)
+	instance.show_abilitable.connect(show_abilitable_signal)
 	squares.add_child(instance)
 	pass
+
+func square_selected_signal   (coords)           : emit_signal("square_selected"   , coords)
+func unit_selected_signal     (coords,     unit) : emit_signal("unit_selected"     , coords, unit    )
+func building_selected_signal (coords, building) : emit_signal("building_selected" , coords, building)
+
+func unit_attack_signal       (coords)           : emit_signal("unit_attack"       , coords)
+func unit_move_signal         (coords)           : emit_signal("unit_move"         , coords)
+func unit_ability_signal      (coords)           : emit_signal("unit_ability"      , coords)
+
+func show_movable_signal    (movable_squares)    : emit_signal("show_movable",       movable_squares)
+func show_attackable_signal (attackable_squares) : emit_signal("show_attackable", attackable_squares)
+func show_abilitable_signal (abilitable_squares) : emit_signal("show_abilitable", abilitable_squares)
 
 func get_square(x,y):
 	for square_instance in squares.get_children():
 		if square_instance.x_coord == x && square_instance.y_coord == y:
 			return square_instance
+
+func remove_actionable_ui():
+	get_tree().call_group("movable_square_UI"   , "hide")
+	get_tree().call_group("attackable_square_UI", "hide")
+	get_tree().call_group("abilitable_square_UI", "hide")
 
 func remove_previous_selected_square():
 	

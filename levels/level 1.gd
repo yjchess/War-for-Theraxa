@@ -19,6 +19,10 @@ var neutral_buildings = [[]]
 var player_units = []
 var computer_units = []
 
+var square_selected   = null
+var unit_selected     = null
+var building_selected = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameData.level = self
@@ -32,10 +36,23 @@ func _ready():
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
 		GameData.is_loading = false
 	
-	map.determine_viable_squares.connect(determine_viable_squares)
-	map.summon_unit.connect(summon)
-	player_units = func lambda(): return get_tree().get_nodes_in_group("player_unit")
+	map.square_selected.   connect  (square_selected_signal  )
+	map.unit_selected.     connect  (unit_selected_signal    )
+	map.building_selected. connect  (building_selected_signal)
+	
+	map.unit_attack.       connect  (unit_attack_signal      )
+	map.unit_move.         connect  (unit_move_signal        )
+	map.unit_ability.      connect  (unit_ability_signal     )
+	
+	map.determine_viable_squares.  connect  (determine_viable_squares)
+	map.summon_unit.               connect  (summon)
+	
+	map.show_movable.connect(show_movable_signal)
+	map.show_attackable.connect(show_attackable_signal)
+	
+	player_units   = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
+	
 	map.update_minimap.connect(ui.update_minimap_grid)
 	ui.update_minimap_grid()
 	ui.end_turn.connect(end_turn)
@@ -54,6 +71,50 @@ func _ready():
 	dialogue.new_dialogue()
 	
 
+func square_selected_signal(coords):
+	if square_selected == null:
+		square_selected = coords
+		return
+	
+	#if a square is selected twice, the square script automatically deselects it	
+	#if a square is selected without getting rid of the previous selected square and it isn't the same square:
+	elif square_selected != null:
+		#square_selected is now the previously selected square and must be deselected before replacing square_selected)
+		map.get_square(square_selected[0],square_selected[1]).deselect()
+		square_selected = coords
+		return
+	
+func unit_selected_signal(coords, unit):
+	unit_selected = unit
+	ui.update_portrait    (unit_selected.unit_portrait)
+	ui.update_description (unit_selected.unit_name, unit_selected.description)
+	ui.update_statistics  (unit_selected.health, unit_selected.max_health, unit_selected.melee_damage, unit_selected.ranged_damage, unit_selected.attack_range, unit_selected.movement_range)
+	ui.update_abilities   (unit_selected.abilities)
+
+func building_selected_signal(coords, building):
+	building_selected = building
+	ui.update_portrait    (building_selected.building_portrait)
+	ui.update_description (building_selected.building_name, building_selected.description)
+	ui.update_statistics  (building_selected.health, building_selected.max_health, 0, 0, 0, 0)
+	ui.update_abilities   (building_selected.abilities)
+
+func unit_attack_signal(coord):
+	unit_selected.attack(coord[0], coord[1])
+
+func unit_move_signal(coord):
+	unit_selected.move(coord[0],coord[1])
+	
+func unit_ability_signal():
+	pass
+
+func show_movable_signal(possible_moves):
+	for move in possible_moves:
+		map.get_square(move[0],move[1]).display_movable()
+
+func show_attackable_signal(possible_attacks):
+	for attack in possible_attacks:
+		map.get_square(attack[0], attack[1]).display_attackable()
+	
 func determine_viable_squares(type_viable, entity, bounds):
 	var viable_squares = []
 	var new_bounds = []
@@ -73,9 +134,7 @@ func summon(colour, unit, unit_position, ai_movement_behaviour):
 	map.place_piece(colour, unit, unit_position, ai_movement_behaviour)
 
 func check_winner():
-	#print(len(player_units.call()))
 	if len(player_units.call()) == 0:
-		#print("Player units are 0")
 		return "computer"
 	elif turns_played > 4 && len(computer_units.call()) == 0:
 		$AI.game_over = true

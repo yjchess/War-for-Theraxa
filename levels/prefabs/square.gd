@@ -7,7 +7,17 @@ var y_max: int
 var selected = false
 var map
 
-signal override_square_selected
+signal square_selected
+signal unit_selected
+signal building_selected
+
+signal unit_attack
+signal unit_move
+signal unit_ability
+
+signal show_attackable
+signal show_movable
+signal show_abilitable
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map = get_parent().get_parent()
@@ -35,64 +45,56 @@ func _on_area_2d_mouse_exited():
 func deselect():
 	change_panel_stylebox(2, "262626")
 	selected = false
-	GameData.selected_square = null
+	#GameData.selected_square = null
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		selected = !selected
 		
-		if $Attackable.visible == true:
-			GameData.selected_unit.attack(x_coord, y_coord)
+		if $Attackable.visible == true: emit_signal("unit_attack", [x_coord, y_coord])
 		
-		if $Movable.visible == true:
-			GameData.selected_unit.move(x_coord, y_coord)
+		if $Movable.   visible == true: emit_signal("unit_move", [x_coord, y_coord])
 		
-		if $Abilitable.visible == true:
-			GameData.selected_ability.use_ability(GameData.selected_ability.ability_name)
-			
+		if $Abilitable.visible == true: emit_signal("unit_ability", [x_coord, y_coord])
+		
+		get_tree().call_group("movable_square_UI"   , "hide")
+		get_tree().call_group("attackable_square_UI", "hide")
+		get_tree().call_group("abilitable_square_UI", "hide")
+		
 		if selected == true:
+			change_panel_stylebox(8, "goldenrod")
 			if get_node_or_null("Unit") != null && $Attackable.visible != true:
-				GameData.selected_building = null
-				GameData.selected_unit = $Unit
-				GameData.update_unit_ui()
+				#propagated: square --> generic_map --> level
+				emit_signal("unit_selected", [x_coord, y_coord], $Unit)
+
 			
 			elif get_node_or_null("Building") != null && $Attackable.visible != true:
-				GameData.selected_unit = null
-				GameData.selected_building = $Building
-				GameData.update_building_ui()
+				emit_signal("building_selected", [x_coord, y_coord], $Building)			
+
+			emit_signal("square_selected", [x_coord, y_coord])
 				
-			if GameData.selected_square != null:
-				emit_signal("override_square_selected")
-			
-			GameData.selected_square = [x_coord, y_coord]
-			change_panel_stylebox(8, "goldenrod")
 			
 			if self.get_node_or_null("Unit")!= null:
 				var unit = self.get_node_or_null("Unit")
 				if unit.unit_color =="blue":
-					for move in unit.get_unit_possible_moves():
-						map.get_square(move[0],move[1]).display_movable()
-					
-					for attack in unit.get_unit_possible_attacks():
-						map.get_square(attack[0], attack[1]).display_attackable()
+					emit_signal("show_movable",    unit.get_unit_possible_moves  ())
+					emit_signal("show_attackable", unit.get_unit_possible_attacks())
 
+		
 		else:
-			emit_signal("override_square_selected")
-			GameData.selected_square = null
-			change_panel_stylebox(2, "262626")
+			deselect()
+			emit_signal("square_selected", null)
+		#else:
+		#	emit_signal("override_square_selected")
+		#	GameData.selected_square = null
+		#	change_panel_stylebox(2, "262626")
 
-func display_movable():
-	get_node("Movable").visible = true
-
-func display_attackable():
-	get_node("Attackable").visible = true
-
-func display_abilitable():
-	get_node("Abilitable").visible = true
+func display_movable   (): get_node("Movable"   ).visible = true
+func display_attackable(): get_node("Attackable").visible = true
+func display_abilitable(): get_node("Abilitable").visible = true
 	
-func remove_unit():
-	get_node("Unit").queue_free()
+func remove_unit(): get_node("Unit").queue_free()
 
 func has_unit():
 	if get_node_or_null("Unit") != null: return true
