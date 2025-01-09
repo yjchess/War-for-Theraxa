@@ -25,8 +25,8 @@ var building_selected = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GameData.level = self
-	GameData.ui = ui
+	#GameData.level = self
+	#GameData.ui = ui
 	$AI.game_over = false
 	if GameData.is_loading == false:
 		GameData.turns_played = 0

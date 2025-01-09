@@ -5,7 +5,6 @@ var y_coord: int
 var x_max: int
 var y_max: int
 var selected = false
-var map
 
 signal square_selected
 signal unit_selected
@@ -20,7 +19,6 @@ signal show_movable
 signal show_abilitable
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	map = get_parent().get_parent()
 	add_to_group("squares")
 
 
@@ -85,10 +83,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		else:
 			deselect()
 			emit_signal("square_selected", null)
-		#else:
-		#	emit_signal("override_square_selected")
-		#	GameData.selected_square = null
-		#	change_panel_stylebox(2, "262626")
+
 
 func display_movable   (): get_node("Movable"   ).visible = true
 func display_attackable(): get_node("Attackable").visible = true
