@@ -1,5 +1,7 @@
 extends CanvasLayer
 @onready var minimap = $%minimap
+@export var minimap_width:int = 12
+@export var minimap_height:int = 12
 var minimap_square = preload("res://levels/prefabs/canvas/minimap_square.tscn")
 var victory_screen = preload("res://levels/prefabs/victory_screen.tscn")
 var defeat_screen = preload("res://levels/prefabs/defeat_screen.tscn")
@@ -12,7 +14,7 @@ var skipped = false
 var ability_button = preload("res://levels/prefabs/canvas/ability_button.tscn")
 
 func _ready():
-	minimap.columns = GameData.map_width
+	minimap.columns = minimap_width
 	populate_minimap_grid()
 	mouseblocker.mid_dialogue.connect(skip)
 
@@ -20,8 +22,8 @@ func skip():
 	skipped = true
 			
 func populate_minimap_grid():
-	for x in GameData.map_width:
-		for y in GameData.map_height:
+	for x in minimap_width:
+		for y in minimap_height:
 			var mini_square_instance = minimap_square.instantiate()
 			minimap.add_child(mini_square_instance)
 	

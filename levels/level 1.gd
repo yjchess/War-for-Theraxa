@@ -43,12 +43,8 @@ func _ready():
 	map.unit_attack.       connect  (unit_attack_signal      )
 	map.unit_move.         connect  (unit_move_signal        )
 	map.unit_ability.      connect  (unit_ability_signal     )
-	
-	map.determine_viable_squares.  connect  (determine_viable_squares)
-	map.summon_unit.               connect  (summon)
-	
-	map.show_movable.connect(show_movable_signal)
-	map.show_attackable.connect(show_attackable_signal)
+
+	map.player_unit_lost.connect(player_unit_lost_signal)
 	
 	player_units   = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
@@ -107,31 +103,12 @@ func unit_move_signal(coord):
 func unit_ability_signal():
 	pass
 
-func show_movable_signal(possible_moves):
-	for move in possible_moves:
-		map.get_square(move[0],move[1]).display_movable()
-
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
 		map.get_square(attack[0], attack[1]).display_attackable()
-	
-func determine_viable_squares(type_viable, entity, bounds):
-	var viable_squares = []
-	var new_bounds = []
-	
-	for coord in bounds:
-		if coord[0] > 0 and coord[1] > 0 and coord[0] < map.width and coord[1] < map.height:
-			new_bounds.append(coord)
-			
-	if "empty" in type_viable:
-		if  len(map.get_free_squares(new_bounds)) > 0:
-			for square in map.get_free_squares(new_bounds):
-				viable_squares.append(square)
-	
-	entity.viable_squares = viable_squares
 
-func summon(colour, unit, unit_position, ai_movement_behaviour):
-	map.place_piece(colour, unit, unit_position, ai_movement_behaviour)
+func player_unit_lost_signal():
+	lost_player_unit = true
 
 func check_winner():
 	if len(player_units.call()) == 0:

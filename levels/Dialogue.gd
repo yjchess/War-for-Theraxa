@@ -54,17 +54,9 @@ func finished_from_middle():
 func finished_without_skipping():
 	start_new_dialogue = false
 	current_dialogue += 1
-	#if a characters has finished speaking - move on to the next piece of dialogue if there is one
-	if start_new_dialogue == true:
-		current_dialogue += 1	
-		start_new_dialogue = false
-		var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
-		emit_signal("disable_mouse")
-		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
 		
-	elif start_new_dialogue == false:
-		if current_dialogue < len(campaign_dialogue[current_dialogue_set])-1:
-			var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
-			emit_signal("disable_mouse")
-			emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
-		
+	#if current_dialogue < len(campaign_dialogue[current_dialogue_set]):
+	#	await get_tree().create_timer(0.5).timeout
+	#	var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
+	#	emit_signal("disable_mouse")
+	#	emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)	

@@ -19,8 +19,6 @@ var player_units = []
 var player_buildings = []
 
 signal update_minimap
-signal determine_viable_squares
-signal summon_unit
 
 signal square_selected
 signal unit_selected
@@ -30,82 +28,50 @@ signal unit_attack
 signal unit_move
 signal unit_ability
 
-signal show_movable
-signal show_attackable
 signal show_abilitable
+
+signal player_unit_lost
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
-	#GameData.map = self
-	GameData.map_height = height
-	GameData.map_width = width
-	#GameData.ai = ai
 	
 	var starting_square_x = ((viewport_width / square_width) * square_width - square_width * width) / 2
 	var starting_square_y = ((viewport_height / square_height) * square_height - square_height * height) / 2
 	starting_square_location = [starting_square_x, starting_square_y] 
-	#GameData.starting_square_position = starting_square_location
 	
-	for y in height:
-		for x in width:
-		
-			instantiate_square(x,y)
+	for y in height: for x in width: instantiate_square(x,y)
 	
-	#GameData.squares = squares.get_children()
 	
 func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings):
 	
 	if player_pieces != [[]]:
 		for piece in player_pieces:
-			var color = "blue"
-			var unit = piece[0]
-			var unit_position = piece[1]
-			place_piece(color, unit, unit_position, null)
+			place_piece("blue", piece[0], piece[1], null)
 	
 	if computer_pieces != [[]]:
 		for piece in computer_pieces:
-			var color                 = "red"
-			var unit                  = piece[0]
-			var unit_position         = piece[1]
-			var ai_movement_behaviour = piece[2]
-			place_piece(color, unit, unit_position, ai_movement_behaviour)
+			place_piece("red", piece[0], piece[1], piece[2])
 	
 	if player_buildings != [[]]:
 		for building in player_buildings:
-			var color             = "blue"
-			var building_name     = building[0]
-			var building_position = building[1]
-			place_building(color, building_name, building_position, null)
-			pass
+			#place_building (colour, name, position, ai_behaviour)
+			place_building("blue",  building[0], building[1], null)
 	
 	if computer_buildings != [[]]:
 		for building in computer_buildings:
-			var color             = "red"
-			var building_name     = building[0]
-			var building_position = building[1]
-			place_building(color, building_name, building_position, null)
-			pass
+			place_building("red", building[0], building[1], null)
 			
 	if neutral_buildings != [[]]:
 		for building in neutral_buildings:
-			var color             = "dark_green"
-			var building_name     = building[0]
-			var building_position = building[1]
-			place_building(color, building_name, building_position, null)
-			pass
+			place_building("dark_green", building[0], building[1], null)
 	
-	#GameData.computer_units = computer_units
-	#GameData.player_units = player_units
-	#GameData.player_buildings = player_buildings
-	#GameData.computer_buildings = computer_buildings
+	
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
 	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
-	#GameData.update_minimap()
 
 func place_building(color, building_name, building_position, building_behaviour):
 	instantiate_building(color, building_name, building_position, building_behaviour)
-	#GameData.update_minimap()
 	
 func instantiate_unit(colour, name, position, movement_id):
 	var instance           = unit.instantiate()
@@ -114,8 +80,9 @@ func instantiate_unit(colour, name, position, movement_id):
 	instance.unit_position = position
 	instance.movement_behaviour_id = movement_id
 	instance.update_minimap.connect(update_minimap_squares)
-	instance.determine_viable_squares.connect(determine_viable)
-	instance.summon_unit.connect(summon_unit_signal)
+	instance.determine_viable_squares.connect(determine_viable_squares_signal)
+	instance.player_unit_lost.connect(player_unit_lost_signal)
+	instance.summon_unit.connect(place_piece)
 
 	#instance.place_unit()
 	var square_parent = get_square(position[0], position[1])
@@ -129,11 +96,24 @@ func instantiate_unit(colour, name, position, movement_id):
 func update_minimap_squares():
 	emit_signal("update_minimap")
 
-func determine_viable(type_viable, entity, bounds):
-	emit_signal("determine_viable_squares", type_viable, entity, bounds)
 
-func summon_unit_signal(colour, name, position, movement_id):
-	emit_signal("summon_unit", colour, name, position, movement_id)
+func determine_viable_squares_signal(type_viable, entity, bounds):
+	var viable_squares = []
+	var new_bounds = []
+	
+	for coord in bounds:
+		if coord[0] > 0 and coord[1] > 0 and coord[0] < width and coord[1] < height:
+			new_bounds.append(coord)
+			
+	if "empty" in type_viable:
+		if  len(get_free_squares(new_bounds)) > 0:
+			for square in get_free_squares(new_bounds):
+				viable_squares.append(square)
+	
+	entity.viable_squares = viable_squares
+
+func player_unit_lost_signal():
+	emit_signal("player_unit_lost")
 
 func instantiate_building(color, building_name, building_position, building_behaviour):
 	var instance = building.instantiate()
@@ -181,11 +161,11 @@ func instantiate_square(x,y):
 	instance.unit_attack    .connect(unit_attack_signal)
 	instance.unit_move      .connect(unit_move_signal)
 	instance.unit_ability   .connect(unit_ability_signal)
+	
 	instance.show_movable   .connect(show_movable_signal)
 	instance.show_attackable.connect(show_attackable_signal)
 	instance.show_abilitable.connect(show_abilitable_signal)
 	squares.add_child(instance)
-	pass
 
 func square_selected_signal   (coords)           : emit_signal("square_selected"   , coords)
 func unit_selected_signal     (coords,     unit) : emit_signal("unit_selected"     , coords, unit    )
@@ -195,33 +175,23 @@ func unit_attack_signal       (coords)           : emit_signal("unit_attack"    
 func unit_move_signal         (coords)           : emit_signal("unit_move"         , coords)
 func unit_ability_signal      (coords)           : emit_signal("unit_ability"      , coords)
 
-func show_movable_signal    (movable_squares)    : emit_signal("show_movable",       movable_squares)
-func show_attackable_signal (attackable_squares) : emit_signal("show_attackable", attackable_squares)
-func show_abilitable_signal (abilitable_squares) : emit_signal("show_abilitable", abilitable_squares)
+func show_abilitable_signal (possible_moves):
+	for move in possible_moves:
+		get_square(move[0],move[1]).display_abililtable()
+
+func show_movable_signal(possible_moves):
+	for move in possible_moves:
+		get_square(move[0],move[1]).display_movable()
+
+func show_attackable_signal(possible_attacks):
+	for attack in possible_attacks:
+		get_square(attack[0], attack[1]).display_attackable()
 
 func get_square(x,y):
 	for square_instance in squares.get_children():
 		if square_instance.x_coord == x && square_instance.y_coord == y:
 			return square_instance
 
-func remove_actionable_ui():
-	get_tree().call_group("movable_square_UI"   , "hide")
-	get_tree().call_group("attackable_square_UI", "hide")
-	get_tree().call_group("abilitable_square_UI", "hide")
-
-func remove_previous_selected_square():
-	
-	get_tree().call_group("movable_square_UI"   , "hide")
-	get_tree().call_group("attackable_square_UI", "hide")
-	get_tree().call_group("abilitable_square_UI", "hide")
-	
-	var previous_selected_square          = GameData.selected_square
-	if previous_selected_square != null:
-		var previous_selected_square_instance = get_square(previous_selected_square[0], previous_selected_square[1])
-		previous_selected_square_instance.deselect()
-
-#func update_minimap_squares():
-#	GameData.squares = squares.get_children()
 
 func place_serialized_units(playerUnits, computerUnits):
 	for unit in playerUnits:
@@ -261,8 +231,6 @@ func get_squares(x_one, x_two, y_one, y_two):
 
 func get_squares_from_array(array_of_coords):
 	var squares = []
-	#print(array_of_coords)
 	for coord in array_of_coords:
-		#print("coord: ",coord)
 		squares.append(get_square(coord[0], coord[1]))
 	return squares

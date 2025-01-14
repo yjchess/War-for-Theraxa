@@ -30,6 +30,7 @@ var movement_behaviour_id
 signal update_minimap
 signal determine_viable_squares
 signal summon_unit
+signal player_unit_lost
 
 func _ready():
 	map = get_parent().get_parent().get_parent()
@@ -202,7 +203,7 @@ func die():
 func signal_death():
 	emit_signal("update_minimap")
 	if unit_color == "blue":
-		GameData.level.lost_player_unit = true
+		emit_signal("player_unit_lost")
 
 func use_ability(ability_name, ability_location):
 	match ability_name:
