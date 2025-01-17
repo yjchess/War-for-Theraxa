@@ -117,7 +117,6 @@ func _ready():
 	
 func get_unit_possible_moves():
 	var possible_squares = []
-	#if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
 	if moved == false:
 		for x in range(unit_position[0] - movement_range, unit_position[0] + movement_range+1):
 			for y in range(unit_position[1] - movement_range, unit_position[1] + movement_range+1):
@@ -129,7 +128,6 @@ func get_unit_possible_moves():
 
 func get_unit_possible_attacks():
 	var possible_attacks = []
-	#if (player == "player" && GameData.turn == 1) || (player == "computer" && GameData.turn ==2):
 	if attacked == false:
 		for x in range(unit_position[0] - attack_range, unit_position[0] + attack_range+1):
 			for y in range(unit_position[1] - attack_range, unit_position[1] + attack_range + 1):
@@ -165,7 +163,6 @@ func move(x_coord, y_coord):
 	reparent(new_square, false)
 	unit_position = [x_coord, y_coord]
 	moved = true
-	#GameData.update_minimap()
 	emit_signal("update_minimap")
 
 
@@ -194,7 +191,6 @@ func load_unit_animations():
 	add_child(instance)
 
 func die():
-	#GameData.remove_unit_from_arrays(self)
 	tree_exited.connect(signal_death)
 	queue_free()
 	

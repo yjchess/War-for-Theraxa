@@ -39,9 +39,6 @@ func turn(computer_units, player_units, turns_played):
 				unit.movement_behaviour_id = 3
 				reinforcements = true
 		
-		#if turns_played == 3.5:
-		#	print("PLACE WIZARD")
-		#	GameData.map.place_piece("red", "wizard", [0,0], 3)
 			
 		if reinforcements == true:
 			var bounds = []

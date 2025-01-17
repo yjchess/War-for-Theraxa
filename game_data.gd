@@ -29,15 +29,6 @@ var serialized_player_units = []
 var serialized_computer_units = []
 var levels_unlocked = 1
 
-var selected_square
-var starting_square_position
-var selected_unit
-var selected_building
-var selected_ability
-
-var map_width
-var map_height
-
 #turn = 1 for player, 2 for computer
 var turns_played = 0
 var turn = 1

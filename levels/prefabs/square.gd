@@ -43,7 +43,6 @@ func _on_area_2d_mouse_exited():
 func deselect():
 	change_panel_stylebox(2, "262626")
 	selected = false
-	#GameData.selected_square = null
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 
