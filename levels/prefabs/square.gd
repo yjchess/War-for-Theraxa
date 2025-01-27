@@ -86,13 +86,6 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			deselect()
 			emit_signal("square_selected", null)
 
-
-func show_unit_movables(): emit_signal("show_movable",    self.get_node_or_null("Unit").get_unit_possible_moves  ())
-func show_unit_attackables(): emit_signal("show_attackable", self.get_node_or_null("Unit").get_unit_possible_attacks())
-func show_unit_melee_attackables(): emit_signal("show_attackable", self.get_node_or_null("Unit").get_unit_possible_melee_attacks())
-func show_unit_ranged_attackables(): emit_signal("show_attackable", self.get_node_or_null("Unit").get_unit_possible_ranged_attacks())
-func show_unit_buildables(buildable_squares): emit_signal("show_buildable", buildable_squares)
-
 func display_movable   (): get_node("Movable"   ).visible = true
 func display_attackable(): get_node("Attackable").visible = true
 func display_abilitable(): get_node("Abilitable").visible = true

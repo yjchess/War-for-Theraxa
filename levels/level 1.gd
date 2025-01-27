@@ -126,7 +126,6 @@ func unit_ability_signal(coord):
 	if ability_selected in buildings:
 		map.place_building("blue", ability_selected, coord, null)
 		unit_selected.built = true
-	pass
 
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
@@ -244,18 +243,17 @@ func determine_potential_enemies_signal(enemy_squares):
 
 func ability_pressed_signal(ability_name):
 	ability_selected = ability_name
+	hide_square_UIs()
 	match ability_name:
 		"movement": 
-			hide_square_UIs()
-			square_selected.show_unit_movables()
+			map.show_movable(unit_selected.get_unit_possible_moves())
 		"attack"  : 
-			hide_square_UIs()
-			square_selected.show_unit_melee_attackables()
+			map.show_attackable(unit_selected.get_unit_possible_melee_attacks())
+
 		"build"   : ui.show_build_menu("human")
 		"gather"  : pass
 		"ranged_attack":
-			hide_square_UIs()
-			square_selected.show_unit_ranged_attackables()
+			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
 		"return" : ui.update_abilities(unit_selected.abilities)
 		
 	match ability_name:
@@ -263,7 +261,7 @@ func ability_pressed_signal(ability_name):
 			
 			var buildable_squares = unit_selected.get_buildable_squares()
 			if buildable_squares != [] && unit_selected.can_build(ability_name, player_resources):
-				square_selected.show_unit_buildables(buildable_squares)
+				map.show_buildable(buildable_squares)
 				
 		"outpost":pass
 		"barracks":pass
@@ -277,6 +275,7 @@ func ability_unpressed_signal():
 func hide_square_UIs():
 	get_tree().call_group("attackable_square_UI", "hide")
 	get_tree().call_group("movable_square_UI","hide")
+	get_tree().call_group("abilitable_square_UI", "hide")
 #func save_game_signal():
 	#var serialized_computer_units = []
 	#var serialized_player_units = []

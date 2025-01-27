@@ -28,8 +28,6 @@ signal unit_attack
 signal unit_move
 signal unit_ability
 
-signal show_abilitable
-
 signal player_unit_lost
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -162,11 +160,6 @@ func instantiate_square(x,y):
 	instance.unit_move      .connect(unit_move_signal)
 	instance.unit_ability   .connect(unit_ability_signal)
 	
-	instance.show_movable   .connect(show_movable_signal)
-	instance.show_attackable.connect(show_attackable_signal)
-	instance.show_abilitable.connect(show_abilitable_signal)
-	instance.show_buildable.connect(show_buildable_signal)
-	
 	squares.add_child(instance)
 
 func square_selected_signal   (coords)           : emit_signal("square_selected"   , coords)
@@ -177,19 +170,19 @@ func unit_attack_signal       (coords)           : emit_signal("unit_attack"    
 func unit_move_signal         (coords)           : emit_signal("unit_move"         , coords)
 func unit_ability_signal      (coords)           : emit_signal("unit_ability"      , coords)
 
-func show_abilitable_signal (possible_moves):
+func show_abilitable (possible_moves):
 	for move in possible_moves:
 		get_square(move[0],move[1]).display_abililtable()
 
-func show_movable_signal(possible_moves):
+func show_movable(possible_moves):
 	for move in possible_moves:
 		get_square(move[0],move[1]).display_movable()
 
-func show_attackable_signal(possible_attacks):
+func show_attackable(possible_attacks):
 	for attack in possible_attacks:
 		get_square(attack[0], attack[1]).display_attackable()
 
-func show_buildable_signal(possible_builds):
+func show_buildable(possible_builds):
 	for build in possible_builds:
 		get_square(build[0], build[1]).display_abilitable()
 
