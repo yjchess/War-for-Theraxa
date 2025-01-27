@@ -1,11 +1,11 @@
 [gd_scene load_steps=30 format=3 uid="uid://46jqdxuq60m0"]
 
-[ext_resource type="Texture2D" uid="uid://qugb3r54vpqx" path="res://assets/icons/achievement_gem.png" id="1_j2h18"]
+[ext_resource type="Texture2D" uid="uid://qugb3r54vpqx" path="res://assets/icons/achievements/achievement_gem.png" id="1_j2h18"]
 [ext_resource type="Script" path="res://levels/castle.gd" id="1_qy6cp"]
-[ext_resource type="Texture2D" uid="uid://ds5ohtgolil1w" path="res://assets/icons/achievement_gem_special.png" id="2_hamf6"]
-[ext_resource type="Texture2D" uid="uid://doqydimqsjkgl" path="res://assets/icons/achievement_gem_super_special.png" id="3_0qly4"]
+[ext_resource type="Texture2D" uid="uid://ds5ohtgolil1w" path="res://assets/icons/achievements/achievement_gem_special.png" id="2_hamf6"]
+[ext_resource type="Texture2D" uid="uid://doqydimqsjkgl" path="res://assets/icons/achievements/achievement_gem_super_special.png" id="3_0qly4"]
 [ext_resource type="Texture2D" uid="uid://b8ynorjdwshoc" path="res://assets/portraits/warrior.png" id="3_8jvuo"]
-[ext_resource type="Texture2D" uid="uid://ctslxgjj3qr24" path="res://assets/icons/achievement_gem_disabled.png" id="4_mt43x"]
+[ext_resource type="Texture2D" uid="uid://ctslxgjj3qr24" path="res://assets/icons/achievements/achievement_gem_disabled.png" id="4_mt43x"]
 [ext_resource type="PackedScene" uid="uid://dujxdsw2effhk" path="res://levels/common_upgrade_display.tscn" id="4_n0w3o"]
 [ext_resource type="Texture2D" uid="uid://by2k145i0om63" path="res://assets/portraits/commander_jensen.png" id="7_ww8xm"]
 

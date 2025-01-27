@@ -8,9 +8,9 @@ extends VBoxContainer
 
 var upgraded = 0
 
-var disabled_gem = load("res://assets/icons/achievement_gem_disabled.png")
-var gold_gem     = load("res://assets/icons/achievement_gem.png")
-var blue_gem     = load("res://assets/icons/achievement_gem_special.png")
+var disabled_gem = load("res://assets/icons/achievements/achievement_gem_disabled.png")
+var gold_gem     = load("res://assets/icons/achievements/achievement_gem.png")
+var blue_gem     = load("res://assets/icons/achievements/achievement_gem_special.png")
 
 @onready var stylebox_one = $PanelContainer.get_theme_stylebox("panel")
 @onready var stylebox_two = $PanelContainer2.get_theme_stylebox("panel")
