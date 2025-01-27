@@ -110,6 +110,7 @@ func unit_selected_signal(coords, unit):
 
 func building_selected_signal(coords, building):
 	building_selected = building
+	print("BUILDING SELECTED", building_selected.building_portrait)
 	ui.update_portrait    (building_selected.building_portrait)
 	ui.update_description (building_selected.building_name, building_selected.description)
 	ui.update_statistics  (building_selected.health, building_selected.max_health, 0, 0, 0, 0)

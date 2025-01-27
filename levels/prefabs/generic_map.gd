@@ -156,6 +156,7 @@ func instantiate_square(x,y):
 	instance.position.y = starting_square_location[1] + y*64
 	instance.square_selected.connect(square_selected_signal)
 	instance.unit_selected  .connect(unit_selected_signal)
+	instance.building_selected.connect(building_selected_signal)
 	instance.unit_attack    .connect(unit_attack_signal)
 	instance.unit_move      .connect(unit_move_signal)
 	instance.unit_ability   .connect(unit_ability_signal)
