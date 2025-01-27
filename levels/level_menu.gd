@@ -1,5 +1,7 @@
 extends Control
-
+signal surrender
+signal save_game
+signal load_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,10 +19,11 @@ func _on_close_menu_pressed():
 
 func _on_surrender_pressed():
 	hide()
-	GameData.set_winner("computer")
+	emit_signal("surrender", "computer", [[false],[false],[false]], [[false],[false]], [[false]])
 
 
 func _on_save_game_pressed():
+	emit_signal("save_game")
 	GameData.save_game()
 
 

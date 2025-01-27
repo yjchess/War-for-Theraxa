@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnwquxlaphyev"]
+[gd_scene load_steps=5 format=3 uid="uid://cnwquxlaphyev"]
 
 [ext_resource type="Script" path="res://levels/level 2.gd" id="1_wjxps"]
 [ext_resource type="PackedScene" uid="uid://c5wkl5y85bqb0" path="res://levels/prefabs/generic_map.tscn" id="2_kjnsk"]
 [ext_resource type="PackedScene" uid="uid://dwgsx2w7idvfb" path="res://levels/prefabs/canvas/Level_UI.tscn" id="3_keloa"]
 [ext_resource type="Script" path="res://levels/prefabs/level_one_AI.gd" id="4_44nyi"]
-[ext_resource type="Script" path="res://levels/Dialogue.gd" id="5_p1ova"]
 
 [node name="Level Two" type="Node2D"]
 script = ExtResource("1_wjxps")
@@ -19,6 +18,3 @@ anchor_mode = 0
 
 [node name="AI" type="Node2D" parent="."]
 script = ExtResource("4_44nyi")
-
-[node name="Dialogue" type="Node2D" parent="."]
-script = ExtResource("5_p1ova")

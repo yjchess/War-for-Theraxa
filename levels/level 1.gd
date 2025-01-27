@@ -10,7 +10,7 @@ var turns_played = 0
 var turn = 1
 
 @onready var achievements = $Achievements
-var player_troops =   [["warrior", [1,10]],["warrior", [2,10]], ["archer", [1,11]],["archer", [2,11]], ["warrior", [9,10]],["warrior", [10,10]], ["archer", [9,11]],["archer", [10,11]]]
+var player_troops =   [["peasant", [1,10]],["warrior", [2,10]], ["archer", [1,11]],["archer", [2,11]], ["warrior", [9,10]],["warrior", [10,10]], ["archer", [9,11]],["archer", [10,11]]]
 var player_buildings = [[]]
 var computer_troops = [["warrior", [1,1], 3], ["warrior", [2,1], 3], ["cavalry_warrior", [1,0], 1], ["warrior", [9,1],3], ["warrior", [10,1],3], ["cavalry_warrior", [10,0],2]]
 var computer_buildings = [[]]
@@ -23,15 +23,17 @@ var square_selected   = null
 var unit_selected     = null
 var building_selected = null
 
-# Called when the node enters the scene tree for the first time.
+var ability_selected
+
+var player_resources = {"food":100, "gold":100}
+var computer_resources = {"food":0, "gold":0}
+
 func _ready():
-	#GameData.level = self
-	#GameData.ui = ui
-	$AI.game_over = false
+	
+	ai.game_over = false
 	if GameData.is_loading == false:
-		GameData.turns_played = 0
-		GameData.turn = 1
 		map.setup_board(player_troops, computer_troops, player_buildings, computer_buildings, neutral_buildings)
+		ui.update_resources(player_resources)
 	else:
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
 		GameData.is_loading = false
@@ -45,6 +47,7 @@ func _ready():
 	map.unit_ability.      connect  (unit_ability_signal     )
 
 	map.player_unit_lost.connect(player_unit_lost_signal)
+	ai.determine_potential_enemies.connect(determine_potential_enemies_signal)
 	
 	player_units   = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
@@ -52,7 +55,9 @@ func _ready():
 	map.update_minimap.connect(ui.update_minimap_grid)
 	ui.update_minimap_grid()
 	ui.end_turn.connect(end_turn)
-	GameData.map = map
+	ui.ability_pressed.connect(ability_pressed_signal)
+	ui.ability_unpressed.connect(ability_unpressed_signal)
+	#ui.save_game.connect(save_game_signal)
 	
 	#dialogue_finished means that the player let the dialogue run from start to finish
 	ui.dialogue_finished.connect(dialogue.finished_without_skipping)
@@ -68,16 +73,32 @@ func _ready():
 	
 
 func square_selected_signal(coords):
-	if square_selected == null:
-		square_selected = coords
+	
+	#coords are equal to null when a square has been deselected
+	if coords == null:
+		square_selected = null
+		ui.update_abilities([])
 		return
 	
-	#if a square is selected twice, the square script automatically deselects it	
+	var new_selected_square = map.get_square(coords[0], coords[1])
+	if new_selected_square.has_unit() == false:
+		unit_selected = null
+	if new_selected_square.has_building() == false:
+		building_selected = null
+	
+	if new_selected_square.has_unit() == false: #and new_selected_square.has_building() == false:
+		ui.update_abilities([])
+	
+	# if the previous square_selected is null - replace it with the new square	
+	if square_selected == null:
+		square_selected = new_selected_square
+		return
+	
 	#if a square is selected without getting rid of the previous selected square and it isn't the same square:
 	elif square_selected != null:
 		#square_selected is now the previously selected square and must be deselected before replacing square_selected)
-		map.get_square(square_selected[0],square_selected[1]).deselect()
-		square_selected = coords
+		square_selected.deselect()
+		square_selected = new_selected_square
 		return
 	
 func unit_selected_signal(coords, unit):
@@ -100,7 +121,11 @@ func unit_attack_signal(coord):
 func unit_move_signal(coord):
 	unit_selected.move(coord[0],coord[1])
 	
-func unit_ability_signal():
+func unit_ability_signal(coord):
+	var buildings = ["farm", "outpost", "archery_range", "castle", "stables"]
+	if ability_selected in buildings:
+		map.place_building("blue", ability_selected, coord, null)
+		unit_selected.built = true
 	pass
 
 func show_attackable_signal(possible_attacks):
@@ -114,7 +139,7 @@ func check_winner():
 	if len(player_units.call()) == 0:
 		return "computer"
 	elif turns_played > 4 && len(computer_units.call()) == 0:
-		$AI.game_over = true
+		ai.game_over = true
 		achievements.achievements[0][1] = true
 		evaluate_achievements()
 		return "player"
@@ -123,17 +148,17 @@ func check_winner():
 func evaluate_achievements():
 	GameData.previously_achieved = GameData.campaign_achievements[level_num-1].duplicate(true)
 
-	if $AI.reinforcements != true:
+	if ai.reinforcements != true:
 		achievements.achievements[1][1] = true
 	elif achievements.achievements[0][1] == true:
 		achievements.special_achievements[0][1] = true
 		
 	if lost_player_unit != true:
 		achievements.achievements[2][1] = true
-	if lost_player_unit != true && $AI.reinforcements == true:
+	if lost_player_unit != true && ai.reinforcements == true:
 		achievements.special_achievements[1][1] = true
 	
-	if GameData.campaign_upgrades == [] && len(player_units.call()) >=2 && $AI.reinforcements == true:
+	if GameData.campaign_upgrades == [] && len(player_units.call()) >=2 && ai.reinforcements == true:
 		achievements.super_special_achievements[0][1] = true
 	
 	
@@ -173,13 +198,12 @@ func end_turn():
 	#a full turn is when the player and computer both finish moving
 	turns_played += 0.5
 	turn += 1
-	print(str(turns_played) +" "+ str(turn))
+	
 	if turn == 3:
 		turn = 1
 		reset_player_moves()
 		
 	if turn == 2:
-		#GameData.turn = 2
 		print("Computer Turn")
 		reset_computer_moves()
 			
@@ -211,3 +235,75 @@ func reset_computer_moves():
 	for unit in computer_units.call():
 		unit.moved = false
 		unit.attacked = false
+
+func determine_potential_enemies_signal(enemy_squares):
+	var enemies = []
+	for square in enemy_squares:
+		enemies.append(map.get_square(square[0], square[1]).get_node("Unit"))
+	ai.potential_enemies = enemies
+
+func ability_pressed_signal(ability_name):
+	ability_selected = ability_name
+	match ability_name:
+		"movement": 
+			hide_square_UIs()
+			square_selected.show_unit_movables()
+		"attack"  : 
+			hide_square_UIs()
+			square_selected.show_unit_melee_attackables()
+		"build"   : ui.show_build_menu("human")
+		"gather"  : pass
+		"ranged_attack":
+			hide_square_UIs()
+			square_selected.show_unit_ranged_attackables()
+		"return" : ui.update_abilities(unit_selected.abilities)
+		
+	match ability_name:
+		"farm":
+			
+			var buildable_squares = unit_selected.get_buildable_squares()
+			if buildable_squares != [] && unit_selected.can_build(ability_name, player_resources):
+				square_selected.show_unit_buildables(buildable_squares)
+				
+		"outpost":pass
+		"barracks":pass
+		"archery_range":pass
+		"castle":pass
+		"stables":pass
+
+func ability_unpressed_signal():
+	hide_square_UIs()
+
+func hide_square_UIs():
+	get_tree().call_group("attackable_square_UI", "hide")
+	get_tree().call_group("movable_square_UI","hide")
+#func save_game_signal():
+	#var serialized_computer_units = []
+	#var serialized_player_units = []
+#
+	#for unit in player_units:
+	#	serialized_player_units.append({"unit_name": unit.unit_name, "unit_health": unit.health, "unit_max_health": unit.max_health, "unit_position": unit.unit_position, "unit_movement_behaviour_id": unit.movement_behaviour_id, "unit_moved":unit.moved, "unit_attacked":unit.attacked})
+	#
+	#for unit in computer_units:
+	#	serialized_computer_units.append({"unit_name": unit.unit_name, "unit_health": unit.health, "unit_max_health": unit.max_health, "unit_position": unit.unit_position, "unit_movement_behaviour_id": unit.movement_behaviour_id, "unit_moved":unit.moved, "unit_attacked":unit.attacked})
+	#
+	#var saveData = {}	
+	#var current_scene = get_tree().current_scene.scene_file_path
+	#saveData["currentScene"] = current_scene
+	#
+	#if "levels/level" in saveData["currentScene"]:
+	#	saveData["turnsPlayed"]   = turns_played
+	#	saveData["playerUnits"]   = serialized_player_units
+	#	saveData["computerUnits"] = serialized_computer_units
+	#
+	#saveData["commonUpgrades"]       = GameData.common_upgrades
+	#saveData["rareUpgrades"]         = GameData.rare_upgrades
+	#saveData["campaignUpgrades"]     = GameData.campaign_upgrades
+	#saveData["previouslyAchieved"]   = GameData.previously_achieved
+	#saveData["campaignAchievements"] = GameData.campaign_achievements
+	#saveData["levelsUnlocked"]       = GameData.levels_unlocked
+	#
+	#var jsonString = JSON.stringify(saveData)
+	#var jsonFile = FileAccess.open("res://savegame.json", FileAccess.WRITE)
+	#jsonFile.store_line(jsonString)
+	#jsonFile.close()

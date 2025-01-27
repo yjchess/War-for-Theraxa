@@ -30,8 +30,8 @@ func _ready():
 	map = get_parent().get_parent().get_parent()
 	#load_building_animations()
 	
-	x_max = GameData.map_width
-	y_max = GameData.map_height
+	x_max = 12
+	y_max = 12
 	
 	if building_color == "red": 
 		player = "computer"

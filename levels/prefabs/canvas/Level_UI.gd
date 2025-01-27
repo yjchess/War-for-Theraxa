@@ -7,6 +7,9 @@ var victory_screen = preload("res://levels/prefabs/victory_screen.tscn")
 var defeat_screen = preload("res://levels/prefabs/defeat_screen.tscn")
 signal end_turn
 signal dialogue_finished
+signal save_game
+signal ability_pressed
+signal ability_unpressed
 @onready var mouseblocker = $MouseBlocker/Area2D
 @onready var squares = get_tree().get_nodes_in_group("squares")
 var skipped = false
@@ -14,6 +17,8 @@ var skipped = false
 var ability_button = preload("res://levels/prefabs/canvas/ability_button.tscn")
 
 func _ready():
+	$Level_Menu.surrender.connect(show_winner)
+	$Level_Menu.save_game.connect(save_game_signal)
 	minimap.columns = minimap_width
 	populate_minimap_grid()
 	mouseblocker.mid_dialogue.connect(skip)
@@ -27,7 +32,6 @@ func populate_minimap_grid():
 			var mini_square_instance = minimap_square.instantiate()
 			minimap.add_child(mini_square_instance)
 	
-	#update_minimap_grid(GameData.squares)
 
 func update_minimap_grid():
 	for i in len(squares):
@@ -111,22 +115,55 @@ func show_winner(winner, achievements, special_achievements, super_special_achie
 		instance.show_previously_achieved(GameData.previously_achieved)
 		add_child(instance)
 
+func save_game_signal(): emit_signal("save_game")	
 
 func _on_open_menu_pressed():
 	$Level_Menu.visible = true
 
 func update_abilities(abilities):
-	if len(abilities) > 0:
-		var image
-		
+	if %abilities_container.get_child_count() > 0:
 		for ability_shown in %abilities_container.get_children():
 			ability_shown.queue_free()
-		
+			
+	if len(abilities) > 0:		
 		for ability in abilities:
 			var instance = ability_button.instantiate()
 			instance.ability_name = ability
+			instance.ability_pressed.connect(ability_pressed_signal)
+			instance.ability_unpressed.connect(ability_unpressed_signal)
 			%abilities_container.add_child(instance)
 	else:
 		if %abilities_container.get_child_count() > 0:
 			for ability_shown in %abilities_container.get_children():
 				ability_shown.queue_free()
+
+func ability_pressed_signal(ability_name):
+	emit_signal("ability_pressed", ability_name)
+
+func ability_unpressed_signal():
+	emit_signal("ability_unpressed")
+
+func show_build_menu(race):
+	if %abilities_container.get_child_count() > 0:
+		for ability_shown in %abilities_container.get_children():
+			ability_shown.queue_free()
+	
+	match race:
+		"human":
+			var human_buildings = ["farm", "outpost", "barracks", "archery_range", "castle", "stables"]
+			for building in human_buildings:
+				var instance = ability_button.instantiate()
+				instance.ability_name = building
+				instance.ability_pressed.connect(ability_pressed_signal)
+				instance.ability_unpressed.connect(ability_unpressed_signal)
+				%abilities_container.add_child(instance)
+				
+	var instance = ability_button.instantiate()
+	instance.ability_name = "return"
+	instance.ability_pressed.connect(ability_pressed_signal)
+	instance.ability_unpressed.connect(ability_unpressed_signal)
+	%abilities_container.add_child(instance)
+
+func update_resources(player_resources):
+	%Food.text = str(player_resources.food)
+	%Gold.text = str(player_resources.gold)

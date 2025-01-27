@@ -125,6 +125,7 @@ layout_mode = 2
 texture = ExtResource("1_6lhph")
 
 [node name="Food" type="Label" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_u1iey")
@@ -140,6 +141,7 @@ layout_mode = 2
 texture = ExtResource("3_5ewgd")
 
 [node name="Gold" type="Label" parent="Control/VBoxContainer/MarginContainer2/Resources/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_u1iey")

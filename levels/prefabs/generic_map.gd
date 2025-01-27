@@ -165,6 +165,8 @@ func instantiate_square(x,y):
 	instance.show_movable   .connect(show_movable_signal)
 	instance.show_attackable.connect(show_attackable_signal)
 	instance.show_abilitable.connect(show_abilitable_signal)
+	instance.show_buildable.connect(show_buildable_signal)
+	
 	squares.add_child(instance)
 
 func square_selected_signal   (coords)           : emit_signal("square_selected"   , coords)
@@ -186,6 +188,10 @@ func show_movable_signal(possible_moves):
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
 		get_square(attack[0], attack[1]).display_attackable()
+
+func show_buildable_signal(possible_builds):
+	for build in possible_builds:
+		get_square(build[0], build[1]).display_abilitable()
 
 func get_square(x,y):
 	for square_instance in squares.get_children():

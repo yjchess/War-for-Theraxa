@@ -5,16 +5,9 @@ var reinforcements = false
 var reinforcement_units = ["warrior", "warrior", "archer", "cavalry_warrior"]
 var game_over = false
 var viable_squares = []
-signal determine_viable_squares
+var potential_enemies = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+signal determine_potential_enemies
 
 func turn(computer_units, player_units, turns_played):
 	if game_over == false:
@@ -38,26 +31,6 @@ func turn(computer_units, player_units, turns_played):
 			if unit.unit_position[1] == 11:
 				unit.movement_behaviour_id = 3
 				reinforcements = true
-		
-			
-		if reinforcements == true:
-			var bounds = []
-			for x in range (0, 11):
-				for y in range(0,11):
-					bounds.append([x,y])
-
-			emit_signal("determine_viable_squares", "empty", self, bounds)			
-			if viable_squares != []:
-				for square in viable_squares:
-					var x = square.x_coord
-					var y = square.y_coord
-					if len(reinforcement_units) > 0:
-						GameData.map.place_piece("red", reinforcement_units[0], [x,y], 3)
-						reinforcement_units.pop_at(0)
-					else:
-						break
-					
-		#GameData.end_turn()
 	else:
 		print("GAME OVER")
 
@@ -172,15 +145,9 @@ func greatest_damage_weakest_enemy(unit):
 	var lowest_health = 999
 	var lowest_enemy
 	var potential_enemies_squares = unit.get_unit_possible_attacks()
-	var potential_enemies = []
 	
-	if len(potential_enemies_squares) == 0:
-		return null
-
-	
-	for square in potential_enemies_squares:
-		potential_enemies.append(GameData.map.get_square(square[0], square[1]).get_node("Unit"))
-	
+	if len(potential_enemies_squares) == 0: return null
+	emit_signal("determine_potential_enemies", potential_enemies_squares)
 	for enemy in potential_enemies:
 		if enemy.health < lowest_health:
 			lowest_enemy = enemy

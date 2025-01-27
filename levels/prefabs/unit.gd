@@ -14,6 +14,7 @@ var ranged_damage = 0
 var attack_range
 var moved = false
 var attacked = false
+var built = false
 var player
 var description
 var kills = 0
@@ -107,10 +108,18 @@ func _ready():
 		for ability in abilities:
 			instantiate_ability(ability)
 	
-	var common_abilities = ["movement", "attack", "build", "gather", "ranged_attack"]
+	var common_abilities = ["movement", "attack"]
+	var common_abilities_optional = ["ranged_attack", "build", "gather"]
 	for ability in common_abilities:
 		abilities.append(ability)
 	
+	if attack_range > 1:
+		abilities.append(common_abilities_optional[0])
+	
+	if unit_name == "peasant":
+		abilities.append(common_abilities_optional[1])
+		abilities.append(common_abilities_optional[2])	
+
 	#apply player upgrades
 	if unit_color == "blue":
 		apply_upgrades()
@@ -136,6 +145,37 @@ func get_unit_possible_attacks():
 	else:
 		return []
 
+func get_buildable_squares():
+	if unit_name != "peasant" || built == true:
+		return []
+	else:
+		var possible_building_locations = []
+		for x in range(unit_position[0] - 1, unit_position[0] + 2):
+			for y in range(unit_position[1] - 1, unit_position[1] + 2):
+				possible_building_locations.append([x,y])
+		
+		return validate_possible_moves(possible_building_locations)
+
+func get_unit_possible_melee_attacks():
+	var possible_attacks = []
+	if attacked == false && attack_range >= 1:
+		for x in range(unit_position[0] - 1, unit_position[0] + 2):
+			for y in range(unit_position[1] - 1, unit_position[1] + 2):
+				possible_attacks.append([x,y])
+		return validate_possible_attacks(possible_attacks)
+	else:
+		return []
+
+func get_unit_possible_ranged_attacks():
+	var all_possible_attacks = get_unit_possible_attacks()
+	var all_possible_melee_attacks = get_unit_possible_melee_attacks()
+	var all_possible_ranged_attacks = []
+
+	for attack in all_possible_attacks:
+		if attack not in all_possible_melee_attacks:
+			all_possible_ranged_attacks.append(attack)
+	return all_possible_ranged_attacks
+	
 func validate_possible_moves(moves):
 	var validated_moves = []
 	#var in_bounds = false
@@ -293,3 +333,8 @@ func get_ability(ability_name):
 	for ability in abilities_holder:
 		if ability.name == ability_name:
 			return ability
+
+func can_build(building, resources):
+	match building:
+		"farm": if resources.food >= 50: return true
+		"outpost": if resources.food >= 10 && resources.gold >= 10: return true
