@@ -126,6 +126,12 @@ func unit_ability_signal(coord):
 	if ability_selected in buildings:
 		map.place_building("blue", ability_selected, coord, null)
 		unit_selected.built = true
+		
+		var building_costs = GC.get_constant(ability_selected)
+		print(building_costs)
+		player_resources.food -= building_costs.food_cost
+		player_resources.gold -= building_costs.gold_cost
+		ui.update_resources(player_resources)
 
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
@@ -229,11 +235,13 @@ func reset_player_moves():
 	for unit in player_units.call():
 		unit.moved = false	
 		unit.attacked = false
+		unit.built = false
 
 func reset_computer_moves():
 	for unit in computer_units.call():
 		unit.moved = false
 		unit.attacked = false
+		unit.built = false
 
 func determine_potential_enemies_signal(enemy_squares):
 	var enemies = []
