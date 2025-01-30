@@ -133,6 +133,16 @@ func unit_ability_signal(coord):
 		player_resources.food -= building_costs.food_cost
 		player_resources.gold -= building_costs.gold_cost
 		ui.update_resources(player_resources)
+	
+	var units = ["train_warrior","train_archer"]
+	if ability_selected in units:
+		map.summon("blue", ability_selected, coord, null)
+		building_selected.built = true
+		
+		#var unit_costs = GC.get_constant(ability_selected)
+		#player_resources.food -= unit_costs.food_cost
+		#player_resources.gold -= unit_costs.gold_cost
+		#ui.update_resources(player_resources)
 
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
@@ -277,6 +287,12 @@ func ability_pressed_signal(ability_name):
 		"archery_range":pass
 		"castle":pass
 		"stables":pass
+	
+	match ability_name:
+		"train_archer":
+			var buildable_squares = building_selected.get_buildable_squares()
+			if buildable_squares != [] && building_selected.can_build(ability_name, player_resources):
+				map.show_buildable(buildable_squares)
 
 func ability_unpressed_signal():
 	hide_square_UIs()

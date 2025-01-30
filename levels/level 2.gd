@@ -30,6 +30,8 @@ var start_new_dialogue = false
 var player_units = []
 var computer_units = []
 
+var ability_selected
+
 var square_selected   = null
 var unit_selected     = null
 var building_selected = null
@@ -42,6 +44,9 @@ var campaign_dialogue = [
 		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]TEST2! sad asd dsa[/b]"},
 	]
 ]
+
+var player_resources = {"food":100, "gold":100}
+var computer_resources = {"food":0, "gold":0}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -136,8 +141,22 @@ func unit_attack_signal(coord):
 func unit_move_signal(coord):
 	unit_selected.move(coord[0],coord[1])
 	
-func unit_ability_signal():
-	pass
+func unit_ability_signal(coord):
+	var buildings = ["farm", "outpost", "archery_range", "castle", "stables"]
+	if ability_selected in buildings:
+		map.place_building("blue", ability_selected, coord, null)
+		unit_selected.built = true
+		
+		var building_costs = GC.get_constant(ability_selected)
+		print(building_costs)
+		player_resources.food -= building_costs.food_cost
+		player_resources.gold -= building_costs.gold_cost
+		ui.update_resources(player_resources)
+	
+	var units = ["train_warrior","train_archer"]
+	if ability_selected in units:
+		map.place_piece("blue", "archer", coord, null)
+		building_selected.built = true
 
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
@@ -254,27 +273,38 @@ func determine_potential_enemies_signal(enemy_squares):
 	ai.potential_enemies = enemies
 
 func ability_pressed_signal(ability_name):
+	ability_selected = ability_name
+	hide_square_UIs()
 	match ability_name:
 		"movement": 
-			hide_square_UIs()
-			square_selected.show_unit_movables()
+			map.show_movable(unit_selected.get_unit_possible_moves())
 		"attack"  : 
-			hide_square_UIs()
-			square_selected.show_unit_melee_attackables()
+			map.show_attackable(unit_selected.get_unit_possible_melee_attacks())
+
 		"build"   : ui.show_build_menu("human")
 		"gather"  : pass
 		"ranged_attack":
-			hide_square_UIs()
-			square_selected.show_unit_ranged_attackables()
+			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
 		"return" : ui.update_abilities(unit_selected.abilities)
-	
+		
 	match ability_name:
-		"farm":pass
+		"farm":
+			
+			var buildable_squares = unit_selected.get_buildable_squares()
+			if buildable_squares != [] && unit_selected.can_build(ability_name, player_resources):
+				map.show_buildable(buildable_squares)
+				
 		"outpost":pass
 		"barracks":pass
 		"archery_range":pass
 		"castle":pass
 		"stables":pass
+	
+	match ability_name:
+		"train_archer":
+			var buildable_squares = building_selected.get_buildable_squares()
+			if buildable_squares != [] && building_selected.can_build(ability_name, player_resources):
+				map.show_buildable(buildable_squares)
 
 func ability_unpressed_signal():
 	hide_square_UIs()

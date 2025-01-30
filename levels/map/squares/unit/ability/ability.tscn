@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg4ybi2mx320j"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/ability/Ability.gd" id="1_l0ita"]
+
+[node name="Ability" type="Node2D" groups=["abilities"]]
+script = ExtResource("1_l0ita")

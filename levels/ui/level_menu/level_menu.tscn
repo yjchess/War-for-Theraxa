@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqeiu1prvmjvg"]
+
+[ext_resource type="Script" path="res://levels/ui/level_menu/level_menu.gd" id="1_3ykut"]
+[ext_resource type="Theme" uid="uid://b45ll6nreyph4" path="res://menus/menu_prefabs_and_resources/main_button_theme.tres" id="2_s2uxj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auwut"]
+bg_color = Color(0.603922, 0.411765, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.231373, 0.14902, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Level_Menu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ykut")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(700, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -400.0
+offset_right = 350.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_auwut")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 60
+
+[node name="Surrender" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s2uxj")
+theme_override_font_sizes/font_size = 50
+text = "Surrender"
+
+[node name="Load Save" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s2uxj")
+theme_override_font_sizes/font_size = 50
+text = "Load Save"
+
+[node name="Save Game" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s2uxj")
+theme_override_font_sizes/font_size = 50
+text = "Save Game"
+
+[node name="Settings" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s2uxj")
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="Close Menu" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_s2uxj")
+theme_override_font_sizes/font_size = 50
+text = "Close Menu"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Surrender" to="." method="_on_surrender_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Load Save" to="." method="_on_load_save_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Save Game" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Close Menu" to="." method="_on_close_menu_pressed"]
