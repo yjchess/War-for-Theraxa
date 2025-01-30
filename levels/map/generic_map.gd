@@ -160,7 +160,8 @@ func instantiate_square(x,y):
 	instance.unit_attack    .connect(unit_attack_signal)
 	instance.unit_move      .connect(unit_move_signal)
 	instance.unit_ability   .connect(unit_ability_signal)
-	
+	instance.show_movable   .connect(show_movable)
+	instance.show_attackable.connect(show_attackable)
 	squares.add_child(instance)
 
 func square_selected_signal   (coords)           : emit_signal("square_selected"   , coords)
