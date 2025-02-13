@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7a4iin72bl7q"
-path="res://.godot/imported/train_archer.png-1485a2b16f57de4ca9e443f796c76217.ctex"
+uid="uid://fkypxyggbmiy"
+path="res://.godot/imported/skeleton_warrior.png-b731efaeeba434e6c2640134a0ac1d3f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/train_archer.png"
-dest_files=["res://.godot/imported/train_archer.png-1485a2b16f57de4ca9e443f796c76217.ctex"]
+source_file="res://assets/portraits/skeleton_warrior.png"
+dest_files=["res://.godot/imported/skeleton_warrior.png-b731efaeeba434e6c2640134a0ac1d3f.ctex"]
 
 [params]
 

@@ -145,9 +145,12 @@ func greatest_damage_weakest_enemy(unit):
 	var lowest_health = 999
 	var lowest_enemy
 	var potential_enemies_squares = unit.get_unit_possible_attacks()
-	
+	if potential_enemies_squares == null: potential_enemies_squares = []
 	if len(potential_enemies_squares) == 0: return null
 	emit_signal("determine_potential_enemies", potential_enemies_squares)
+	if len(potential_enemies) == 0: return null
+
+	
 	for enemy in potential_enemies:
 		if enemy.health < lowest_health:
 			lowest_enemy = enemy

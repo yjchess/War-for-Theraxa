@@ -19,7 +19,7 @@ func _on_close_menu_pressed():
 
 func _on_surrender_pressed():
 	hide()
-	emit_signal("surrender", "computer", [[false],[false],[false]], [[false],[false]], [[false]])
+	emit_signal("surrender")
 
 
 func _on_save_game_pressed():

@@ -23,7 +23,7 @@ var abilities = []
 var ability_node = preload("res://levels/map/squares/unit/ability/ability.tscn")
 @onready var abilities_holder = $Abilities_Holder
 @onready var square = get_parent()
-
+@onready var sprite = $AnimatedSprite2D
 var x_max
 var y_max
 
@@ -49,6 +49,7 @@ func _ready():
 	else: player = "neutral"
 	
 	match unit_name:
+
 		"peasant":
 			movement_range = 2
 			health         = 3
@@ -98,9 +99,54 @@ func _ready():
 			melee_damage   = 3
 			ranged_damage  = 0
 			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/wizard.png"
+			unit_portrait  = "res://assets/portraits/skeleton_warrior.png"
 			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
-	
+		
+		"goblin_slave":
+			movement_range = 4
+			health = 1
+			melee_damage = 1
+			ranged_damage = 0
+			attack_range = 1
+			unit_portrait = "res://assets/portraits/goblin_slave.png"
+			description = "Goblins: considered an inferior species by the undead, serve as the scouting cannon fodder of the undead. They are fast but weak and not worth turning into an undead minion. Instead they are used to find burial sites, and perform tasks that require speed (a characteristic not usually owned by the undead)"
+		
+		"skeleton_warrior":
+			movement_range = 1
+			health         = 3
+			melee_damage   = 3
+			ranged_damage  = 0
+			attack_range   = 1
+			unit_portrait  = "res://assets/portraits/skeleton_warrior.png"
+			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
+
+		"skeleton_archer":
+			movement_range = 1
+			health         = 3
+			melee_damage   = 1
+			ranged_damage  = 3
+			attack_range   = 3
+			unit_portrait  = "res://assets/portraits/skeleton_archer.png"
+			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
+
+		"necromancer":
+			movement_range = 1
+			health         = 3
+			melee_damage   = 1
+			ranged_damage  = 3
+			attack_range   = 3
+			unit_portrait  = "res://assets/portraits/necromancer.png"
+			description    = "Wizards past the point of no return. Once a wizard has meddled with the dark arts enough, their minds and bodies oft become corrupted and begin to resemble the undead creatures of which they reign over."
+
+		"old_man":
+			movement_range = 1
+			health         = 3
+			melee_damage   = 1
+			ranged_damage  = 0
+			attack_range   = 0
+			unit_portrait  = "res://assets/portraits/old_man.png"
+			description    = "An old man too stubborn to evacuate his house"
+
 	max_health = health
 	unit_position = [square.x_coord, square.y_coord]
 	

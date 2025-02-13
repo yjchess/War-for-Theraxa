@@ -1,4 +1,6 @@
 extends Node2D
+class_name Building
+
 var building_name
 var building_color
 var building_position
@@ -50,7 +52,7 @@ func _ready():
 			description        = "The training facility for melee soldiers."
 			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
 			sprite.scale       = Vector2(0.5, 0.5)
-			abilities          = ["train_warrior"]
+			abilities          = ["warrior"]
 
 		"archery_range":
 			health             = 15
@@ -58,7 +60,7 @@ func _ready():
 			description        = "The training facility for ranged units."
 			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
 			sprite.scale       = Vector2(0.5, 0.5)
-			abilities          = ["train_archer"]
+			abilities          = ["archer"]
 		
 		"stables":
 			health             = 15
@@ -66,7 +68,7 @@ func _ready():
 			description        = "The training facility for mounted units."
 			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
 			sprite.scale       = Vector2(0.5, 0.5)
-			abilities          = ["train_cavalry_warrior"]
+			abilities          = ["cavalry_warrior"]
 			
 		"forest":
 			health            = 1
@@ -99,6 +101,22 @@ func _ready():
 			sprite.texture    = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
 			sprite.scale      = Vector2(1,1)
 			sprite.offset     = Vector2(32,32)
+		
+		"grave":
+			health = 15
+			building_portrait = "res://assets/neutral/Grave.png"
+			description       = "A grave containing a corpse."
+			sprite.texture    = load("res://assets/neutral/Grave.png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"house":
+			health = 15
+			building_portrait = "res://assets/neutral/house.png"
+			description       = "A human dwelling. May contain humans."
+			sprite.texture    = load("res://assets/neutral/house.png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
 
 	max_health = health
 	building_position = [square.x_coord, square.y_coord]
@@ -118,11 +136,11 @@ func receive_attack(damage, status_effects):
 	if status_effects == null:
 		pass
 	
-func load_building_animations():
-	var animated_sprite = load("res://levels/prefabs/animations/"+building_color+"_"+building_name+".tscn")
-	#var animated_sprite = load("res://levels/prefabs/animations/"+building_color+"_"+building_name+".tscn")
-	var instance = animated_sprite.instantiate()
-	add_child(instance)
+#func load_building_animations():
+#	var animated_sprite = load("res://levels/prefabs/animations/"+building_color+"_"+building_name+".tscn")
+#	#var animated_sprite = load("res://levels/prefabs/animations/"+building_color+"_"+building_name+".tscn")
+#	var instance = animated_sprite.instantiate()
+#	add_child(instance)
 
 func die():
 	GameData.remove_unit_from_buildings(self)
@@ -167,7 +185,7 @@ func validate_possible_moves(moves):
 
 func can_build(unit, resources):
 	match unit:
-		"train_archer": if resources.food >= 50: return true
+		"archer": if resources.food >= 50: return true
 
 
 func apply_upgrades():

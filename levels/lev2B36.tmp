@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c5wkl5y85bqb0" path="res://levels/map/generic_map.tscn" id="2_kjnsk"]
 [ext_resource type="PackedScene" uid="uid://dwgsx2w7idvfb" path="res://levels/ui/Level_UI.tscn" id="3_keloa"]
 [ext_resource type="Script" path="res://levels/ai/level_one_AI.gd" id="4_v01y7"]
-[ext_resource type="Script" path="res://levels/dialogue/dialogue 2.gd" id="5_hwqi0"]
+[ext_resource type="Script" path="res://levels/Dialogue/Dialogue.gd" id="5_p1ova"]
 [ext_resource type="Script" path="res://levels/achievements/Achievements.gd" id="6_yfw16"]
 
 [node name="Level Two" type="Node2D"]
@@ -22,7 +22,7 @@ anchor_mode = 0
 script = ExtResource("4_v01y7")
 
 [node name="Dialogue" type="Node2D" parent="."]
-script = ExtResource("5_hwqi0")
+script = ExtResource("5_p1ova")
 
 [node name="Achievements" type="Node2D" parent="."]
 script = ExtResource("6_yfw16")

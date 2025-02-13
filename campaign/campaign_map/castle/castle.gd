@@ -14,7 +14,7 @@ func _ready():
 
 
 func _on_map_button_pressed():
-	get_tree().change_scene_to_file("res://menus/campaign_map.tscn")
+	get_tree().change_scene_to_file("res://campaign/campaign_map/campaign_map.tscn")
 	pass # Replace with function body.
 
 func show_upgrade_options(upgrade_descriptions, gems, portrait, unit_name):

@@ -40,15 +40,14 @@ func _ready():
 	for y in height: for x in width: instantiate_square(x,y)
 	
 	
-func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings):
-	
-	if player_pieces != [[]]:
+func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings, neutral_pieces):
+	if player_pieces != []:
 		for piece in player_pieces:
-			place_piece("blue", piece[0], piece[1], null)
+			place_piece("blue", piece.unit_name, piece.unit_location, null)
 	
-	if computer_pieces != [[]]:
+	if computer_pieces != []:
 		for piece in computer_pieces:
-			place_piece("red", piece[0], piece[1], piece[2])
+			place_piece("red", piece.unit_name, piece.unit_location, piece.ai_behaviour)
 	
 	if player_buildings != [[]]:
 		for building in player_buildings:
@@ -63,6 +62,10 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 		for building in neutral_buildings:
 			place_building("dark_green", building[0], building[1], null)
 	
+	if neutral_pieces != [[]]:
+		for piece in neutral_pieces:
+			place_piece("", piece.unit_name, piece.unit_location, piece.ai_behaviour)
+			
 	
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
@@ -86,6 +89,8 @@ func instantiate_unit(colour, name, position, movement_id):
 	var square_parent = get_square(position[0], position[1])
 	square_parent.add_child(instance)
 	if instance.unit_color == "red":
+		instance.moved = true
+		instance.attacked = true
 		computer_units.append(instance)
 	elif instance.unit_color == "blue":
 		player_units.append(instance)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8jv8xk7qgl33"
-path="res://.godot/imported/train_warrior.png-6296f5c3f970d38cd7c8dda431ef7bd1.ctex"
+uid="uid://5wuob1xn0asc"
+path="res://.godot/imported/red_lich.png-9fd3c371ad4987d0d454f8803eec1cab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/train_warrior.png"
-dest_files=["res://.godot/imported/train_warrior.png-6296f5c3f970d38cd7c8dda431ef7bd1.ctex"]
+source_file="res://assets/undead/red/units/red_lich.png"
+dest_files=["res://.godot/imported/red_lich.png-9fd3c371ad4987d0d454f8803eec1cab.ctex"]
 
 [params]
 

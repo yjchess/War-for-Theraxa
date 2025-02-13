@@ -19,6 +19,7 @@ func _ready():
 		enable()
 	
 	if already_achieved:
+		print("Already Achieved")
 		disabled.hide()
 
 func enable():

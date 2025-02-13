@@ -1,4 +1,6 @@
 extends Node2D
+
+class_name Ability
 var ability_name = "summon_skeleton"
 var cooldown = 1
 var cooldown_progress = 1

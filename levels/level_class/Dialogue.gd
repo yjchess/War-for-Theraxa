@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name Dialogue
 
 var current_dialogue = 0
 var current_dialogue_set = 0
@@ -7,7 +7,7 @@ var in_dialogue = true
 var start_new_dialogue = false
 
 var keys = ["portrait", "name", "description"]
-var campaign_dialogue = [
+@export var campaign_dialogue = [
 	[
 		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses![/b]"},
 		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]TEST! Test test test[/b]"},
@@ -46,7 +46,7 @@ func new_dialogue():
 		emit_signal("disable_mouse")
 		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
 		
-	
+
 func finished_from_middle():
 	start_new_dialogue = false
 	current_dialogue += 1

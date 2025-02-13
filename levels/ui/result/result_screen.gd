@@ -56,9 +56,8 @@ func create_achievement(type, tooltip, display):
 func _on_redo_pressed():
 	get_tree().reload_current_scene()
 
-
 func _on_next_pressed():
-	get_tree().change_scene_to_file("res://levels/castle.tscn")
+	get_tree().change_scene_to_file("res://campaign/campaign_map/castle/castle.tscn")
 
 func _on_map_pressed():
-	get_tree().change_scene_to_file("res://menus/campaign_map.tscn")
+	get_tree().change_scene_to_file("res://campaign/campaign_map/campaign_map.tscn")

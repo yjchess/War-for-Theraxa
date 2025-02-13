@@ -13,5 +13,5 @@ func _process(delta):
 
 
 func _on_campaign_pressed():
-	get_tree().change_scene_to_file("res://menus/campaign_map.tscn")
+	get_tree().change_scene_to_file("res://campaign/campaign_map/campaign_map.tscn")
 	pass # Replace with function body.

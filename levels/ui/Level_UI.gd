@@ -10,6 +10,7 @@ signal dialogue_finished
 signal save_game
 signal ability_pressed
 signal ability_unpressed
+signal surrender
 @onready var mouseblocker = $MouseBlocker/Area2D
 @onready var squares = get_tree().get_nodes_in_group("squares")
 var skipped = false
@@ -17,7 +18,7 @@ var skipped = false
 var ability_button = preload("res://levels/ui/ability_button/ability_button.tscn")
 
 func _ready():
-	$Level_Menu.surrender.connect(show_winner)
+	$Level_Menu.surrender.connect(surrender_signal)
 	$Level_Menu.save_game.connect(save_game_signal)
 	minimap.columns = minimap_width
 	populate_minimap_grid()
@@ -98,6 +99,9 @@ func disable_mouseblocker():
 func enable_mouseblocker():
 	$MouseBlocker.visible = true
 
+func surrender_signal():
+	emit_signal("surrender")
+
 func show_winner(winner, achievements, special_achievements, super_special_achievements):
 	if winner == "player":
 		var instance = victory_screen.instantiate()
@@ -125,7 +129,7 @@ func update_abilities(abilities):
 		for ability_shown in %abilities_container.get_children():
 			ability_shown.queue_free()
 			
-	if len(abilities) > 0:		
+	if len(abilities) > 0:
 		for ability in abilities:
 			var instance = ability_button.instantiate()
 			instance.ability_name = ability
