@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://campaign/campaign_map/campaign_map.gd" id="1_w4pso"]
 [ext_resource type="PackedScene" uid="uid://7m3iswmiocd7" path="res://menus/menu_prefabs_and_resources/campaign_flags.tscn" id="2_ec7yf"]
-[ext_resource type="Texture2D" uid="uid://bsq07kk0go4nt" path="res://assets/human/blue/buildings/Castle2.png" id="3_utwwb"]
+[ext_resource type="Texture2D" uid="uid://bsq07kk0go4nt" path="res://assets/human/buildings/blue/Castle2.png" id="3_3u35w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvn20"]
 bg_color = Color(0.0352941, 0.513726, 0, 1)
@@ -79,7 +79,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tvn20")
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer/PanelContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("3_utwwb")
+texture_normal = ExtResource("3_3u35w")
 
 [connection signal="level_change" from="Level 1" to="." method="_on_level_change"]
 [connection signal="level_change" from="Level 2" to="." method="_on_level_change"]

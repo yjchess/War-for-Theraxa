@@ -1,50 +1,50 @@
 [gd_scene load_steps=15 format=3 uid="uid://bqtfysx6it3ru"]
 
 [ext_resource type="Script" path="res://levels/map/squares/unit/unit.gd" id="1_540cg"]
-[ext_resource type="Texture2D" uid="uid://d3s2hphfr5xlo" path="res://assets/human/blue/units/blue_warrior.png" id="2_xlay3"]
+[ext_resource type="Texture2D" uid="uid://d3s2hphfr5xlo" path="res://assets/human/units/blue/blue_warrior.png" id="2_2y5tf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_re5py"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(0, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jd5n"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(50, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yg03l"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(100, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u8okk"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(150, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eijhe"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(200, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toxiw"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(250, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t15k4"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(300, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kl4lt"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(350, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hl16x"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(400, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_emxjd"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(450, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxrdw"]
-atlas = ExtResource("2_xlay3")
+atlas = ExtResource("2_2y5tf")
 region = Rect2(500, 0, 50, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7gkmj"]

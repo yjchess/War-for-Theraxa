@@ -7,6 +7,7 @@ var building_position
 var building_portrait
 
 @onready var sprite = $Sprite2D
+var building_stats:Resource
 
 var map
 
@@ -35,15 +36,21 @@ func _ready():
 	
 	x_max = 12
 	y_max = 12
+		
+	match building_color:
+		"red": player = "computer"
+		"blue": player = "player"
+		"dark_green": player = "neutral"
+		_: player = "none"
 	
-	if building_color == "red": 
-		player = "computer"
-	elif building_color == "blue": 
-		player = "player"
-	elif building_color == "dark_green": 
-		player = "neutral"
-	else:
-		player = "none"
+	health = building_stats.health
+	building_portrait = building_stats.base_path + building_color + "/" + building_name + ".png"
+	description = building_stats.description
+	sprite.texture = load(building_portrait)
+	sprite.scale = building_stats.sprite_scale
+	sprite.offset = building_stats.sprite_offset
+	abilities = building_stats.abilities
+	
 	
 	match building_name:
 		"barracks":

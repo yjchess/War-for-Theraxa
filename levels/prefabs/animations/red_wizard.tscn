@@ -1,49 +1,49 @@
 [gd_scene load_steps=14 format=3 uid="uid://bjs72wbg7q83"]
 
-[ext_resource type="Texture2D" uid="uid://c7d04n245krtw" path="res://assets/human/red/units/red_wizard.png" id="1_depi7"]
+[ext_resource type="Texture2D" uid="uid://c7d04n245krtw" path="res://assets/human/units/red/red_wizard.png" id="1_mipcm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ny0x2"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(0, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jjobl"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(50, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cn815"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(100, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgs0w"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(150, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1s8ay"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(200, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_myruy"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(250, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fifar"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(300, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rxwmd"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(350, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkqv7"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(400, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4gea"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(450, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3604w"]
-atlas = ExtResource("1_depi7")
+atlas = ExtResource("1_mipcm")
 region = Rect2(500, 0, 50, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pp3cg"]
