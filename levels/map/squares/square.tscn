@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://7mxpp8utv0uj"]
+
+[ext_resource type="Script" path="res://levels/map/squares/square.gd" id="1_88r1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cuw6y"]
+size = Vector2(64, 64)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjhqt"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.494118, 0.643137, 0.360784)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpw8x"]
+resource_local_to_scene = true
+bg_color = Color(0.894118, 0.0745098, 0, 0.486275)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1r8d"]
+resource_local_to_scene = true
+bg_color = Color(0.517647, 0.32549, 0, 0.784314)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yukr4"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[node name="Square" type="Node2D"]
+script = ExtResource("1_88r1r")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_cuw6y")
+
+[node name="Movable" type="Panel" parent="." groups=["movable_square_UI"]]
+visible = false
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sjhqt")
+
+[node name="Attackable" type="Panel" parent="." groups=["attackable_square_UI"]]
+visible = false
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kpw8x")
+
+[node name="Abilitable" type="Panel" parent="." groups=["abilitable_square_UI"]]
+visible = false
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1r8d")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yukr4")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

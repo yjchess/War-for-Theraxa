@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://qrmyel7jqmyj"]
+
+[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_b64ts"]
+
+[resource]
+script = ExtResource("1_b64ts")
+building_name = "house"
+health = 15
+base_path = "res://assets/human/buildings/"
+description = "A human dwelling. May contain humans."
+sprite_scale = Vector2(1, 1)
+sprite_offset = Vector2(32, 32)
+abilities = Array[String]([])

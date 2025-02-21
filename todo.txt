@@ -1,0 +1,55 @@
+For next time:
+
+Must do:
+	
+1. add background music and sound effects
+2. add menu functionality within levels
+3. finish making upgrade menu (normal upgrades cost 3 yellow + 2 blue, special upgrades cost 1 purple + 2 blue)
+4. make a save system
+5. improve campaign_map visuals
+
+ 
+Should do:
+
+1. create a flashing effect on a unit when they take damage
+2. create an attack animation for each unit
+
+
+Could do:
+	
+1. Better movement code
+	units actually move to squares
+	units cannot jump over other units - must go around
+2. Add transitions when changing scenes
+3. attack animation plays in the middle of screen when a unit attacks another unit i.e. advance wars
+
+
+
+
+Information:
+	
+	GameData
+	Level
+		Generic Map
+			TileMap
+			Squares
+				Square
+					Area2D
+						CollisionShape2D
+					Panel
+					Movable
+					Attackable
+					Abilitable
+					Unit
+						Abilities_Holder
+							<Ability>
+				<Square>
+				....
+		CanvasLayer
+			Control #contains minimap, ability buttons etc
+			MouseBlocker
+			Level_Menu
+		Camera2D
+		AI
+		Dialogue
+		Achievements

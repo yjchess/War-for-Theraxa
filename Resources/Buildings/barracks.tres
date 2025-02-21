@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://b8ctgbtloxq2n"]
+
+[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_fv0xu"]
+
+[resource]
+script = ExtResource("1_fv0xu")
+building_name = "barracks"
+health = 15
+base_path = "res://assets/human/buildings/"
+description = "The training facility for melee soldiers."
+sprite_scale = Vector2(0.5, 0.5)
+sprite_offset = Vector2(64, 64)
+abilities = Array[String](["warrior"])

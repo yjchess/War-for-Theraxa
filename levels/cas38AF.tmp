@@ -1,0 +1,701 @@
+[gd_scene load_steps=30 format=3 uid="uid://46jqdxuq60m0"]
+
+[ext_resource type="Texture2D" uid="uid://qugb3r54vpqx" path="res://assets/icons/achievement_gem.png" id="1_j2h18"]
+[ext_resource type="Script" path="res://levels/castle.gd" id="1_qy6cp"]
+[ext_resource type="Texture2D" uid="uid://ds5ohtgolil1w" path="res://assets/icons/achievement_gem_special.png" id="2_hamf6"]
+[ext_resource type="Texture2D" uid="uid://doqydimqsjkgl" path="res://assets/icons/achievement_gem_super_special.png" id="3_0qly4"]
+[ext_resource type="Texture2D" uid="uid://b8ynorjdwshoc" path="res://assets/portraits/warrior.png" id="3_8jvuo"]
+[ext_resource type="Texture2D" uid="uid://ctslxgjj3qr24" path="res://assets/icons/achievement_gem_disabled.png" id="4_mt43x"]
+[ext_resource type="PackedScene" uid="uid://dujxdsw2effhk" path="res://levels/common_upgrade_display.tscn" id="4_n0w3o"]
+[ext_resource type="Texture2D" uid="uid://by2k145i0om63" path="res://assets/portraits/commander_jensen.png" id="7_ww8xm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wom7q"]
+bg_color = Color(0.537255, 0.415686, 0.239216, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgcvd"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u18bn"]
+bg_color = Color(0, 0, 0, 0.501961)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb2o5"]
+bg_color = Color(0, 0.313726, 0.313726, 0.501961)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4cwf"]
+bg_color = Color(0, 0, 0, 0.25098)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7wdf"]
+bg_color = Color(0.537255, 0.415686, 0.239216, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h5vg"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysliq"]
+bg_color = Color(0, 0, 0, 0.25098)
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgejf"]
+bg_color = Color(0.423651, 0.423651, 0.423651, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dkf2c"]
+load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v8yo0"]
+load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mhwpl"]
+load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v0l7v"]
+load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nb8ck"]
+load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h65xp"]
+bg_color = Color(0.14902, 0.133333, 0.109804, 1)
+border_width_bottom = 20
+border_color = Color(0.0980392, 0.0980392, 0.0823529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.811765, 0.8, 0.772549, 0.596078)
+shadow_size = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bj01j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wu68"]
+bg_color = Color(0.0666667, 0.72549, 0, 1)
+border_width_bottom = 5
+border_color = Color(0.0352941, 0.513726, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8av02"]
+bg_color = Color(0.0666667, 0.72549, 0, 1)
+border_width_bottom = 5
+border_color = Color(0.0352941, 0.513726, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uk6v"]
+bg_color = Color(0.0666667, 0.72549, 0, 1)
+border_width_top = 2
+border_width_bottom = 3
+border_color = Color(0.0352941, 0.513726, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+
+[sub_resource type="Theme" id="Theme_72x41"]
+Button/styles/disabled = SubResource("StyleBoxFlat_h65xp")
+Button/styles/focus = SubResource("StyleBoxEmpty_bj01j")
+Button/styles/hover = SubResource("StyleBoxFlat_5wu68")
+Button/styles/normal = SubResource("StyleBoxFlat_8av02")
+Button/styles/pressed = SubResource("StyleBoxFlat_1uk6v")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8neb8"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="castle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qy6cp")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wom7q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+split_offset = 800
+dragger_visibility = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Upgrades:"
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Gold Gems" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "XX / XX"
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_j2h18")
+
+[node name="Comma" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = ",  "
+uppercase = true
+
+[node name="Blue Gems" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "XX / XX"
+uppercase = true
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_hamf6")
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxFlat_wgcvd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u18bn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="upgrades" type="GridContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 20
+columns = 6
+
+[node name="Common_Upgrade_Display" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/VBoxContainer/MarginContainer/upgrades" instance=ExtResource("4_n0w3o")]
+layout_mode = 2
+icon_name = "warrior"
+selected = true
+upgrade_description_one = "+1 hp"
+upgrade_description_two = "+1 hp"
+upgrade_description_three = "+1 melee dmg"
+upgrade_description_four = "Unlock Parry: The next attack to this unit deals 1 dmg, and if they are within melee range, this unit will attack back."
+upgrade_description_five = "Unlock Net: Throw a net at an enemy unit within 2 squares which prevents them moving for two turns (can only be used once per warrior)"
+
+[node name="Common_Upgrade_Display2" parent="PanelContainer/HBoxContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/VBoxContainer/MarginContainer/upgrades" instance=ExtResource("4_n0w3o")]
+layout_mode = 2
+id = 1
+icon_name = "archer"
+upgrade_description_one = "+1 melee damage"
+upgrade_description_two = "+1 ranged damage"
+upgrade_description_three = "+2 hp"
+upgrade_description_four = "Unlock Pinning Shot: attack for 1/2 dmg (rounded up) and push the unit 1 square away. The target will only be able to move 1 square next turn."
+upgrade_description_five = "Unlock fleet footed: On the next turn, double your movement range."
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/HBoxContainer/HSplitContainer"]
+layout_mode = 2
+split_offset = 300
+dragger_visibility = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Purple Gems" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "XX / XX"
+uppercase = true
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_0qly4")
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxFlat_wgcvd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u18bn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MarginContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rb2o5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("7_ww8xm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_mt43x")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_mt43x")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_mt43x")
+expand_mode = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label3" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "INFORMATION:"
+uppercase = true
+
+[node name="Button3" type="Button" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 30
+text = " Map "
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxFlat_wgcvd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u18bn")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+split_offset = 451
+dragger_visibility = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s4cwf")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7wdf")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "EXPLANATION"
+
+[node name="VSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_5h5vg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+bbcode_enabled = true
+text = "[fill]Gems can be obtained by completing achievements in the campaign levels. There are 3 types of gems: Gold Gems <Gold Gems>, Blue Gems <Blue Gems> and Purple Gems <Purple Gems>. To obtain all achievements, you don't need to get them all in one go. You can replay missions to get any missing achievements.[/fill]
+
+[fill]Common upgrades require 3 gold gems and 2 blue gems to complete, whereas special upgrades require 1 purple gem and 2 blue gems to complete. Yellow gems often offer flat stat boosts, blue gems often offer abilities and other useful mechanics.[/fill]
+
+To activate an upgrade, simply tap on the icon and assign points below:"
+fit_content = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ysliq")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgejf")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Warrior Upgrades"
+
+[node name="VSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_5h5vg")
+
+[node name="RichTextLabel" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Portrait" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/Control"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_right = 87.5
+offset_bottom = 175.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_8jvuo")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Gems" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer/Gems"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_dkf2c")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer/Gems"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_v8yo0")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer/Gems"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_mhwpl")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer/Gems"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_v0l7v")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/MarginContainer/Gems"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_nb8ck")
+expand_mode = 1
+
+[node name="VSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxFlat_5h5vg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Downgrade" type="Button" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = SubResource("Theme_72x41")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "-"
+
+[node name="Upgrade" type="Button" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = SubResource("Theme_72x41")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "+"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_8neb8")
+
+[node name="Descriptions" type="VBoxContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions/PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.647059, 0.12549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "+1 hp"
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions/PanelContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.647059, 0.12549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "+1 hp"
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions/PanelContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.647059, 0.12549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "+1 melee dmg"
+
+[node name="PanelContainer4" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions/PanelContainer4"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0.737255, 0.831373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Unlock Parry: The next attack to this unit deals 1 dmg, and if they are within melee range, this unit will attack back."
+fit_content = true
+
+[node name="PanelContainer5" type="PanelContainer" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/Descriptions/PanelContainer5"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0.737255, 0.831373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Unlock Net: Throw a net at an enemy unit within 2 squares which prevents them moving for two turns (can only be used once per warrior)"
+fit_content = true
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer/Button3" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/HBoxContainer/Downgrade" to="." method="_on_downgrade_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/HSplitContainer/HSplitContainer/PanelContainer3/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VSplitContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/RichTextLabel/VBoxContainer/HBoxContainer/Upgrade" to="." method="_on_upgrade_pressed"]

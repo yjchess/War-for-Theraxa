@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk56i8q6wfpef"]
+
+[ext_resource type="Script" path="res://menus/start_menu.gd" id="1_trjde"]
+[ext_resource type="Theme" uid="uid://b45ll6nreyph4" path="res://menus/menu_prefabs_and_resources/main_button_theme.tres" id="2_b1hcb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1055j"]
+bg_color = Color(0.603922, 0.411765, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.231373, 0.14902, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_trjde")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(700, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -238.0
+offset_right = 500.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1055j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="Campaign" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_b1hcb")
+theme_override_font_sizes/font_size = 50
+text = "Campaign"
+
+[node name="PVP" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_b1hcb")
+theme_override_font_sizes/font_size = 50
+text = "PvP"
+
+[node name="Settings" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_b1hcb")
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_b1hcb")
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Campaign" to="." method="_on_campaign_pressed"]

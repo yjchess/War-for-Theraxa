@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://7m3iswmiocd7"]
+
+[ext_resource type="Theme" uid="uid://wnuega37231n" path="res://menus/menu_prefabs_and_resources/campaign_button.tres" id="1_ake0w"]
+[ext_resource type="Script" path="res://menus/menu_prefabs_and_resources/campaign_flags.gd" id="2_2cuhc"]
+
+[node name="Level 1" type="Button"]
+custom_minimum_size = Vector2(40, 60)
+theme = ExtResource("1_ake0w")
+text = "
+"
+script = ExtResource("2_2cuhc")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

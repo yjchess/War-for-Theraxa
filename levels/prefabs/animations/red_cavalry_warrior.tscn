@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://dyhdusk3tjoop"]
+
+[ext_resource type="Texture2D" uid="uid://dyhkbpvaycutk" path="res://assets/human/units/red/red_cavalry_warrior.png" id="1_gp1o3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7m4c"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35qp5"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jih5g"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lugo1"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj7kx"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q48b"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu24b"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb3y1"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxweh"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddosm"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(450, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv4q2"]
+atlas = ExtResource("1_gp1o3")
+region = Rect2(500, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxqqg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7m4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35qp5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jih5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lugo1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj7kx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q48b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu24b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb3y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxweh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddosm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv4q2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="red_cavalry_warrior" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_xxqqg")
+autoplay = "default"
+offset = Vector2(32, 32)

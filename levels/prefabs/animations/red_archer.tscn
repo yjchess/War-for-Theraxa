@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://edtwtqeknsan"]
+
+[ext_resource type="Texture2D" uid="uid://dqu5hsstt7qdg" path="res://assets/human/units/red/red_archer.png" id="1_yjg0w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsgwm"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f23n"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7aai"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2f5g"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwbho"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddshs"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h074i"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3agkw"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itp54"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(400, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhvei"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(450, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8rkk"]
+atlas = ExtResource("1_yjg0w")
+region = Rect2(500, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rervj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsgwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f23n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7aai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2f5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwbho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddshs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h074i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3agkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itp54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhvei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8rkk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="blue_archer" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_rervj")
+autoplay = "default"
+offset = Vector2(32, 32)

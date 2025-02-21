@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://bd2800e5vk3t3"]
+
+[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_mljeb"]
+
+[resource]
+script = ExtResource("1_mljeb")
+building_name = "grave"
+health = 15
+base_path = "res://assets/undead/buildings/"
+description = "A grave containing a corpse."
+sprite_scale = Vector2(1, 1)
+sprite_offset = Vector2(32, 32)
+abilities = Array[String]([])

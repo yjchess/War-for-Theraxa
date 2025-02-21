@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://cbobfcqyahxq8"]
+
+[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_d6558"]
+
+[resource]
+script = ExtResource("1_d6558")
+building_name = "forest"
+health = 1
+base_path = "res://assets/human/buildings/"
+description = "I don't know what to put here, it's just the forest?"
+sprite_scale = Vector2(1, 1)
+sprite_offset = Vector2(32, 32)
+abilities = Array[String]([])
