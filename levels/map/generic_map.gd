@@ -60,16 +60,12 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 			
 	if neutral_buildings != [[]]:
 		for building in neutral_buildings:
-<<<<<<< HEAD
 			place_building("neutral", building[0], building[1], null)
-=======
-			place_building("dark_green", building[0], building[1], null)
->>>>>>> e286a270fc24c8f3daea62b6aadbd99c9824dc2b
 	
 	if neutral_pieces != [[]]:
 		for piece in neutral_pieces:
 			place_piece("", piece.unit_name, piece.unit_location, piece.ai_behaviour)
-			
+	
 	
 	
 func place_piece(colour, unit, unit_position, ai_movement_behaviour):
@@ -125,10 +121,8 @@ func player_unit_lost_signal():
 func instantiate_building(color, building_name, building_position, building_behaviour):
 	var instance = building.instantiate()
 	instance.building_color = color
-<<<<<<< HEAD
+
 	instance.building_stats = load("res://Resources/Buildings/"+building_name+".tres")
-=======
->>>>>>> e286a270fc24c8f3daea62b6aadbd99c9824dc2b
 	instance.building_name = building_name
 	instance.building_position = building_position
 	#instance.building_behaviour = building_behaviour
