@@ -38,6 +38,7 @@ func _ready():
 	y_max = 12
 		
 	match building_color:
+<<<<<<< HEAD
 		"red":         player = "computer"
 		"blue":        player = "player"
 		"neutral":     player = "neutral"
@@ -46,6 +47,15 @@ func _ready():
 	
 	health = building_stats.health
 	building_portrait = building_stats.base_path + building_color + "/" + building_color+ "_" + building_name + ".png"
+=======
+		"red": player = "computer"
+		"blue": player = "player"
+		"dark_green": player = "neutral"
+		_: player = "none"
+	
+	health = building_stats.health
+	building_portrait = building_stats.base_path + building_color + "/" + building_name + ".png"
+>>>>>>> e286a270fc24c8f3daea62b6aadbd99c9824dc2b
 	description = building_stats.description
 	sprite.texture = load(building_portrait)
 	sprite.scale = building_stats.sprite_scale
@@ -53,6 +63,81 @@ func _ready():
 	abilities = building_stats.abilities
 	
 	
+<<<<<<< HEAD
+=======
+	match building_name:
+		"barracks":
+			health             = 15
+			building_portrait  = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description        = "The training facility for melee soldiers."
+			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale       = Vector2(0.5, 0.5)
+			abilities          = ["warrior"]
+
+		"archery_range":
+			health             = 15
+			building_portrait  = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description        = "The training facility for ranged units."
+			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale       = Vector2(0.5, 0.5)
+			abilities          = ["archer"]
+		
+		"stables":
+			health             = 15
+			building_portrait  = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description        = "The training facility for mounted units."
+			sprite.texture     = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale       = Vector2(0.5, 0.5)
+			abilities          = ["cavalry_warrior"]
+			
+		"forest":
+			health            = 1
+			building_portrait = "res://assets/Tree.png"
+			description       = "I don't know what to put here, it's just the forest?"
+			sprite.texture    = load("res://assets/Tree.png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"outpost":
+			health            = 20
+			building_portrait = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description       = "Provides vision over a certain area"
+			sprite.texture    = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"gold_mine":
+			health            = 30
+			building_portrait = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description       = "Allows peasants to mine gold"
+			sprite.texture    = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"farm":
+			health            = 15
+			building_portrait = "res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png"
+			description       = "Farmland that produces food for soldiers"
+			sprite.texture    = load("res://assets/human/"+building_color+"/buildings/"+building_color+"_"+building_name+".png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"grave":
+			health = 15
+			building_portrait = "res://assets/neutral/Grave.png"
+			description       = "A grave containing a corpse."
+			sprite.texture    = load("res://assets/neutral/Grave.png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+		
+		"house":
+			health = 15
+			building_portrait = "res://assets/neutral/house.png"
+			description       = "A human dwelling. May contain humans."
+			sprite.texture    = load("res://assets/neutral/house.png")
+			sprite.scale      = Vector2(1,1)
+			sprite.offset     = Vector2(32,32)
+>>>>>>> e286a270fc24c8f3daea62b6aadbd99c9824dc2b
 
 	max_health = health
 	building_position = [square.x_coord, square.y_coord]

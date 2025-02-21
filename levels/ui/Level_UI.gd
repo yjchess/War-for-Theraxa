@@ -47,11 +47,18 @@ func change_minimap_square(type, index):
 	minimap.get_child(index).get_node("None").visible = false
 	#print(type)
 	match type:
+<<<<<<< HEAD
 		"player"      :minimap.get_child(index).get_node("Player_Controlled").visible = true
 		"computer"    :minimap.get_child(index).get_node("Computer_Controlled").visible = true
 		"neutral"     :minimap.get_child(index).get_node("Neutral").visible = true
 		"environment" :minimap.get_child(index).get_node("Environment").visible = true
 		"none"        :minimap.get_child(index).get_node("None").visible = true
+=======
+		"player"  :minimap.get_child(index).get_node("Player_Controlled").visible = true
+		"computer":minimap.get_child(index).get_node("Computer_Controlled").visible = true
+		"neutral" :minimap.get_child(index).get_node("Neutral").visible = true
+		"none"    :minimap.get_child(index).get_node("None").visible = true
+>>>>>>> e286a270fc24c8f3daea62b6aadbd99c9824dc2b
 
 func update_portrait(portrait):
 	var texture = load(portrait)
