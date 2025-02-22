@@ -44,6 +44,7 @@ func change_minimap_square(type, index):
 	minimap.get_child(index).get_node("Player_Controlled").visible = false
 	minimap.get_child(index).get_node("Computer_Controlled").visible = false
 	minimap.get_child(index).get_node("Neutral").visible = false
+	minimap.get_child(index).get_node("Environment").visible = false
 	minimap.get_child(index).get_node("None").visible = false
 	#print(type)
 	match type:

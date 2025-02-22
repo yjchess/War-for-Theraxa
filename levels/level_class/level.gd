@@ -19,6 +19,7 @@ var player_buildings = [[]]
 var computer_troops: Array[Unit_Spawn]
 var computer_buildings = [[]]
 var neutral_buildings = [[]]
+var environmental_buildings = [[]]
 var neutral_units = [[]]
 
 var player_units = []
@@ -38,7 +39,7 @@ func _ready():
 	ui.surrender.connect(surrender_signal)
 	ai.game_over = false
 	if GameData.is_loading == false:
-		map.setup_board(player_troops, computer_troops, player_buildings, computer_buildings, neutral_buildings, neutral_units)
+		map.setup_board(player_troops, computer_troops, player_buildings, computer_buildings, environmental_buildings, neutral_buildings, neutral_units)
 		ui.update_resources(player_resources)
 	else:
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)

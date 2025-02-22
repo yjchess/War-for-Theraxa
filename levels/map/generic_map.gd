@@ -40,7 +40,7 @@ func _ready():
 	for y in height: for x in width: instantiate_square(x,y)
 	
 	
-func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, neutral_buildings, neutral_pieces):
+func setup_board(player_pieces, computer_pieces, player_buildings, computer_buildings, environmental_buildings, neutral_buildings, neutral_pieces):
 	if player_pieces != []:
 		for piece in player_pieces:
 			place_piece("blue", piece.unit_name, piece.unit_location, null)
@@ -57,6 +57,10 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 	if computer_buildings != [[]]:
 		for building in computer_buildings:
 			place_building("red", building[0], building[1], null)
+
+	if environmental_buildings != [[]]:
+		for building in environmental_buildings:
+			place_building("environment", building[0], building[1], null)
 			
 	if neutral_buildings != [[]]:
 		for building in neutral_buildings:
