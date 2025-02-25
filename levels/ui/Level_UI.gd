@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name UI extends CanvasLayer
 @onready var minimap = $%minimap
 @export var minimap_width:int = 12
 @export var minimap_height:int = 12

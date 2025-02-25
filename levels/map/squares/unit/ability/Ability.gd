@@ -1,28 +1,61 @@
 extends Node2D
 
 class_name Ability
-var ability_name = "summon_skeleton"
-var cooldown = 1
-var cooldown_progress = 1
-var ability_range = 2
-var type_viable = ["empty"]
+
 var viable_squares = []
+
+var ability_stats: Ability_Stats
+var ability_name       :String
+var cooldown              :int
+var cooldown_progress     :int
+var ability_range         :int
+var ability_aoe           :int
+var types_viable :Array[String]
+var ability_types       :Array
+var ability_vars   :Dictionary
+
+
 signal determine_viable
 signal summon_unit
+signal health_change
+signal destroy
 @onready var unit = get_parent().get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
-	match ability_name: 
-		"summon_skeleton":
-			cooldown = 1
-			cooldown_progress = 1
-			ability_range = 2
-			type_viable = "empty"
+	ability_name      = ability_stats.ability_name
+	cooldown          = ability_stats.cooldown
+	ability_range     = ability_stats.ability_range
+	ability_aoe       = ability_stats.ability_aoe
+	types_viable      = ability_stats.types_viable
+	ability_types     = ability_stats.ability_types
+	ability_vars      = ability_stats.ability_vars
 
 	name = ability_name
 
+func use_ability(target:Array[int]):
+	for ability_type in ability_types:
+		var affected_squares = GameData.get_squares(target, ability_aoe, [[0,0],[11,11]])
+		
+		match ability_type:
+			Ability_Stats.ability_type.HEALTH_EFFECT:
+				for square in affected_squares:
+					if square in viable_squares:
+						emit_signal("health_change", ability_vars.health_change, square)
+						
+			Ability_Stats.ability_type.STATUS_EFFECT:
+				for status_effect in ability_vars.status_effects:
+					for square in affected_squares:
+						if square in viable_squares:
+							emit_signal("status_effect", status_effect, square)
+				
+			Ability_Stats.ability_type.SUMMON:
+				if ability_vars.conversion == true:
+					emit_signal("destroy", target)
+					
+				emit_signal("summon_unit", unit.unit_color, ability_vars.summon_name, target, {"ai_type":"generic"})
+				
+	
 func determine_viable_squares():
 	var bound_one = [unit.unit_position[0] - ability_range, unit.unit_position[1] - ability_range]
 	var bound_two = [unit.unit_position[0] + ability_range, unit.unit_position[1] + ability_range]
@@ -32,7 +65,8 @@ func determine_viable_squares():
 		for y in range(bound_one[1], bound_two[1]):
 			bounds.append([x,y])
 	#propagated through to unit --> map --> level
-	emit_signal("determine_viable", type_viable, self, bounds)
+	for type_viable in types_viable:
+		emit_signal("determine_viable", type_viable, self, bounds)
 	
 
 func has_viable_placements():

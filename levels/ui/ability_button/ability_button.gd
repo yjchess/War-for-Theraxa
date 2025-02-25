@@ -1,4 +1,4 @@
-extends TextureButton
+class_name Ability_Button extends TextureButton
 
 @onready var normal_state = $Normal
 @onready var pressed_state = $Pressed

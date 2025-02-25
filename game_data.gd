@@ -153,7 +153,16 @@ func calculate_available_gems():
 	available_blue_gems   = total_blue_gems   - used_blue_gems
 	available_purple_gems = total_purple_gems - used_purple_gems
 
-#func ability_pressed(ability):
-#	if GameData.selected_unit != null:
-#		selected_unit.get_ability(ability).show_viable_moves()
-		
+func get_squares(center, range, bounds):
+	var squares = []
+	var potential_squares = []
+	for x in range (center[0]-range, center[0]+range+1):
+		for y in range(center[1]-range, center[1]+range+1):
+			potential_squares.append([x,y])
+	
+	for square in potential_squares:
+		if     square[0] >= bounds[0][0] && square[0] <= bounds[1][0]:
+			if square[1] >= bounds[0][1] && square[1] <= bounds[1][1]:
+				squares.append(square)
+	
+	return squares

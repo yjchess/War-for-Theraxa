@@ -4,7 +4,7 @@ class_name Level
 
 
 @onready var map = $Generic_Map
-@onready var ui = $CanvasLayer
+@onready var ui:UI = $CanvasLayer
 @onready var ai = $AI
 @onready var mouseblocker = $CanvasLayer/MouseBlocker/Area2D
 @onready var dialogue = $Dialogue
