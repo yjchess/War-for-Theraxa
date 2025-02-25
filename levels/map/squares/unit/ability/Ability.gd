@@ -43,7 +43,7 @@ func summon_skeleton(color, square_location):
 	#print("SUMMONING SKELETON")
 	if cooldown_progress == cooldown:
 		#propagated through to unit --> map --> level
-		emit_signal("summon_unit", color, "skeleton", square_location, 3)
+		emit_signal("summon_unit", color, "skeleton", square_location, {"ai_type":"generic"})
 		cooldown_progress = 0
 
 func check_cooldown():
@@ -53,4 +53,3 @@ func increment_cooldown():
 	cooldown_progress += 0.5
 	if cooldown_progress > cooldown:
 		cooldown_progress = cooldown		
-

@@ -54,7 +54,6 @@ func _ready():
 	map.unit_ability.      connect  (unit_ability_signal     )
 
 	map.player_unit_lost.connect(player_unit_lost_signal)
-	ai.determine_potential_enemies.connect(determine_potential_enemies_signal)
 	
 	player_units   = func lambda(): return get_tree().get_nodes_in_group("player_unit")
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
@@ -237,21 +236,6 @@ func level_specifics():
 		print("Computer Turn")
 		reset_computer_moves()
 		ai.turn(computer_units.call(), player_units.call(), turns_played)
-		if ai.reinforcements == true:
-			var potential_reinforcement_squares = range(12).map(func(i): return [i, 11])
-			var free_squares = map.get_free_squares(potential_reinforcement_squares)
-			if free_squares != []:
-				for square in free_squares:
-					var x = square[0]
-					var y = square[1]
-					if len(ai.reinforcement_units) > 0:
-						map.place_piece("red", ai.reinforcement_units[0], [x,y], 3)
-						ai.reinforcement_units.pop_at(0)
-					else:
-						break
-		
-		if turns_played == 3.5:
-			map.place_piece("red", "wizard", [0,0], 3)
 		end_turn()
 
 func reset_player_moves():
@@ -265,14 +249,6 @@ func reset_computer_moves():
 		unit.moved = false
 		unit.attacked = false
 		unit.built = false
-
-func determine_potential_enemies_signal(enemy_squares):
-	var enemies = []
-	for square in enemy_squares:
-		if map.get_square(square[0], square[1]).get_node_or_null("Unit") != null:
-			enemies.append(map.get_square(square[0], square[1]).get_node("Unit"))
-	print(enemies)
-	ai.potential_enemies = enemies
 
 func ability_pressed_signal(ability_name):
 	ability_selected = ability_name
@@ -317,5 +293,5 @@ func hide_square_UIs():
 	get_tree().call_group("abilitable_square_UI", "hide")
 
 
-func unit(name, location, ai_behaviour = 0):
-	return Unit_Spawn.new(name, location, ai_behaviour)
+func unit(name, location, ai_vars = ["generic"]):
+	return Unit_Spawn.new(name, location, ai_vars)

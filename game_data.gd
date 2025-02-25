@@ -34,7 +34,7 @@ var turns_played = 0
 var turn = 1
 var squares
 var ui
-var ai
+#var ai
 var map
 var level
 

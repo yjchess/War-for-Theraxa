@@ -28,25 +28,29 @@ var x_max
 var y_max
 
 var movement_behaviour_id
+var ai:AI
+var ai_vars:Dictionary
 signal update_minimap
 signal determine_viable_squares
 signal summon_unit
 signal player_unit_lost
+signal determine_potential_enemies
+
+var unit_stats:Resource
 
 func _ready():
+	if ai != null: connect_ai_determine_potential_enemies_signal()
 	map = get_parent().get_parent().get_parent()
 	load_unit_animations()
 	
 	x_max = 12
 	y_max = 12
 	
-	if unit_color == "red":
-		add_to_group("computer_unit") 
-		player = "computer"
-	elif unit_color == "blue":
-		add_to_group("player_unit")  
-		player = "player"
-	else: player = "neutral"
+	match unit_color:
+		"red":  add_to_group("computer_unit"); player = "computer"
+		"blue": add_to_group("player_unit"); player = "player"
+		_: player = "neutral"
+	
 	
 	match unit_name:
 
@@ -130,7 +134,7 @@ func _ready():
 			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
 
 		"necromancer":
-			movement_range = 1
+			movement_range = 2
 			health         = 3
 			melee_damage   = 1
 			ranged_damage  = 3
@@ -169,7 +173,10 @@ func _ready():
 	#apply player upgrades
 	if unit_color == "blue":
 		apply_upgrades()
-	
+
+func determine_potential_enemies_signal(entity, potential_moves):
+	emit_signal("determine_potential_enemies", entity, potential_moves)
+
 func get_unit_possible_moves():
 	var possible_squares = []
 	if moved == false:
@@ -384,3 +391,6 @@ func can_build(building, resources):
 	match building:
 		"farm": if resources.food >= 50: return true
 		"outpost": if resources.food >= 10 && resources.gold >= 10: return true
+
+func connect_ai_determine_potential_enemies_signal():
+	ai.determine_potential_enemies.connect(determine_potential_enemies_signal)

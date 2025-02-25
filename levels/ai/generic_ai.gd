@@ -1,50 +1,21 @@
-extends Node2D
+class_name AI extends Resource
 #var computer_units = []
 #var player_units = []
-var reinforcements = false
-var reinforcement_units = ["warrior", "warrior", "archer", "cavalry_warrior"]
 var game_over = false
 var viable_squares = []
 var potential_enemies = []
-
+var unit
+@export var ai_vars:Dictionary
 signal determine_potential_enemies
 
-func turn(computer_units, player_units, turns_played):
-	if game_over == false:
-		for unit in computer_units:
-			var calculated_move = calculate_best_movement_option(unit, player_units)
-			if calculated_move != null:
-				unit.move(calculated_move[0], calculated_move[1])
-		
-		for unit in computer_units:
-			if unit.abilities_holder.get_child_count() > 0:
-				var calculated_ability = calculate_best_ability_options(unit, player_units)
-				if calculated_ability != null:
-					unit.use_ability(calculated_ability[0], calculated_ability[1])
-				
-		for unit in computer_units:
-			var calculated_attack = calculate_best_attack_options(unit)
-			if calculated_attack != null:
-				unit.attack(calculated_attack[0], calculated_attack[1])
-		
-		for unit in computer_units:
-			if unit.unit_position[1] == 11:
-				unit.movement_behaviour_id = 3
-				reinforcements = true
-	else:
-		print("GAME OVER")
+func _init(new_unit, new_ai_vars):
+	unit = new_unit
+	ai_vars = new_ai_vars
 
+func calculate_best_movement_option(player_units):
+	return move_towards_closest_enemy(player_units)
 
-func calculate_best_movement_option(unit, player_units):
-	if unit.movement_behaviour_id == 1:
-		return fastest_route(unit, [5,11])
-	if unit.movement_behaviour_id == 2:
-		return fastest_route(unit, [6,11])
-	
-	if unit.movement_behaviour_id == 3:
-		return move_towards_closest_enemy(unit, player_units)
-
-func fastest_route(unit, destination):
+func fastest_route(destination):
 	var possible_moves = unit.get_unit_possible_moves()
 	var closest_move = null
 	if len(possible_moves) > 0 && unit.unit_position != destination:
@@ -56,17 +27,16 @@ func fastest_route(unit, destination):
 		return null
 
 	return closest_move
-			
-func move_towards_closest_enemy(unit, player_units):
-	var closest_enemy = calculate_closest_enemy(unit, player_units)
+
+func move_towards_closest_enemy(player_units):
+	var closest_enemy = calculate_closest_enemy(player_units)
 	if closest_enemy != null:
-		var closest_move = fastest_route(unit, closest_enemy.unit_position)
+		var closest_move = fastest_route(closest_enemy.unit_position)
 		return closest_move
 	#if there aren't enemy units simply don't move
 	return null
-	
 
-func calculate_closest_enemy(unit, player_units):
+func calculate_closest_enemy(player_units):
 	var closest_unit = null
 	var closest_distance = 999
 	if len(player_units) > 0:
@@ -137,28 +107,26 @@ func get_closest(position_one, position_two_a, position_two_b):
 	
 	return null
 
-func calculate_best_attack_options(unit):
-	return greatest_damage_weakest_enemy(unit)
+func calculate_best_attack_options():
+	return greatest_damage_weakest_enemy()
 
-func greatest_damage_weakest_enemy(unit):
-	
+func greatest_damage_weakest_enemy():
+
 	var lowest_health = 999
 	var lowest_enemy
 	var potential_enemies_squares = unit.get_unit_possible_attacks()
 	if potential_enemies_squares == null: potential_enemies_squares = []
 	if len(potential_enemies_squares) == 0: return null
-	emit_signal("determine_potential_enemies", potential_enemies_squares)
+	emit_signal("determine_potential_enemies", self, potential_enemies_squares)
 	if len(potential_enemies) == 0: return null
 
-	
 	for enemy in potential_enemies:
 		if enemy.health < lowest_health:
 			lowest_enemy = enemy
 	
 	return lowest_enemy.unit_position
 
-	
-func calculate_best_ability_options(unit, player_units):
+func calculate_best_ability_options(player_units):
 	var chosen_ability = null
 	var chosen_location = null
 	for ability in unit.abilities_holder.get_children():
@@ -170,7 +138,7 @@ func calculate_best_ability_options(unit, player_units):
 			return null
 		
 		if ability.type_viable == "empty":
-			var target = calculate_closest_enemy(unit, player_units)
+			var target = calculate_closest_enemy(player_units)
 			
 			if target == null:
 				target = [0,0]

@@ -32,7 +32,6 @@ signal player_unit_lost
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 
-	
 	var starting_square_x = ((viewport_width / square_width) * square_width - square_width * width) / 2
 	var starting_square_y = ((viewport_height / square_height) * square_height - square_height * height) / 2
 	starting_square_location = [starting_square_x, starting_square_y] 
@@ -47,7 +46,7 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 	
 	if computer_pieces != []:
 		for piece in computer_pieces:
-			place_piece("red", piece.unit_name, piece.unit_location, piece.ai_behaviour)
+			place_piece("red", piece.unit_name, piece.unit_location, piece.ai_vars)
 	
 	if player_buildings != [[]]:
 		for building in player_buildings:
@@ -68,22 +67,28 @@ func setup_board(player_pieces, computer_pieces, player_buildings, computer_buil
 	
 	if neutral_pieces != [[]]:
 		for piece in neutral_pieces:
-			place_piece("", piece.unit_name, piece.unit_location, piece.ai_behaviour)
+			place_piece("", piece.unit_name, piece.unit_location, null)
 	
 	
 	
-func place_piece(colour, unit, unit_position, ai_movement_behaviour):
-	instantiate_unit(colour, unit, unit_position, ai_movement_behaviour)
+func place_piece(colour, unit, unit_position, ai_vars):
+	instantiate_unit(colour, unit, unit_position, ai_vars)
 
 func place_building(color, building_name, building_position, building_behaviour):
 	instantiate_building(color, building_name, building_position, building_behaviour)
 	
-func instantiate_unit(colour, name, position, movement_id):
+func instantiate_unit(colour, name, position, ai_vars):
+	
 	var instance           = unit.instantiate()
+	if ai_vars != null:
+		match ai_vars.ai_type:
+			"fastest_route": instance.ai = FAST_AI.new(instance, ai_vars)
+			"pre_determined": instance.ai = PRE_DETERMINED_AI.new(instance, ai_vars)
+			_:instance.ai = AI.new(instance, ai_vars)
+	instance.determine_potential_enemies.connect(determine_potential_enemies_signal)
 	instance.unit_color    = colour
 	instance.unit_name     = name
 	instance.unit_position = position
-	instance.movement_behaviour_id = movement_id
 	instance.update_minimap.connect(update_minimap_squares)
 	instance.determine_viable_squares.connect(determine_viable_squares_signal)
 	instance.player_unit_lost.connect(player_unit_lost_signal)
@@ -246,3 +251,11 @@ func get_squares_from_array(array_of_coords):
 	for coord in array_of_coords:
 		squares.append(get_square(coord[0], coord[1]))
 	return squares
+
+func determine_potential_enemies_signal(ai, enemy_squares):
+	var enemies = []
+	for square in enemy_squares:
+		if get_square(square[0], square[1]).get_node_or_null("Unit") != null:
+			enemies.append(get_square(square[0], square[1]).get_node("Unit"))
+
+	ai.potential_enemies = enemies

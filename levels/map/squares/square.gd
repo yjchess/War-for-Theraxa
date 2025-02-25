@@ -63,6 +63,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		get_tree().call_group("abilitable_square_UI", "hide")
 		
 		if selected == true:
+			print(x_coord, y_coord)
 			change_panel_stylebox(8, "goldenrod")
 			if get_node_or_null("Unit") != null && $Attackable.visible != true:
 				#propagated: square --> generic_map --> level
