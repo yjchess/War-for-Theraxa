@@ -38,3 +38,42 @@ func level_specifics():
 			map.place_piece("red", "wizard", [0,0], {"ai_type":"generic"})
 		end_turn()
 		
+func evaluate_achievements():
+	GameData.previously_achieved = GameData.campaign_achievements[level_num-1].duplicate(true)
+	print(GameData.campaign_achievements)
+
+	if reinforcements != true:
+		achievements.achievements[1][1] = true
+	elif achievements.achievements[0][1] == true:
+		achievements.special_achievements[0][1] = true
+		
+	if lost_player_unit != true:
+		achievements.achievements[2][1] = true
+	if lost_player_unit != true && ai.reinforcements == true:
+		achievements.special_achievements[1][1] = true
+	
+	if GameData.campaign_upgrades == [] && len(player_units.call()) >=2 && reinforcements == true:
+		achievements.super_special_achievements[0][1] = true
+	
+	
+	var corresponding_saved_achievements = GameData.campaign_achievements[level_num-1].duplicate()
+	
+	var count = 0
+	for achievement in achievements.achievements:
+		if achievement[1] == true:
+			corresponding_saved_achievements[0][count] = true
+		count += 1
+	
+	count = 0
+	for achievement in achievements.special_achievements:
+		if achievement[1] == true:
+			corresponding_saved_achievements[1][count] = true
+		count += 1
+	
+	count = 0
+	for achievement in achievements.super_special_achievements:
+		if achievement[1] == true:
+			corresponding_saved_achievements[2][count] = true
+		count += 1
+
+	GameData.campaign_achievements[level_num-1] = corresponding_saved_achievements

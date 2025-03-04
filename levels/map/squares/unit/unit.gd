@@ -1,4 +1,4 @@
-extends Node2D
+class_name Unit extends Node2D
 var unit_name
 var unit_color
 var unit_position
@@ -139,6 +139,7 @@ func _ready():
 			melee_damage   = 1
 			ranged_damage  = 3
 			attack_range   = 3
+			abilities      = ["summon_ghoul"]
 			unit_portrait  = "res://assets/portraits/necromancer.png"
 			description    = "Wizards past the point of no return. Once a wizard has meddled with the dark arts enough, their minds and bodies oft become corrupted and begin to resemble the undead creatures of which they reign over."
 
@@ -154,12 +155,13 @@ func _ready():
 	max_health = health
 	unit_position = [square.x_coord, square.y_coord]
 	
+	var common_abilities = ["movement", "attack"]
+	var common_abilities_optional = ["ranged_attack", "build", "gather"]
+	
 	if len(abilities) > 0:
 		for ability in abilities:
 			instantiate_ability(ability)
 	
-	var common_abilities = ["movement", "attack"]
-	var common_abilities_optional = ["ranged_attack", "build", "gather"]
 	for ability in common_abilities:
 		abilities.append(ability)
 	
@@ -295,13 +297,18 @@ func signal_death():
 		emit_signal("player_unit_lost")
 
 func use_ability(ability_name, ability_location):
-	match ability_name:
-		"summon_skeleton": abilities_holder.get_node("summon_skeleton").summon_skeleton(unit_color, ability_location)
+	for ability:Ability in abilities_holder.get_children():
+		if ability.name == ability_name:
+			ability.use_ability(ability_location)
+			break
+	#match ability_name:
+	#	"summon_skeleton": abilities_holder.get_node("summon_skeleton").summon_skeleton(unit_color, ability_location)
 		#"summon_skeleton": ability_handler.summon_skeleton(unit_color, ability_location)
 
 func instantiate_ability(ability_name):
 	if ability_name not in ["movement", "attack", "build", "gather", "ranged_attack"]:
 		var instance = ability_node.instantiate()
+		instance.ability_stats = load("res://Resources/abilities/"+ability_name+".tres")
 		instance.ability_name = ability_name
 		instance.name         = ability_name
 		instance.determine_viable.connect(determine_viable)

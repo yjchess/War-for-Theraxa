@@ -7,7 +7,7 @@ class_name Ability_Stats extends Resource
 @export var types_viable:Array[String] = ["empty"]
 
 @export var ability_vars :Dictionary   = {}
-@export var ability_types:Array[ability_type]
+@export var ability_types:Array[ability_type] =[ability_type.SUMMON]
 
 enum ability_type{
 	HEALTH_EFFECT,

@@ -217,11 +217,12 @@ func end_turn():
 		ai.game_over = true
 		ui.show_winner(winner, achievements.achievements, achievements.special_achievements, achievements.super_special_achievements)
 	
-	#a full turn is when the player and computer both finish moving
-	turns_played += 0.5
-	turn += 1
-	
-	level_specifics()
+	else:
+		#a full turn is when the player and computer both finish moving
+		turns_played += 0.5
+		turn += 1
+		
+		level_specifics()
 	
 	
 func surrender_signal():

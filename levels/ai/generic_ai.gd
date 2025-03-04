@@ -129,25 +129,23 @@ func greatest_damage_weakest_enemy():
 func calculate_best_ability_options(player_units):
 	var chosen_ability = null
 	var chosen_location = null
-	for ability in unit.abilities_holder.get_children():
-		ability.determine_viable_squares()
+	for ability:Ability in unit.abilities_holder.get_children():
 		#operating on the logic that later skills are more powerful
 		if ability.check_cooldown() == 0 && ability.has_viable_placements():
 			chosen_ability = ability.name
 		else:
 			return null
 		
-		if ability.type_viable == "empty":
+		if ability.types_viable == ["empty"] || ability.types_viable == ["special_building"] && ability.ability_types == [Ability_Stats.ability_type.SUMMON]:
 			var target = calculate_closest_enemy(player_units)
 			
-			if target == null:
-				target = [0,0]
-			else:
-				target = target.unit_position
+			if target == null: target = [0,0]
+			else: target = target.unit_position
 			
 			for square in ability.viable_squares:
 				chosen_location = get_closest(target, chosen_location, square)
 				
 		else:
 			chosen_location = ability.viable_squares[0]
+			
 	return [chosen_ability, chosen_location]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Ability_Stats" load_steps=2 format=3 uid="uid://cj6syshnxlsix"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/ability/Ability_Stats.gd" id="1_0b406"]
+
+[resource]
+script = ExtResource("1_0b406")
+ability_name = "summon_ghoul"
+cooldown = 1
+ability_range = 2
+ability_aoe = 0
+types_viable = Array[String](["specific_building"])
+ability_vars = {
+"conversion": true,
+"specific_building": "grave",
+"summon_name": "zombie"
+}
+ability_types = Array[int]([2])
