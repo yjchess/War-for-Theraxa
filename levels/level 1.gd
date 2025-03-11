@@ -49,7 +49,7 @@ func evaluate_achievements():
 		
 	if lost_player_unit != true:
 		achievements.achievements[2][1] = true
-	if lost_player_unit != true && ai.reinforcements == true:
+	if lost_player_unit != true && reinforcements == true:
 		achievements.special_achievements[1][1] = true
 	
 	if GameData.campaign_upgrades == [] && len(player_units.call()) >=2 && reinforcements == true:
