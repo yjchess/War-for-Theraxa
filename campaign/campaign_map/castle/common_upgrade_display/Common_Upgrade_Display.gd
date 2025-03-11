@@ -47,13 +47,7 @@ func add_upgrade():
 	if upgraded < 3:
 		upgrade_gems.get_child(upgraded).texture = gold_gem
 		#GameData.common_upgrades[id][0] += 1
-		
-		for dictionary:Dictionary in GameData.common_upgrades_new:
-			if dictionary.get(GameData.upgrade_keys.UNIT_UPGRADE) == icon_name:
-				dictionary[GameData.upgrade_keys.YELLOW_GEM_UPGRADES] += 1
-				break
-		
-		#GameData.common_upgrades[id][GameData.upgrade_keys.YELLOW_GEM_UPGRADES] += 1
+		GameData.common_upgrades[id][GameData.upgrade_keys.YELLOW_GEM_UPGRADES] += 1
 			
 				
 	else:
