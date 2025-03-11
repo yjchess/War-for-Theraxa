@@ -1,13 +1,17 @@
 extends Control
-@onready var upgrades = %upgrades
+@onready var upgrades    = %upgrades
+@onready var gold_gems   = %"Gold Gems"
+@onready var blue_gems   = %"Blue Gems"
+@onready var purple_gems = %"Purple Gems"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameData.calculate_total_gems()
 	GameData.calculate_available_gems()
-	%"Gold Gems".text   = str(GameData.available_gold_gems)   + "/" + str(GameData.total_gold_gems)
-	%"Blue Gems".text   = str(GameData.available_blue_gems)   + "/" + str(GameData.total_blue_gems)
-	%"Purple Gems".text = str(GameData.available_purple_gems) + "/" + str(GameData.available_purple_gems)
+	gold_gems.text   = str(GameData.available_gold_gems)   + "/" + str(GameData.total_gold_gems)
+	blue_gems.text   = str(GameData.available_blue_gems)   + "/" + str(GameData.total_blue_gems)
+	purple_gems.text = str(GameData.available_purple_gems) + "/" + str(GameData.available_purple_gems)
 	
 	for upgrade in upgrades.get_children():
 		upgrade.display_upgrade.connect(show_upgrade_options)
@@ -20,9 +24,9 @@ func _on_map_button_pressed():
 func show_upgrade_options(upgrade_descriptions, gems, portrait, unit_name):
 	GameData.calculate_total_gems()
 	GameData.calculate_available_gems()
-	%"Gold Gems".text   = str(GameData.available_gold_gems)   + "/" + str(GameData.total_gold_gems)
-	%"Blue Gems".text   = str(GameData.available_blue_gems)   + "/" + str(GameData.total_blue_gems)
-	%"Purple Gems".text = str(GameData.available_purple_gems) + "/" + str(GameData.available_purple_gems)
+	gold_gems.text   = str(GameData.available_gold_gems)   + "/" + str(GameData.total_gold_gems)
+	blue_gems.text   = str(GameData.available_blue_gems)   + "/" + str(GameData.total_blue_gems)
+	purple_gems.text = str(GameData.available_purple_gems) + "/" + str(GameData.available_purple_gems)
 	
 	
 	var count = 0
