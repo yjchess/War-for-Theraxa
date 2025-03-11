@@ -6,12 +6,17 @@ var current_dialogue_set = 0
 var in_dialogue = true
 var start_new_dialogue = false
 
-var keys = ["portrait", "name", "description"]
+
+enum keys{
+	PORTRAIT,
+	NAME,
+	DESCRIPTION
+}
 @export var campaign_dialogue = [
 	[
-		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses![/b]"},
-		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]TEST! Test test test[/b]"},
-		{keys[0]: "res://assets/portraits/commander_jensen.png", keys[1]: "Commander Jensen", keys[2]: "[b]TEST2! sad asd dsa[/b]"},		
+		{keys.PORTRAIT: "res://assets/portraits/commander_jensen.png", keys.NAME: "Commander Jensen", keys.DESCRIPTION: "[b]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses![/b]"},
+		{keys.PORTRAIT: "res://assets/portraits/commander_jensen.png", keys.NAME: "Commander Jensen", keys.DESCRIPTION: "[b]TEST! Test test test[/b]"},
+		{keys.PORTRAIT: "res://assets/portraits/commander_jensen.png", keys.NAME: "Commander Jensen", keys.DESCRIPTION: "[b]TEST2! sad asd dsa[/b]"},		
 	]
 ]
 
@@ -39,12 +44,12 @@ func new_dialogue():
 		start_new_dialogue = false
 		var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
 		emit_signal("disable_mouse")
-		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
+		emit_signal("update_cutscene_dialogue", dialogue[keys.PORTRAIT], dialogue[keys.NAME], dialogue[keys.DESCRIPTION])
 		
 	elif start_new_dialogue == false:
 		var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
 		emit_signal("disable_mouse")
-		emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)
+		emit_signal("update_cutscene_dialogue", dialogue[keys.PORTRAIT], dialogue[keys.NAME], dialogue[keys.DESCRIPTION])
 		
 
 func finished_from_middle():
