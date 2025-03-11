@@ -94,19 +94,14 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dkf2c"]
-load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v8yo0"]
-load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mhwpl"]
-load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v0l7v"]
-load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nb8ck"]
-load_path = "res://.godot/imported/achievement_gem_disabled.png-db86ae7043ccba362a16bab8642d54be.ctex"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h65xp"]
 bg_color = Color(0.14902, 0.133333, 0.109804, 1)

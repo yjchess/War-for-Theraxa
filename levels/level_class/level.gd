@@ -133,7 +133,7 @@ func unit_ability_signal(coord):
 		map.place_building("blue", ability_selected, coord, null)
 		unit_selected.built = true
 		
-		var building_costs = GC.get_constant(ability_selected)
+		var building_costs = GC[ability_selected]
 		player_resources.food -= building_costs.food_cost
 		player_resources.gold -= building_costs.gold_cost
 		ui.update_resources(player_resources)

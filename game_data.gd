@@ -5,7 +5,36 @@ var current_scene
 
 var campaign_upgrades = []
 var common_upgrades = [[0,0], [0,0]]
+
+enum upgrade_keys{
+	UNIT_UPGRADE,
+	YELLOW_GEM_UPGRADES,
+	BLUE_GEM_UPGRADES,
+	PURPLE_GEM_UPGRADES,
+}
+
+enum achievement_keys{
+	LEVEL,
+	YELLOW_GEM_ACHIEVEMENTS,
+	BLUE_GEM_ACHIEVEMENTS,
+	PURPLE_GEM_ACHIEVEMENTS
+}
+
+var common_upgrades_new = [
+	{upgrade_keys.UNIT_UPGRADE: "warrior_upgrades",upgrade_keys.YELLOW_GEM_UPGRADES:0, upgrade_keys.BLUE_GEM_UPGRADES:0},
+	{upgrade_keys.UNIT_UPGRADE: "archer_upgrades" ,upgrade_keys.YELLOW_GEM_UPGRADES:0, upgrade_keys.BLUE_GEM_UPGRADES:0}
+]
+
+var campaign_achievements_new = [
+	{achievement_keys.LEVEL: 1, achievement_keys.YELLOW_GEM_ACHIEVEMENTS: [false, false, false], achievement_keys.BLUE_GEM_ACHIEVEMENTS: [false,false], achievement_keys.PURPLE_GEM_ACHIEVEMENTS: [false]}
+]
+
+var rare_upgrades_new = [
+	{upgrade_keys.UNIT_UPGRADE: "Commander_Jensen",upgrade_keys.PURPLE_GEM_UPGRADES:0},
+]
+
 var rare_upgrades   = [[0]]
+
 var campaign_achievements = [
 	[
 		[false, false, false],
