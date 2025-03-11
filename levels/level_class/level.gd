@@ -4,9 +4,9 @@ class_name Level
 
 
 @onready var map = $Generic_Map
-@onready var ui:UI = $CanvasLayer
+@onready var ui:UI = $UI
 @onready var ai = $AI
-@onready var mouseblocker = $CanvasLayer/MouseBlocker/Area2D
+@onready var mouseblocker = $UI/MouseBlocker/Area2D
 @onready var dialogue = $Dialogue
 var lost_player_unit = false
 var level_num = 1
