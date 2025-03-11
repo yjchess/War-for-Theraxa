@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://p68unjyyfxpo"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_x27qw"]
+
+[resource]
+script = ExtResource("1_x27qw")
+unit_name = "old_man"
+movement_range = 1
+health = 3
+melee_damage = 1
+ranged_damage = 0
+attack_range = 0
+abilities = Array[String]([])
+description = "An old man too stubborn to evacuate his house"

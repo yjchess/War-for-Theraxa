@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://dcmgrfi4x0pnh"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_lmbg6"]
+
+[resource]
+script = ExtResource("1_lmbg6")
+unit_name = "skeleton_warrior"
+movement_range = 1
+health = 3
+melee_damage = 3
+ranged_damage = 0
+attack_range = 1
+abilities = Array[String]([])
+description = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"

@@ -93,6 +93,7 @@ func instantiate_unit(colour, name, position, ai_vars):
 	instance.determine_viable_squares.connect(determine_viable_squares_signal)
 	instance.player_unit_lost.connect(player_unit_lost_signal)
 	instance.summon_unit.connect(place_piece)
+	instance.destroy.connect(destroy_signal)
 
 	#instance.place_unit()
 	var square_parent = get_square(position[0], position[1])
@@ -122,15 +123,25 @@ func determine_viable_squares_signal(type_viable, entity, bounds):
 			for square in get_free_squares(new_bounds):
 				viable_squares.append(square)
 	
+	if "specific_building" in type_viable:
+		var building:String = entity.ability_vars.specific_building
+		var potential_squares = get_squares_from_array(new_bounds)
+
+		for square in potential_squares:
+			if square.has_node("Building"):
+				if square.get_node("Building").building_name == building:
+					viable_squares.append([square.x_coord, square.y_coord])
+
+	
 	entity.viable_squares = viable_squares
 
 func player_unit_lost_signal():
 	emit_signal("player_unit_lost")
 
 func instantiate_building(color, building_name, building_position, building_behaviour):
-	var instance = building.instantiate()
+	var instance:Building = building.instantiate()
 	instance.building_color = color
-
+	
 	instance.building_stats = load("res://Resources/Buildings/"+building_name+".tres")
 	instance.building_name = building_name
 	instance.building_position = building_position
@@ -259,3 +270,10 @@ func determine_potential_enemies_signal(ai, enemy_squares):
 			enemies.append(get_square(square[0], square[1]).get_node("Unit"))
 
 	ai.potential_enemies = enemies
+
+func destroy_signal(target):
+	var square = get_square(target[0],target[1])
+	if square.has_node("Building"):
+		square.get_node("Building").die()
+	elif square.has_node("Unit"):
+		square.get_node("Unit").die()

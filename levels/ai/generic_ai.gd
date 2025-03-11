@@ -136,7 +136,7 @@ func calculate_best_ability_options(player_units):
 		else:
 			return null
 		
-		if ability.types_viable == ["empty"] || ability.types_viable == ["special_building"] && ability.ability_types == [Ability_Stats.ability_type.SUMMON]:
+		if ability.types_viable == ["empty"] || ability.types_viable == ["specific_building"] && ability.ability_types == [Ability_Stats.ability_type.SUMMON]:
 			var target = calculate_closest_enemy(player_units)
 			
 			if target == null: target = [0,0]
@@ -144,6 +144,7 @@ func calculate_best_ability_options(player_units):
 			
 			for square in ability.viable_squares:
 				chosen_location = get_closest(target, chosen_location, square)
+
 				
 		else:
 			chosen_location = ability.viable_squares[0]

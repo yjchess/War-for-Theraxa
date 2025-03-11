@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://dvpxg4bik7j0o"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_kngay"]
+
+[resource]
+script = ExtResource("1_kngay")
+unit_name = "archer"
+movement_range = 2
+health = 6
+melee_damage = 1
+ranged_damage = 4
+attack_range = 3
+abilities = Array[String]([])
+description = "The archer is a simple ranged unit. They are capable of taking down enemies from afar, but beware their vulnerable health."

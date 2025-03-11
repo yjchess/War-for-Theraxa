@@ -39,7 +39,7 @@
 #	if len(viable_squares) > 0 && cooldown_progress == cooldown: return true
 #	else: return false
 #
-#func summon_skeleton(color, square_location):
+#func _skeleton(color, square_location):
 #	#print("SUMMONING SKELETON")
 #	if cooldown_progress == cooldown:
 #		#propagated through to unit --> map --> level

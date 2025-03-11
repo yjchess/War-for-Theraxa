@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://b07bypdtnifw2"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_ob0et"]
+
+[resource]
+script = ExtResource("1_ob0et")
+unit_name = "skeleton_archer"
+movement_range = 1
+health = 3
+melee_damage = 1
+ranged_damage = 3
+attack_range = 3
+abilities = Array[String]([])
+description = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"

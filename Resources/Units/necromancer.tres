@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://dmoikp02jr454"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_l0h7p"]
+
+[resource]
+script = ExtResource("1_l0h7p")
+unit_name = "necromancer"
+movement_range = 2
+health = 3
+melee_damage = 1
+ranged_damage = 3
+attack_range = 3
+abilities = Array[String](["summon_ghoul"])
+description = "Wizards past the point of no return. Once a wizard has meddled with the dark arts enough, their minds and bodies oft become corrupted and begin to resemble the undead creatures of which they reign over."

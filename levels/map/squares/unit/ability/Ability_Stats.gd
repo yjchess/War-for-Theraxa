@@ -12,5 +12,6 @@ class_name Ability_Stats extends Resource
 enum ability_type{
 	HEALTH_EFFECT,
 	STATUS_EFFECT,
-	SUMMON
+	SUMMON,
+	TRAIN
 }

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://bxe7m03lrfp0e"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_rt78o"]
+
+[resource]
+script = ExtResource("1_rt78o")
+unit_name = "cavalry_warrior"
+movement_range = 3
+health = 15
+melee_damage = 5
+ranged_damage = 0
+attack_range = 1
+abilities = Array[String]([])
+description = "The cavalry warrior is a mighty beast. They stride quickly into battle with mobile maneuvers and deep strikes"

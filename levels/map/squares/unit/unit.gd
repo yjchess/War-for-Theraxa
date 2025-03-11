@@ -35,8 +35,9 @@ signal determine_viable_squares
 signal summon_unit
 signal player_unit_lost
 signal determine_potential_enemies
+signal destroy
 
-var unit_stats:Resource
+var unit_stats:Unit_Stats
 
 func _ready():
 	if ai != null: connect_ai_determine_potential_enemies_signal()
@@ -51,106 +52,18 @@ func _ready():
 		"blue": add_to_group("player_unit"); player = "player"
 		_: player = "neutral"
 	
+	unit_stats = load("res://Resources/Units/"+unit_name+".tres")
 	
-	match unit_name:
-
-		"peasant":
-			movement_range = 2
-			health         = 3
-			melee_damage   = 1
-			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/archer.png"
-			description    = "The uniniitiated conscript."
-		
-		"warrior": 
-			movement_range = 2
-			health         = 7
-			melee_damage   = 3
-			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/warrior.png"
-			description    = "The bread and butter of your army. A stable, well armoured melee unit. Useful as a meatshield or to overwhelm enemies in numbers."
-			
-		"archer": 
-			movement_range = 2
-			health         = 6
-			melee_damage   = 1
-			ranged_damage  = 4
-			attack_range   = 3
-			unit_portrait  = "res://assets/portraits/archer.png"
-			description    = "The archer is a simple ranged unit. They are capable of taking down enemies from afar, but beware their vulnerable health."
-		
-		"cavalry_warrior": 
-			movement_range = 3
-			health         = 15
-			melee_damage   = 5
-			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/warrior.png"
-			description    = "The cavalry warrior is a mighty beast. They stride quickly into battle with mobile maneuvers and deep strikes"
+	movement_range = unit_stats.movement_range
+	health         = unit_stats.health
+	melee_damage   = unit_stats.melee_damage
+	ranged_damage  = unit_stats.ranged_damage
+	attack_range   = unit_stats.attack_range
+	abilities      = unit_stats.abilities
+	description    = unit_stats.description
 	
-		"wizard": 
-			movement_range = 1
-			health         = 3
-			melee_damage   = 1
-			ranged_damage  = 6
-			attack_range   = 2
-			abilities      = ["summon_skeleton"]
-			unit_portrait  = "res://assets/portraits/wizard.png"
-			description    = "The wizard is a vital piece of any army, capable of casting powerful spells and turning the tides of battle."
-			
-		"skeleton":
-			movement_range = 1
-			health         = 3
-			melee_damage   = 3
-			ranged_damage  = 0
-			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/skeleton_warrior.png"
-			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
+	unit_portrait = "res://assets/portraits/"+unit_name+".png"
 		
-		"goblin_slave":
-			movement_range = 4
-			health = 1
-			melee_damage = 1
-			ranged_damage = 0
-			attack_range = 1
-			unit_portrait = "res://assets/portraits/goblin_slave.png"
-			description = "Goblins: considered an inferior species by the undead, serve as the scouting cannon fodder of the undead. They are fast but weak and not worth turning into an undead minion. Instead they are used to find burial sites, and perform tasks that require speed (a characteristic not usually owned by the undead)"
-		
-		"skeleton_warrior":
-			movement_range = 1
-			health         = 3
-			melee_damage   = 3
-			ranged_damage  = 0
-			attack_range   = 1
-			unit_portrait  = "res://assets/portraits/skeleton_warrior.png"
-			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
-
-		"skeleton_archer":
-			movement_range = 1
-			health         = 3
-			melee_damage   = 1
-			ranged_damage  = 3
-			attack_range   = 3
-			unit_portrait  = "res://assets/portraits/skeleton_archer.png"
-			description    = "Though scary, skeletons are notoriously weak. That being said, they often travel in packs and overwhelm enemies"
-
-		"necromancer":
-			movement_range = 2
-			health         = 3
-			melee_damage   = 1
-			ranged_damage  = 3
-			attack_range   = 3
-			abilities      = ["summon_ghoul"]
-			unit_portrait  = "res://assets/portraits/necromancer.png"
-			description    = "Wizards past the point of no return. Once a wizard has meddled with the dark arts enough, their minds and bodies oft become corrupted and begin to resemble the undead creatures of which they reign over."
-
-		"old_man":
-			movement_range = 1
-			health         = 3
-			melee_damage   = 1
-			ranged_damage  = 0
-			attack_range   = 0
-			unit_portrait  = "res://assets/portraits/old_man.png"
-			description    = "An old man too stubborn to evacuate his house"
 
 	max_health = health
 	unit_position = [square.x_coord, square.y_coord]
@@ -313,6 +226,7 @@ func instantiate_ability(ability_name):
 		instance.name         = ability_name
 		instance.determine_viable.connect(determine_viable)
 		instance.summon_unit.connect(summon_unit_signal)
+		instance.destroy.connect(destroy_signal)
 		abilities_holder.add_child(instance)
 
 func determine_viable(type_viable, entity, bounds):
@@ -322,6 +236,9 @@ func determine_viable(type_viable, entity, bounds):
 func summon_unit_signal(colour, unit, unit_position, ai_movement_behaviour):
 	#propagated through to map --> level
 	emit_signal("summon_unit", colour, unit, unit_position, ai_movement_behaviour)
+
+func destroy_signal(target):
+	emit_signal("destroy", target)	
 	
 func apply_upgrades():
 	var warrior_upgrades = GameData.common_upgrades[0]

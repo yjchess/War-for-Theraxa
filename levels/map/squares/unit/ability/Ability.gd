@@ -53,6 +53,7 @@ func use_ability(target:Array):
 							emit_signal("status_effect", status_effect, square)
 				
 			Ability_Stats.ability_type.SUMMON:
+				print("SUMMON")
 				if ability_vars.conversion == true:
 					emit_signal("destroy", target)
 					

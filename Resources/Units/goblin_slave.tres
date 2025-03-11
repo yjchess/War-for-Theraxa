@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://b2phg3gpywyw1"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_u4d0y"]
+
+[resource]
+script = ExtResource("1_u4d0y")
+unit_name = "goblin_slave"
+movement_range = 3
+health = 3
+melee_damage = 1
+ranged_damage = 0
+attack_range = 1
+abilities = Array[String]([])
+description = "Goblins: considered an inferior species by the undead, serve as the scouting cannon fodder of the undead. They are fast but weak and not worth turning into an undead minion. Instead they are used to find burial sites, and perform tasks that require speed (a characteristic not usually owned by the undead)"

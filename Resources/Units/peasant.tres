@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Unit_Stats" load_steps=2 format=3 uid="uid://dpjtvrao0hx2b"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/Unit_Stats.gd" id="1_c7omx"]
+
+[resource]
+script = ExtResource("1_c7omx")
+unit_name = "peasant"
+movement_range = 2
+health = 3
+melee_damage = 1
+ranged_damage = 0
+attack_range = 1
+abilities = Array[String]([])
+description = "The uniniitiated conscript."

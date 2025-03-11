@@ -10,4 +10,4 @@ base_path = "res://assets/human/buildings/"
 description = "The training facility for ranged units."
 sprite_scale = Vector2(0.5, 0.5)
 sprite_offset = Vector2(64, 64)
-abilities = Array[String](["archer"])
+abilities = Array[String](["train_archer"])

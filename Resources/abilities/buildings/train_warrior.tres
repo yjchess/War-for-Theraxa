@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Ability_Stats" load_steps=2 format=3 uid="uid://cjt3llfwajots"]
+
+[ext_resource type="Script" path="res://levels/map/squares/unit/ability/Ability_Stats.gd" id="1_t4r3g"]
+
+[resource]
+script = ExtResource("1_t4r3g")
+ability_name = "train_archer"
+cooldown = 1
+ability_range = 1
+ability_aoe = 0
+types_viable = Array[String](["empty"])
+ability_vars = {
+"costs": {
+"food": 50
+},
+"summon_name": "archer"
+}
+ability_types = Array[int]([3])

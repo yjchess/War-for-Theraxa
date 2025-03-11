@@ -134,7 +134,6 @@ func unit_ability_signal(coord):
 		unit_selected.built = true
 		
 		var building_costs = GC.get_constant(ability_selected)
-		print(building_costs)
 		player_resources.food -= building_costs.food_cost
 		player_resources.gold -= building_costs.gold_cost
 		ui.update_resources(player_resources)

@@ -77,20 +77,20 @@ func receive_attack(damage, status_effects):
 #	add_child(instance)
 
 func die():
-	GameData.remove_unit_from_buildings(self)
 	tree_exited.connect(signal_death)
 	queue_free()
 	
 
 #the following uses the tree_exited signal
 func signal_death():
-	GameData.update_minimap()
+	emit_signal("update_minimap")
 	if building_color == "blue":
-		GameData.level.lost_player_building = true
+		emit_signal("player_unit_lost")
 
 
 func instantiate_ability(ability_name):
 	var instance = ability_node.instantiate()
+	instance.ability_stats = load("res://Resources/abilities/buildings/"+ability_name+".tres")
 	instance.ability_name = ability_name
 	instance.name         = ability_name
 	abilities_holder.add_child(instance)

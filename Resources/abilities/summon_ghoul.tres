@@ -12,6 +12,6 @@ types_viable = Array[String](["specific_building"])
 ability_vars = {
 "conversion": true,
 "specific_building": "grave",
-"summon_name": "zombie"
+"summon_name": "ghoul"
 }
 ability_types = Array[int]([2])
