@@ -1,3 +1,4 @@
+class_name Map
 extends Node2D
 @export var width = 12
 @export var height = 12

@@ -30,4 +30,3 @@ func _on_save_game_pressed():
 func _on_load_save_pressed():
 	#print("ATTEMPTING TO LOAD GAME")
 	GameData.load_game()
-

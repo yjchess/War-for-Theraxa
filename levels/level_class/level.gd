@@ -5,6 +5,7 @@ class_name Level
 
 @onready var map = $Generic_Map
 @onready var ui:UI = $UI
+@onready var ui_handler:UI_HANDLER = $UI_Handler
 @onready var ai = $AI
 @onready var mouseblocker = $UI/MouseBlocker/Area2D
 @onready var dialogue = $Dialogue
@@ -36,7 +37,9 @@ var computer_resources = {"food":0, "gold":0}
 
 
 func _ready():
-	ui.surrender.connect(surrender_signal)
+	#ui.surrender.connect(surrender_signal)
+	ui_handler.initialize_level_ui({})
+	ui_handler.end_turn.connect(end_turn)
 	ai.game_over = false
 	if GameData.is_loading == false:
 		map.setup_board(player_troops, computer_troops, player_buildings, computer_buildings, environmental_buildings, neutral_buildings, neutral_units)
@@ -59,14 +62,14 @@ func _ready():
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
 	
 	map.update_minimap.connect(ui.update_minimap_grid)
-	ui.update_minimap_grid()
-	ui.end_turn.connect(end_turn)
-	ui.ability_pressed.connect(ability_pressed_signal)
-	ui.ability_unpressed.connect(ability_unpressed_signal)
+	#ui.update_minimap_grid()
+	#ui.end_turn.connect(end_turn)
+	#ui.ability_pressed.connect(ability_pressed_signal)
+	#ui.ability_unpressed.connect(ability_unpressed_signal)
 	#ui.save_game.connect(save_game_signal)
 	
 	#dialogue_finished means that the player let the dialogue run from start to finish
-	ui.dialogue_finished.connect(dialogue.finished_without_skipping)
+	#ui.dialogue_finished.connect(dialogue.finished_without_skipping)
 	#mid_dialogue means the player clicked whilst there was still dialogue running
 	mouseblocker.mid_dialogue.connect(dialogue.finished_from_middle)
 	#end_dialogue means the player clicked once mid dialogue then again
