@@ -1,5 +1,6 @@
 extends Node2D
 class_name Dialogue
+signal submit_ui_update (StringName, Variant)
 
 var current_dialogue = 0
 var current_dialogue_set = 0
@@ -65,3 +66,6 @@ func finished_without_skipping():
 	#	var dialogue = campaign_dialogue[current_dialogue_set][current_dialogue]
 	#	emit_signal("disable_mouse")
 	#	emit_signal("update_cutscene_dialogue", dialogue.portrait, dialogue.name, dialogue.description)	
+
+func _enter_tree() -> void:
+	emit_signal("submit_ui_update", "dialogue", self)

@@ -11,3 +11,4 @@ description = "The training facility for melee soldiers."
 sprite_scale = Vector2(0.5, 0.5)
 sprite_offset = Vector2(64, 64)
 abilities = Array[String](["train_warrior"])
+phases = 0

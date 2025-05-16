@@ -53,11 +53,19 @@ func use_ability(target:Array):
 							emit_signal("status_effect", status_effect, square)
 				
 			Ability_Stats.ability_type.SUMMON:
-				print("SUMMON")
 				if ability_vars.conversion == true:
 					emit_signal("destroy", target)
 					
 				emit_signal("summon_unit", unit.unit_color, ability_vars.summon_name, target, {"ai_type":"generic"})
+			
+			Ability_Stats.ability_type.GATHER:
+				for square:SQUARE in affected_squares:
+					if square in viable_squares:
+						var building:Building = square.get_building()
+						if building.has_phases: building.advance_phase()
+						building.gather_resources()
+				pass
+				
 	cooldown_progress = 0
 	
 func determine_viable_squares():

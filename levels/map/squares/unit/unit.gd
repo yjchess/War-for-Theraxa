@@ -53,13 +53,14 @@ func _ready():
 		_: player = "neutral"
 	
 	unit_stats = load("res://Resources/Units/"+unit_name+".tres")
+	print("UNIT_STATS.ABILITIES: ", unit_stats.abilities)
 	
 	movement_range = unit_stats.movement_range
 	health         = unit_stats.health
 	melee_damage   = unit_stats.melee_damage
 	ranged_damage  = unit_stats.ranged_damage
 	attack_range   = unit_stats.attack_range
-	abilities      = unit_stats.abilities
+	abilities      = unit_stats.abilities.duplicate(true)
 	description    = unit_stats.description
 	
 	unit_portrait = "res://assets/portraits/"+unit_name+".png"
@@ -88,7 +89,8 @@ func _ready():
 	#apply player upgrades
 	if unit_color == "blue":
 		apply_upgrades()
-
+	print("UNIT NAME:", unit_name, " ABILITIES: ", len(abilities))
+	
 func determine_potential_enemies_signal(entity, potential_moves):
 	emit_signal("determine_potential_enemies", entity, potential_moves)
 

@@ -7,7 +7,7 @@ var building_position
 var building_portrait
 
 @onready var sprite = $Sprite2D
-var building_stats:Resource
+var building_stats:Building_Stats
 
 var map
 
@@ -17,6 +17,7 @@ var health
 var moved = false
 var attacked = false
 var built = false
+var has_phases = false
 var player
 var description
 
@@ -51,6 +52,7 @@ func _ready():
 	sprite.scale = building_stats.sprite_scale
 	sprite.offset = building_stats.sprite_offset
 	abilities = building_stats.abilities
+	has_phases = building_stats.has_phases
 
 	max_health = health
 	building_position = [square.x_coord, square.y_coord]

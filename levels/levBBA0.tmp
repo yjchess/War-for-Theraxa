@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://by3us8bnxbpmd"]
+[gd_scene load_steps=8 format=3 uid="uid://by3us8bnxbpmd"]
 
 [ext_resource type="Script" path="res://levels/level 1.gd" id="1_7euov"]
 [ext_resource type="PackedScene" uid="uid://c5wkl5y85bqb0" path="res://levels/map/generic_map.tscn" id="1_s8bj2"]
@@ -7,18 +7,12 @@
 [ext_resource type="Script" path="res://levels/dialogue/dialogue 1.gd" id="5_8syl2"]
 [ext_resource type="Script" path="res://levels/ui_handler.gd" id="5_vax1l"]
 [ext_resource type="Script" path="res://levels/achievements/Achievements.gd" id="6_33e1p"]
-[ext_resource type="Script" path="res://levels/level_handler.gd" id="8_6gx6k"]
 
 [node name="Level One" type="Node2D"]
 script = ExtResource("1_7euov")
 
 [node name="Generic_Map" parent="." instance=ExtResource("1_s8bj2")]
 position = Vector2(0, -96)
-
-[node name="UI_Handler" type="Node2D" parent="."]
-script = ExtResource("5_vax1l")
-
-[node name="CanvasLayer" parent="UI_Handler" instance=ExtResource("3_mlw8r")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -29,8 +23,10 @@ script = ExtResource("4_vqlu2")
 [node name="Dialogue" type="Node2D" parent="."]
 script = ExtResource("5_8syl2")
 
+[node name="UI_Handler" type="Node2D" parent="."]
+script = ExtResource("5_vax1l")
+
+[node name="CanvasLayer" parent="UI_Handler" instance=ExtResource("3_mlw8r")]
+
 [node name="Achievements" type="Node2D" parent="."]
 script = ExtResource("6_33e1p")
-
-[node name="Level_Handler" type="Node2D" parent="."]
-script = ExtResource("8_6gx6k")

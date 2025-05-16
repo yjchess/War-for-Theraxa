@@ -5,9 +5,11 @@
 [resource]
 script = ExtResource("1_nvspg")
 building_name = "gold_mine"
-health = 15
-base_path = "res://assets/human/buildings/"
+health = null
+base_path = null
 description = "Farmland that produces food for soldiers."
-sprite_scale = Vector2(1, 1)
+sprite_scale = null
 sprite_offset = Vector2(32, 32)
 abilities = Array[String]([])
+has_phases = null
+phases = null

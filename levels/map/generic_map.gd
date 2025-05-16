@@ -30,6 +30,11 @@ signal unit_move
 signal unit_ability
 
 signal player_unit_lost
+signal submit_ui_update(StringName, Variant)
+
+func _enter_tree() -> void:
+	submit_ui_update.emit.call_deferred("map", self)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#as the following is using integer divide, viewport_width / square_width = viewport_width 

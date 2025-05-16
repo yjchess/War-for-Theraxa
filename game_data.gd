@@ -86,7 +86,7 @@ func save_game():
 
 	serialized_computer_units = []
 	serialized_player_units = []
-	print(len(player_units))
+	print("PLAYER UNITS ",len(player_units))
 	for unit in player_units:
 		serialized_player_units.append({"unit_name": unit.unit_name, "unit_health": unit.health, "unit_max_health": unit.max_health, "unit_position": unit.unit_position, "unit_movement_behaviour_id": unit.movement_behaviour_id, "unit_moved":unit.moved, "unit_attacked":unit.attacked})
 	

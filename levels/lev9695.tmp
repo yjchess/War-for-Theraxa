@@ -19,6 +19,8 @@ position = Vector2(0, -96)
 script = ExtResource("5_vax1l")
 
 [node name="CanvasLayer" parent="UI_Handler" instance=ExtResource("3_mlw8r")]
+minimap_width = null
+minimap_height = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

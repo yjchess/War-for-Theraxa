@@ -3,11 +3,12 @@ extends Node2D
 class_name Level
 
 
-@onready var map = $Generic_Map
-@onready var ui:UI = $UI
+@onready var map:Map = $Generic_Map
 @onready var ui_handler:UI_HANDLER = $UI_Handler
+@onready var ui:UI = $UI_Handler/CanvasLayer
+@onready var level_handler:LEVEL_HANDLER = $LEVEL_HANDLER
 @onready var ai = $AI
-@onready var mouseblocker = $UI/MouseBlocker/Area2D
+@onready var mouseblocker = $UI_Handler/CanvasLayer/MouseBlocker/Area2D
 @onready var dialogue = $Dialogue
 var lost_player_unit = false
 var level_num = 1
@@ -27,7 +28,7 @@ var player_units = []
 var computer_units = []
 
 var square_selected   = null
-var unit_selected     = null
+var unit_selected:Unit= null
 var building_selected = null
 
 var ability_selected
@@ -35,18 +36,22 @@ var ability_selected
 var player_resources = {"food":100, "gold":100}
 var computer_resources = {"food":0, "gold":0}
 
+signal submit_ui_update (StringName, Variant)
+
 
 func _ready():
 	#ui.surrender.connect(surrender_signal)
-	ui_handler.initialize_level_ui({})
-	ui_handler.end_turn.connect(end_turn)
+
 	ai.game_over = false
 	if GameData.is_loading == false:
 		map.setup_board(player_troops, computer_troops, player_buildings, computer_buildings, environmental_buildings, neutral_buildings, neutral_units)
-		ui.update_resources(player_resources)
+		
 	else:
 		map.place_serialized_units(GameData.serialized_player_units, GameData.serialized_computer_units)
 		GameData.is_loading = false
+	
+	ui_handler.initialize_level_ui()
+	ui_handler.end_turn.connect(end_turn)
 	
 	map.square_selected.   connect  (square_selected_signal  )
 	map.unit_selected.     connect  (unit_selected_signal    )
@@ -62,10 +67,6 @@ func _ready():
 	computer_units = func lambda(): return get_tree().get_nodes_in_group("computer_unit")
 	
 	map.update_minimap.connect(ui.update_minimap_grid)
-	#ui.update_minimap_grid()
-	#ui.end_turn.connect(end_turn)
-	#ui.ability_pressed.connect(ability_pressed_signal)
-	#ui.ability_unpressed.connect(ability_unpressed_signal)
 	#ui.save_game.connect(save_game_signal)
 	
 	#dialogue_finished means that the player let the dialogue run from start to finish
@@ -116,6 +117,7 @@ func unit_selected_signal(coords, unit):
 	ui.update_description (unit_selected.unit_name, unit_selected.description)
 	ui.update_statistics  (unit_selected.health, unit_selected.max_health, unit_selected.melee_damage, unit_selected.ranged_damage, unit_selected.attack_range, unit_selected.movement_range)
 	ui.update_abilities   (unit_selected.abilities)
+	submit_ui_update.emit("unit_selected", unit_selected)
 
 func building_selected_signal(coords, building):
 	building_selected = building
@@ -123,6 +125,7 @@ func building_selected_signal(coords, building):
 	ui.update_description (building_selected.building_name, building_selected.description)
 	ui.update_statistics  (building_selected.health, building_selected.max_health, 0, 0, 0, 0)
 	ui.update_abilities   (building_selected.abilities)
+	submit_ui_update.emit("building_selected", building_selected)
 
 func unit_attack_signal(coord):
 	unit_selected.attack(coord[0], coord[1])
@@ -264,6 +267,7 @@ func ability_pressed_signal(ability_name):
 
 		"build"   : ui.show_build_menu("human")
 		"gather"  : pass
+			#map.show_abilitable(unit_selected.)
 		"ranged_attack":
 			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
 		"return" : ui.update_abilities(unit_selected.abilities)

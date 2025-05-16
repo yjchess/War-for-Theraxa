@@ -1,3 +1,4 @@
+class_name SQUARE
 extends Node2D
 var x_coord: int
 var y_coord: int
@@ -121,3 +122,6 @@ func get_player():
 		player = get_node_or_null("Building").player
 	else: player = "none"
 	return player
+
+func get_building():
+	return get_node_or_null("Building")

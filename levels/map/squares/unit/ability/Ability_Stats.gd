@@ -13,5 +13,6 @@ enum ability_type{
 	HEALTH_EFFECT,
 	STATUS_EFFECT,
 	SUMMON,
-	TRAIN
+	TRAIN,
+	GATHER
 }
