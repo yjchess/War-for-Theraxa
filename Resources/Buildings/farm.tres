@@ -1,15 +1,43 @@
-[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://cth5dslvwheeb"]
+[gd_resource type="Resource" script_class="Gatherable_Building_Stats" load_steps=2 format=3 uid="uid://crtnpc6cxyvnf"]
 
-[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_nvspg"]
+[ext_resource type="Script" path="res://levels/map/squares/building/Gatherable_Building_Stats.gd" id="1_njs4o"]
 
 [resource]
-script = ExtResource("1_nvspg")
-building_name = "gold_mine"
-health = null
-base_path = null
+script = ExtResource("1_njs4o")
+has_phases = true
+max_phase = 2
+phases = {
+0: {
+"gatherable_resources": {
+"food": 0,
+"gold": 0
+},
+"phase_sprite": "farm.png"
+},
+1: {
+"gatherable_resources": {
+"food": 0,
+"gold": 0
+},
+"phase_sprite": "farm_seeded.png"
+},
+2: {
+"gatherable_resources": {
+"food": 10,
+"gold": 0
+},
+"phase_sprite": "farm_cropped.png"
+}
+}
+gatherable_resources = {
+"food": 0,
+"gold": 0
+}
+building_types = Array[int]([1])
+building_name = "farm"
+health = 15
+base_path = "res://assets/human/buildings/"
 description = "Farmland that produces food for soldiers."
-sprite_scale = null
+sprite_scale = Vector2(1, 1)
 sprite_offset = Vector2(32, 32)
 abilities = Array[String]([])
-has_phases = null
-phases = null

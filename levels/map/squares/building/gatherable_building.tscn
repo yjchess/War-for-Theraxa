@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://77p8qqlhjk5x"]
+
+[node name="GatherableBuilding" type="Node2D"]

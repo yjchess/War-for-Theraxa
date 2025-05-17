@@ -7,7 +7,7 @@ var building_position
 var building_portrait
 
 @onready var sprite = $Sprite2D
-var building_stats:Building_Stats
+var building_stats: Resource
 
 var map
 
@@ -17,9 +17,9 @@ var health
 var moved = false
 var attacked = false
 var built = false
-var has_phases = false
 var player
 var description
+var building_types
 
 var abilities = []
 var ability_node = preload("res://levels/map/squares/unit/ability/ability.tscn")
@@ -37,7 +37,8 @@ func _ready():
 	
 	x_max = 12
 	y_max = 12
-		
+
+	
 	match building_color:
 		"red":         player = "computer"
 		"blue":        player = "player"
@@ -52,10 +53,16 @@ func _ready():
 	sprite.scale = building_stats.sprite_scale
 	sprite.offset = building_stats.sprite_offset
 	abilities = building_stats.abilities
-	has_phases = building_stats.has_phases
+	building_types = building_stats.building_types
 
 	max_health = health
 	building_position = [square.x_coord, square.y_coord]
+	
+	if building_types != [Building_Stats.Building_Type.NORMAL]:
+		for building_type in building_types:
+			attach_node(building_type)
+
+
 	
 	if len(abilities) > 0:
 		for ability in abilities:
@@ -130,3 +137,19 @@ func apply_upgrades():
 #used before saving - as loading will rebuild the upgrades
 func remove_upgrades():
 	pass
+
+func attach_node(building_type):
+	var node_script:String
+	match building_type:
+		Building_Stats.Building_Type.GATHERABLE: node_script = "gather.gd"
+		Building_Stats.Building_Type.TRAINABLE: node_script = "train.tcsn"
+	
+	#var node = load("res://levels/map/squares/building/component/"+node_scene)
+	#var instance = node.instantiate()
+	#add_child(instance)
+	var node2d = Node2D.new()
+	node2d.set_script(load("res://levels/map/squares/building/component/"+node_script))
+	add_child(node2d)
+	
+	if node_script == "gather.gd":
+		node2d.advance_phase()
