@@ -37,6 +37,7 @@ func _ready():
 	name = ability_name
 
 func use_ability(target:Array):
+	print("USING ABILITY: ",ability_name)
 	for ability_type in ability_types:
 		var affected_squares = GameData.get_squares(target, ability_aoe, [[0,0],[11,11]])
 		
@@ -59,24 +60,27 @@ func use_ability(target:Array):
 				emit_signal("summon_unit", unit.unit_color, ability_vars.summon_name, target, {"ai_type":"generic"})
 			
 			Ability_Stats.ability_type.GATHER:
-				for square:SQUARE in affected_squares:
-					if square in viable_squares:
+				print("GATHERING")
+				for square_coord in affected_squares:
+					var square = GameData.get_square(square_coord)
+					if square_coord in viable_squares:
 						var building:Building = square.get_building()
-						if building.has_phases: building.advance_phase()
-						building.gather_resources()
+						var gather_component:Gather
+						for node:Node2D in building.get_children():
+							if node.has_method("gather_resources"):
+								print(node)
+								gather_component = node
+						if gather_component.has_phases: 
+							print("HAS PHASES")
+							gather_component.advance_phase()
+						gather_component.gather_resources()
 				pass
 				
 	cooldown_progress = 0
 	
 func determine_viable_squares():
-	var bound_one = [unit.unit_position[0] - ability_range, unit.unit_position[1] - ability_range]
-	var bound_two = [unit.unit_position[0] + ability_range, unit.unit_position[1] + ability_range]
-	var bounds =[]
 	
-	for x in range(bound_one[0], bound_two[0]):
-		for y in range(bound_one[1], bound_two[1]):
-			bounds.append([x,y])
-	#propagated through to unit --> map --> level
+	var bounds = GameData.get_squares([unit.unit_position[0],unit.unit_position[1]], ability_range, [[0,0],[11,11]] )
 	
 	var temp_viable_squares = []
 	for type_viable in types_viable:

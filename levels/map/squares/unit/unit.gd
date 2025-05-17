@@ -70,7 +70,7 @@ func _ready():
 	unit_position = [square.x_coord, square.y_coord]
 	
 	var common_abilities = ["movement", "attack"]
-	var common_abilities_optional = ["ranged_attack", "build", "gather"]
+	var common_abilities_optional = ["ranged_attack", "build"]
 	
 	if len(abilities) > 0:
 		for ability in abilities:
@@ -84,7 +84,6 @@ func _ready():
 	
 	if unit_name == "peasant":
 		abilities.append(common_abilities_optional[1])
-		abilities.append(common_abilities_optional[2])	
 
 	#apply player upgrades
 	if unit_color == "blue":
@@ -145,6 +144,11 @@ func get_unit_possible_ranged_attacks():
 		if attack not in all_possible_melee_attacks:
 			all_possible_ranged_attacks.append(attack)
 	return all_possible_ranged_attacks
+
+func get_unit_possible_ability_locations(ability):
+	var specific_ability = get_ability(ability)
+	if specific_ability.has_viable_placements():
+		return specific_ability.determine_viable_squares()
 	
 func validate_possible_moves(moves):
 	var validated_moves = []
@@ -212,6 +216,7 @@ func signal_death():
 		emit_signal("player_unit_lost")
 
 func use_ability(ability_name, ability_location):
+	print("UNIT: ",unit_name,"using ability: ",ability_name)
 	for ability:Ability in abilities_holder.get_children():
 		if ability.name == ability_name:
 			ability.use_ability(ability_location)
@@ -221,7 +226,7 @@ func use_ability(ability_name, ability_location):
 		#"summon_skeleton": ability_handler.summon_skeleton(unit_color, ability_location)
 
 func instantiate_ability(ability_name):
-	if ability_name not in ["movement", "attack", "build", "gather", "ranged_attack"]:
+	if ability_name not in ["movement", "attack", "build", "ranged_attack"]:
 		var instance = ability_node.instantiate()
 		instance.ability_stats = load("res://Resources/abilities/"+ability_name+".tres")
 		instance.ability_name = ability_name
@@ -309,7 +314,7 @@ func remove_upgrades():
 			max_health -= 2
 
 func get_ability(ability_name):
-	for ability in abilities_holder:
+	for ability:Ability in abilities_holder.get_children():
 		if ability.name == ability_name:
 			return ability
 

@@ -10,5 +10,5 @@ health = 3
 melee_damage = 1
 ranged_damage = 0
 attack_range = 1
-abilities = Array[String]([])
+abilities = Array[String](["gather"])
 description = "The uniniitiated conscript."

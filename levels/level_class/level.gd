@@ -52,6 +52,7 @@ func _ready():
 	
 	ui_handler.initialize_level_ui()
 	ui_handler.end_turn.connect(end_turn)
+	ui_handler.ability_selected.connect(ability_selected_signal)
 	
 	map.square_selected.   connect  (square_selected_signal  )
 	map.unit_selected.     connect  (unit_selected_signal    )
@@ -148,7 +149,8 @@ func unit_ability_signal(coord):
 	if ability_selected in units:
 		map.place_piece("blue", ability_selected, coord, null)
 		building_selected.built = true
-		
+	
+	unit_selected.use_ability(ability_selected, coord)
 		#var unit_costs = GC.get_constant(ability_selected)
 		#player_resources.food -= unit_costs.food_cost
 		#player_resources.gold -= unit_costs.gold_cost
@@ -258,15 +260,16 @@ func reset_computer_moves():
 
 func ability_pressed_signal(ability_name):
 	ability_selected = ability_name
+	print("HELLO WORLD")
 	hide_square_UIs()
 	match ability_name:
-		"movement": 
-			map.show_movable(unit_selected.get_unit_possible_moves())
+		"movement": pass
+			#map.show_movable(unit_selected.get_unit_possible_moves())
 		"attack"  : 
 			map.show_attackable(unit_selected.get_unit_possible_melee_attacks())
 
 		"build"   : ui.show_build_menu("human")
-		"gather"  : pass
+		"gather"  : print("GATHER PRESSED")
 			#map.show_abilitable(unit_selected.)
 		"ranged_attack":
 			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
@@ -302,3 +305,6 @@ func hide_square_UIs():
 
 func unit(name, location, ai_vars = ["generic"]):
 	return Unit_Spawn.new(name, location, ai_vars)
+
+func ability_selected_signal(ability):
+	ability_selected = ability

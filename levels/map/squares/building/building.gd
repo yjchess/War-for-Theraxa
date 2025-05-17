@@ -62,8 +62,6 @@ func _ready():
 		for building_type in building_types:
 			attach_node(building_type)
 
-
-	
 	if len(abilities) > 0:
 		for ability in abilities:
 			instantiate_ability(ability)

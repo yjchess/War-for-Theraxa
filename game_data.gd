@@ -1,3 +1,4 @@
+class_name GD
 extends Node
 
 var is_loading = false
@@ -195,3 +196,7 @@ func get_squares(center, range, bounds):
 				squares.append(square)
 	
 	return squares
+
+func get_square(coord):
+	var map = get_node("/root/Level/Generic_Map")
+	return map.get_square(coord[0], coord[1])

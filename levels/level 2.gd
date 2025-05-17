@@ -1,7 +1,7 @@
 extends Level
 
 func _init():
-	player_troops =   [unit("peasant", [0,10]), unit("peasant", [3,9])]
+	player_troops =   [unit("peasant", [0,9]), unit("peasant", [3,9])]
 	computer_troops = [unit("goblin_slave", [3,1],["pre_determined",[[5,2],[7,3],[6,5],[8,5]], true]), unit("necromancer", [2,1], ["pre_determined",[[2,1],[2,3],[4,4],[6,4],[7,2]],false])]
 	player_buildings = [["outpost",[8,7]],["barracks",[8,10]],["archery_range",[9,10]],["stables",[10,10]], ["gold_mine",[1,10]],["gold_mine",[2,10]],["farm",[1,9]],["farm",[2,9]]]
 	computer_buildings = [[]]

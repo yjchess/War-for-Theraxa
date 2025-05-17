@@ -5,7 +5,7 @@ var data: Dictionary = {"unit_selected": null, "building_selected": null, "playe
 
 var dialogue
 var map: Map
-var unit_selected
+var unit_selected: Unit
 var player_resources
 var building_selected
 
@@ -52,6 +52,7 @@ func end_turn_signal():
 	emit_signal("end_turn")
 
 func ability_pressed_signal(ability_name):
+	print("HELLO WORLD")
 	unit_selected = data["unit_selected"]
 	building_selected = data["building_selected"]
 	player_resources = data["player_resources"]
@@ -66,7 +67,8 @@ func ability_pressed_signal(ability_name):
 			map.show_attackable(unit_selected.get_unit_possible_melee_attacks())
 
 		"build"   : ui.show_build_menu("human")
-		"gather"  : pass
+		"gather"  : 
+			map.show_abilitable(unit_selected.get_unit_possible_ability_locations("gather"))
 		"ranged_attack":
 			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
 		"return" : ui.update_abilities(unit_selected.abilities)

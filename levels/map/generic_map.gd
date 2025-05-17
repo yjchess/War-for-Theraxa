@@ -206,8 +206,9 @@ func unit_move_signal         (coords)           : emit_signal("unit_move"      
 func unit_ability_signal      (coords)           : emit_signal("unit_ability"      , coords)
 
 func show_abilitable (possible_moves):
-	for move in possible_moves:
-		get_square(move[0],move[1]).display_abililtable()
+	if possible_moves != null:
+		for move in possible_moves:
+			get_square(move[0],move[1]).display_abilitable()
 
 func show_movable(possible_moves):
 	for move in possible_moves:
@@ -222,7 +223,7 @@ func show_buildable(possible_builds):
 		get_square(build[0], build[1]).display_abilitable()
 
 func get_square(x,y):
-	for square_instance in squares.get_children():
+	for square_instance:SQUARE in squares.get_children():
 		if square_instance.x_coord == x && square_instance.y_coord == y:
 			return square_instance
 
