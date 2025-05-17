@@ -151,5 +151,3 @@ func attach_node(building_type):
 	node2d.set_script(load("res://levels/map/squares/building/component/"+node_script))
 	add_child(node2d)
 	
-	if node_script == "gather.gd":
-		node2d.advance_phase()
