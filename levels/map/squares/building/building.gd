@@ -30,6 +30,7 @@ var x_max
 var y_max
 
 var movement_behaviour_id
+signal summon_unit
 
 func _ready():
 	map = get_parent().get_parent().get_parent()
@@ -100,6 +101,7 @@ func instantiate_ability(ability_name):
 	instance.ability_stats = load("res://Resources/abilities/buildings/"+ability_name+".tres")
 	instance.ability_name = ability_name
 	instance.name         = ability_name
+	instance.summon_unit.connect(summon_unit_signal)
 	abilities_holder.add_child(instance)
 
 
@@ -127,7 +129,12 @@ func validate_possible_moves(moves):
 func can_build(unit, resources):
 	match unit:
 		"archer": if resources.food >= 50: return true
+		"warrior": if resources.food >=20: return true
+		"cavalry_warrior": if resources.food >= 50 and resources.gold >= 50: return true
 
+func summon_unit_signal(colour, unit, unit_position, ai_movement_behaviour):
+	#propagated through to map --> level
+	emit_signal("summon_unit", colour, unit, unit_position, ai_movement_behaviour)
 
 func apply_upgrades():
 	pass
@@ -140,7 +147,7 @@ func attach_node(building_type):
 	var node_script:String
 	match building_type:
 		Building_Stats.Building_Type.GATHERABLE: node_script = "gather.gd"
-		Building_Stats.Building_Type.TRAINABLE: node_script = "train.tcsn"
+		Building_Stats.Building_Type.TRAINABLE: node_script = "train.gd"
 	
 	#var node = load("res://levels/map/squares/building/component/"+node_scene)
 	#var instance = node.instantiate()
@@ -148,4 +155,11 @@ func attach_node(building_type):
 	var node2d = Node2D.new()
 	node2d.set_script(load("res://levels/map/squares/building/component/"+node_script))
 	add_child(node2d)
-	
+
+
+func use_ability(ability_name, ability_location):
+	print("BUILDING: ",building_name,"using ability: ",ability_name)
+	for ability:Ability in abilities_holder.get_children():
+		if ability.name == ability_name:
+			ability.use_ability(ability_location)
+			break

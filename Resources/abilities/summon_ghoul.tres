@@ -6,12 +6,13 @@
 script = ExtResource("1_0b406")
 ability_name = "summon_ghoul"
 cooldown = 1
-ability_range = 2
+ability_range = 1
 ability_aoe = 0
-types_viable = Array[String](["specific_building"])
+types_viable = Array[String](["specific_buildings"])
 ability_vars = {
 "conversion": true,
 "specific_building": "grave",
+"specific_buildings": ["grave"],
 "summon_name": "ghoul"
 }
 ability_types = Array[int]([2])

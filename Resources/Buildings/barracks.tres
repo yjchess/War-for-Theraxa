@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://b8ctgbtloxq2n"]
+[gd_resource type="Resource" script_class="Trainable_Building_Stats" load_steps=2 format=3 uid="uid://hpbcabf1unsp"]
 
-[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_fv0xu"]
+[ext_resource type="Script" path="res://levels/map/squares/building/Trainable_Building_Stats.gd" id="1_hmely"]
 
 [resource]
-script = ExtResource("1_fv0xu")
+script = ExtResource("1_hmely")
+costs = [{
+"food": 20,
+"gold": 0,
+"unit": "warrior"
+}]
+building_types = Array[int]([2])
 building_name = "barracks"
 health = 15
 base_path = "res://assets/human/buildings/"
@@ -11,4 +17,3 @@ description = "The training facility for melee soldiers."
 sprite_scale = Vector2(0.5, 0.5)
 sprite_offset = Vector2(64, 64)
 abilities = Array[String](["train_warrior"])
-phases = 0

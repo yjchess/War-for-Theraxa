@@ -131,12 +131,13 @@ func calculate_best_ability_options(player_units):
 	var chosen_location = null
 	for ability:Ability in unit.abilities_holder.get_children():
 		#operating on the logic that later skills are more powerful
+		print(ability.name)
 		if ability.check_cooldown() == 0 && ability.has_viable_placements():
 			chosen_ability = ability.name
 		else:
 			return null
 		
-		if ability.types_viable == ["empty"] || ability.types_viable == ["specific_building"] && ability.ability_types == [Ability_Stats.ability_type.SUMMON]:
+		if ability.types_viable == ["empty"] || ability.types_viable == ["specific_buildings"] && ability.ability_types == [Ability_Stats.ability_type.SUMMON]:
 			var target = calculate_closest_enemy(player_units)
 			
 			if target == null: target = [0,0]

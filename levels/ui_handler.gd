@@ -7,12 +7,13 @@ var dialogue
 var map: Map
 var unit_selected: Unit
 var player_resources
-var building_selected
+var building_selected:Building
 
 @onready var ui:UI = $CanvasLayer
 
 signal end_turn
 signal ability_selected
+signal submit_level_update(StringName, Variant)
 
 func _ready() -> void:
 	initialize_level_ui()
@@ -31,6 +32,11 @@ func _ready() -> void:
 func _submit_update(key: StringName, value: Variant):
 	data[key] = value
 	dirty = true
+	
+	if key == "player_resources" && ui != null:
+		ui.update_resources(data["player_resources"])
+		
+	print("Updated UI_HANDLER")
 
 func initialize_level_ui():
 	ui.update_resources(data["player_resources"])
@@ -52,7 +58,7 @@ func end_turn_signal():
 	emit_signal("end_turn")
 
 func ability_pressed_signal(ability_name):
-	print("HELLO WORLD")
+	print(ability_name)
 	unit_selected = data["unit_selected"]
 	building_selected = data["building_selected"]
 	player_resources = data["player_resources"]
@@ -87,9 +93,17 @@ func ability_pressed_signal(ability_name):
 		"stables":pass
 	
 	match ability_name:
-		"archer":
+		"train_archer":
 			var buildable_squares = building_selected.get_buildable_squares()
-			if buildable_squares != [] && building_selected.can_build(ability_name, player_resources):
+			if buildable_squares != [] && building_selected.can_build("archer", player_resources):
+				map.show_buildable(buildable_squares)
+		"train_warrior":
+			var buildable_squares = building_selected.get_buildable_squares()
+			if buildable_squares != [] && building_selected.can_build("warrior", player_resources):
+				map.show_buildable(buildable_squares)
+		"train_cavalry_warrior":
+			var buildable_squares = building_selected.get_buildable_squares()
+			if buildable_squares != [] && building_selected.can_build("cavalry_warrior", player_resources):
 				map.show_buildable(buildable_squares)
 
 func ability_unpressed_signal():

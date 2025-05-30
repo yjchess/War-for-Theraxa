@@ -13,6 +13,8 @@ enum keys{
 	NAME,
 	DESCRIPTION
 }
+
+@export var optional_dialogue: Array[Dictionary]
 @export var campaign_dialogue = [
 	[
 		{keys.PORTRAIT: "res://assets/portraits/commander_jensen.png", keys.NAME: "Commander Jensen", keys.DESCRIPTION: "[b]General Zardinius, troops at our outermost outpost have discovered an enemy scouting group! We must destroy them before they contact General Eelzeroth lest they send for reinforcements to break through our defenses![/b]"},
@@ -69,3 +71,18 @@ func finished_without_skipping():
 
 func _enter_tree() -> void:
 	emit_signal("submit_ui_update", "dialogue", self)
+
+func play_optional_dialogue(optional_dialogue_name):
+	var optional_dialogue_set = null
+	for dialogue_set in optional_dialogue:
+		print(dialogue_set)
+		if dialogue_set["dialogue_name"] == optional_dialogue_name:
+			optional_dialogue_set = dialogue_set["dialogue_set"]
+	
+	if optional_dialogue_set == null:
+		print("ERROR: Invalid dialogue_name")
+		return
+	
+	else:
+		campaign_dialogue.insert(current_dialogue_set, optional_dialogue_set)
+		new_dialogue()

@@ -64,7 +64,7 @@ func _ready():
 	description    = unit_stats.description
 	
 	unit_portrait = "res://assets/portraits/"+unit_name+".png"
-		
+
 
 	max_health = health
 	unit_position = [square.x_coord, square.y_coord]

@@ -194,7 +194,6 @@ func get_squares(center, range, bounds):
 		if     square[0] >= bounds[0][0] && square[0] <= bounds[1][0]:
 			if square[1] >= bounds[0][1] && square[1] <= bounds[1][1]:
 				squares.append(square)
-	
 	return squares
 
 func get_square(coord):

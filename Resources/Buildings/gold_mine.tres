@@ -1,13 +1,21 @@
-[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://dq6l4keixsf87"]
+[gd_resource type="Resource" script_class="Gatherable_Building_Stats" load_steps=2 format=3 uid="uid://xlytuthp0ab"]
 
-[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_bksxi"]
+[ext_resource type="Script" path="res://levels/map/squares/building/Gatherable_Building_Stats.gd" id="1_d1g5m"]
 
 [resource]
-script = ExtResource("1_bksxi")
+script = ExtResource("1_d1g5m")
+has_phases = false
+max_phase = 0
+phases = {}
+gatherable_resources = {
+"food": 0,
+"gold": 10
+}
+building_types = Array[int]([1])
 building_name = "gold_mine"
 health = 30
 base_path = "res://assets/human/buildings/"
-description = "Allows peasants to mine gold."
+description = "Allows peasants to mine 10 gold."
 sprite_scale = Vector2(1, 1)
 sprite_offset = Vector2(32, 32)
 abilities = Array[String]([])

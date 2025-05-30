@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_0iwng")
-ability_name = "train_archer"
+ability_name = "train_cavalry_warrior"
 cooldown = 1
 ability_range = 1
 ability_aoe = 0
@@ -13,6 +13,6 @@ ability_vars = {
 "costs": {
 "food": 50
 },
-"summon_name": "archer"
+"summon_name": "cavalry_warrior"
 }
 ability_types = Array[int]([3])

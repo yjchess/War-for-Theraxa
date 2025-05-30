@@ -6,10 +6,10 @@ var max_phase:int
 var has_phases: bool
 var phases: Dictionary
 var gatherable_resources: Dictionary
-@onready var building = get_parent()
+@onready var building: Building = get_parent()
 @onready var building_stats:Gatherable_Building_Stats = building.building_stats
 @onready var building_color = building.building_color
-signal gathered_resources(Dictionary)
+signal submit_level_update(StringName, Variant)
 
 func _ready():
 	has_phases = building_stats.has_phases
@@ -37,4 +37,5 @@ func update_images():
 	building.sprite.texture = load(building.building_portrait)	
 
 func gather_resources():
-	gathered_resources.emit(gatherable_resources)
+	var player = building.player
+	submit_level_update.emit(player+"_resources", gatherable_resources)

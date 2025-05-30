@@ -2,7 +2,7 @@ extends Level
 
 func _init():
 	player_troops =   [unit("peasant", [0,9]), unit("peasant", [3,9])]
-	computer_troops = [unit("goblin_slave", [3,1],["pre_determined",[[5,2],[7,3],[6,5],[8,5]], true]), unit("necromancer", [2,1], ["pre_determined",[[2,1],[2,3],[4,4],[6,4],[7,2]],false])]
+	computer_troops = [unit("goblin_slave", [3,1],["pre_determined",[[5,2],[7,1],[8,3],[6,5],[8,5],[10,5]], true]), unit("necromancer", [2,1], ["pre_determined",[[2,1],[2,3],[4,4],[6,2],[7,2],[6,4],[8,5]],false])]
 	player_buildings = [["outpost",[8,7]],["barracks",[8,10]],["archery_range",[9,10]],["stables",[10,10]], ["gold_mine",[1,10]],["gold_mine",[2,10]],["farm",[1,9]],["farm",[2,9]]]
 	computer_buildings = [[]]
 	neutral_buildings = [["grave", [1,4]],["grave", [3,5]],["grave", [3,0]],["grave", [5,3]], ["grave", [8,1]],["house",[10,4]]]
@@ -10,12 +10,36 @@ func _init():
 	neutral_units = [unit("old_man", [11,4], ["generic"])]
 
 func level_specifics():
-	if turn == 3:
-		turn = 1
-		reset_player_moves()
-		
-	if turn == 2 && ai.game_over == false:
-		print("Computer Turn")
-		reset_computer_moves()
-		ai.turn(computer_units.call(), player_units.call(), turns_played)
-		end_turn()
+	super()
+	if turns_played == 2:
+		dialogue.new_dialogue()
+	
+	if turns_played == 5 and is_alive("goblin_slave"):
+		dialogue.play_optional_dialogue("Grinkle_finds_old_man")
+	
+	if turns_played == 6 and is_alive("old_man") and is_alive("goblin_slave") and is_alive("necromancer"):
+		var grinkle = get_unit("goblin_slave")
+		grinkle.attack(11,4)
+		dialogue.play_optional_dialogue("Grinkle_kills_old_man")
+	
+
+
+func evaluate_achievements():
+	pass
+
+#The following function is for level specific units
+func is_alive(unit_name):
+	for unit in computer_units.call():
+		if unit.unit_name == unit_name:
+			return true
+	
+	for unit in neutral_units:
+		if unit.unit_name == unit_name:
+			return true
+			
+	return false
+
+func get_unit(unit_name):
+	for unit in computer_units.call():
+		if unit.unit_name == unit_name:
+			return unit

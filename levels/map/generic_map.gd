@@ -27,7 +27,7 @@ signal building_selected
 
 signal unit_attack
 signal unit_move
-signal unit_ability
+signal entity_ability
 
 signal player_unit_lost
 signal submit_ui_update(StringName, Variant)
@@ -84,7 +84,6 @@ func place_building(color, building_name, building_position, building_behaviour)
 	instantiate_building(color, building_name, building_position, building_behaviour)
 	
 func instantiate_unit(colour, name, position, ai_vars):
-	
 	var instance           = unit.instantiate()
 	if ai_vars != null:
 		match ai_vars.ai_type:
@@ -121,7 +120,7 @@ func determine_viable_squares_signal(type_viable, entity, bounds):
 	var new_bounds = []
 	
 	for coord in bounds:
-		if coord[0] > 0 and coord[1] > 0 and coord[0] < width and coord[1] < height:
+		if coord[0] >= 0 and coord[1] >= 0 and coord[0] <= width and coord[1] <= height:
 			new_bounds.append(coord)
 			
 	if "empty" in type_viable:
@@ -129,14 +128,16 @@ func determine_viable_squares_signal(type_viable, entity, bounds):
 			for square in get_free_squares(new_bounds):
 				viable_squares.append(square)
 	
-	if "specific_building" in type_viable:
-		var building:String = entity.ability_vars.specific_building
+	if "specific_buildings" in type_viable:
+		var buildings:Array = entity.ability_vars.specific_buildings
 		var potential_squares = get_squares_from_array(new_bounds)
-
-		for square in potential_squares:
-			if square.has_node("Building"):
-				if square.get_node("Building").building_name == building:
-					viable_squares.append([square.x_coord, square.y_coord])
+		
+		for building in buildings:
+			for square in potential_squares:
+				print(square.x_coord, square.y_coord)
+				if square.has_node("Building"):
+					if square.get_node("Building").building_name == building:
+						viable_squares.append([square.x_coord, square.y_coord])
 
 	
 	entity.viable_squares = viable_squares
@@ -151,6 +152,7 @@ func instantiate_building(color, building_name, building_position, building_beha
 	instance.building_stats = load("res://Resources/Buildings/"+building_name+".tres")
 	instance.building_name = building_name
 	instance.building_position = building_position
+	instance.summon_unit.connect(place_piece)
 	#instance.building_behaviour = building_behaviour
 	
 	var square_parent = get_square(building_position[0], building_position[1])
@@ -181,6 +183,7 @@ func instantiate_unit_detailed(colour, name, position, movement_id, health, max_
 
 func instantiate_square(x,y):
 	var instance        = square.instantiate()
+	instance.name = str(x) +","+ str(y)
 	instance.x_coord    = x
 	instance.y_coord    = y
 	instance.x_max      = width
@@ -192,7 +195,7 @@ func instantiate_square(x,y):
 	instance.building_selected.connect(building_selected_signal)
 	instance.unit_attack    .connect(unit_attack_signal)
 	instance.unit_move      .connect(unit_move_signal)
-	instance.unit_ability   .connect(unit_ability_signal)
+	instance.entity_ability   .connect(entity_ability_signal)
 	instance.show_movable   .connect(show_movable)
 	instance.show_attackable.connect(show_attackable)
 	squares.add_child(instance)
@@ -203,7 +206,7 @@ func building_selected_signal (coords, building) : emit_signal("building_selecte
 
 func unit_attack_signal       (coords)           : emit_signal("unit_attack"       , coords)
 func unit_move_signal         (coords)           : emit_signal("unit_move"         , coords)
-func unit_ability_signal      (coords)           : emit_signal("unit_ability"      , coords)
+func entity_ability_signal    (coords)           : emit_signal("entity_ability"      , coords)
 
 func show_abilitable (possible_moves):
 	if possible_moves != null:

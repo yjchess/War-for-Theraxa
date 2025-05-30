@@ -23,7 +23,7 @@ phases = {
 },
 2: {
 "gatherable_resources": {
-"food": 10,
+"food": 60,
 "gold": 0
 },
 "phase_sprite": "farm_cropped.png"
@@ -37,7 +37,7 @@ building_types = Array[int]([1])
 building_name = "farm"
 health = 15
 base_path = "res://assets/human/buildings/"
-description = "Farmland that produces food for soldiers."
+description = "Farmland that produces food for soldiers. Crops must be seeded, watered and gathered for a total of 60 food."
 sprite_scale = Vector2(1, 1)
 sprite_offset = Vector2(32, 32)
 abilities = Array[String]([])

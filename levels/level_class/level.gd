@@ -9,7 +9,7 @@ class_name Level
 @onready var level_handler:LEVEL_HANDLER = $LEVEL_HANDLER
 @onready var ai = $AI
 @onready var mouseblocker = $UI_Handler/CanvasLayer/MouseBlocker/Area2D
-@onready var dialogue = $Dialogue
+@onready var dialogue:Dialogue = $Dialogue
 var lost_player_unit = false
 var level_num = 1
 var turns_played = 0
@@ -30,6 +30,7 @@ var computer_units = []
 var square_selected   = null
 var unit_selected:Unit= null
 var building_selected = null
+var current_entity_selected = ""
 
 var ability_selected
 
@@ -60,7 +61,7 @@ func _ready():
 	
 	map.unit_attack.       connect  (unit_attack_signal      )
 	map.unit_move.         connect  (unit_move_signal        )
-	map.unit_ability.      connect  (unit_ability_signal     )
+	map.entity_ability.    connect  (entity_ability_signal   )
 
 	map.player_unit_lost.connect(player_unit_lost_signal)
 	
@@ -118,6 +119,7 @@ func unit_selected_signal(coords, unit):
 	ui.update_description (unit_selected.unit_name, unit_selected.description)
 	ui.update_statistics  (unit_selected.health, unit_selected.max_health, unit_selected.melee_damage, unit_selected.ranged_damage, unit_selected.attack_range, unit_selected.movement_range)
 	ui.update_abilities   (unit_selected.abilities)
+	current_entity_selected = "unit"
 	submit_ui_update.emit("unit_selected", unit_selected)
 
 func building_selected_signal(coords, building):
@@ -126,6 +128,7 @@ func building_selected_signal(coords, building):
 	ui.update_description (building_selected.building_name, building_selected.description)
 	ui.update_statistics  (building_selected.health, building_selected.max_health, 0, 0, 0, 0)
 	ui.update_abilities   (building_selected.abilities)
+	current_entity_selected = "building"
 	submit_ui_update.emit("building_selected", building_selected)
 
 func unit_attack_signal(coord):
@@ -134,27 +137,14 @@ func unit_attack_signal(coord):
 func unit_move_signal(coord):
 	unit_selected.move(coord[0],coord[1])
 	
-func unit_ability_signal(coord):
-	var buildings = ["farm", "outpost", "archery_range", "castle", "stables"]
-	if ability_selected in buildings:
-		map.place_building("blue", ability_selected, coord, null)
-		unit_selected.built = true
-		
-		var building_costs = GC[ability_selected]
-		player_resources.food -= building_costs.food_cost
-		player_resources.gold -= building_costs.gold_cost
-		ui.update_resources(player_resources)
-	
-	var units = ["warrior","archer"]
-	if ability_selected in units:
-		map.place_piece("blue", ability_selected, coord, null)
-		building_selected.built = true
-	
-	unit_selected.use_ability(ability_selected, coord)
-		#var unit_costs = GC.get_constant(ability_selected)
-		#player_resources.food -= unit_costs.food_cost
-		#player_resources.gold -= unit_costs.gold_cost
-		#ui.update_resources(player_resources)
+func entity_ability_signal(coord):
+	if current_entity_selected == "unit":
+		print("UNIT USING ABILITY")
+		unit_selected.use_ability(ability_selected, coord)
+	else:
+		print("BUILDING USING ABILITY")
+		building_selected.use_ability(ability_selected, coord)
+
 
 func show_attackable_signal(possible_attacks):
 	for attack in possible_attacks:
@@ -258,41 +248,6 @@ func reset_computer_moves():
 		unit.attacked = false
 		unit.built = false
 
-func ability_pressed_signal(ability_name):
-	ability_selected = ability_name
-	print("HELLO WORLD")
-	hide_square_UIs()
-	match ability_name:
-		"movement": pass
-			#map.show_movable(unit_selected.get_unit_possible_moves())
-		"attack"  : 
-			map.show_attackable(unit_selected.get_unit_possible_melee_attacks())
-
-		"build"   : ui.show_build_menu("human")
-		"gather"  : print("GATHER PRESSED")
-			#map.show_abilitable(unit_selected.)
-		"ranged_attack":
-			map.show_attackable(unit_selected.get_unit_possible_ranged_attacks())
-		"return" : ui.update_abilities(unit_selected.abilities)
-		
-	match ability_name:
-		"farm":
-			
-			var buildable_squares = unit_selected.get_buildable_squares()
-			if buildable_squares != [] && unit_selected.can_build(ability_name, player_resources):
-				map.show_buildable(buildable_squares)
-				
-		"outpost":pass
-		"barracks":pass
-		"archery_range":pass
-		"castle":pass
-		"stables":pass
-	
-	match ability_name:
-		"archer":
-			var buildable_squares = building_selected.get_buildable_squares()
-			if buildable_squares != [] && building_selected.can_build(ability_name, player_resources):
-				map.show_buildable(buildable_squares)
 
 func ability_unpressed_signal():
 	hide_square_UIs()
@@ -307,4 +262,5 @@ func unit(name, location, ai_vars = ["generic"]):
 	return Unit_Spawn.new(name, location, ai_vars)
 
 func ability_selected_signal(ability):
+	print("ABILITY SELECTED:",ability)
 	ability_selected = ability

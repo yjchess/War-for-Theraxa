@@ -14,7 +14,7 @@ signal building_selected
 
 signal unit_attack
 signal unit_move
-signal unit_ability
+signal entity_ability #emitted when an abilitable square is pressed
 
 signal show_attackable
 signal show_movable
@@ -57,7 +57,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		
 		if $Movable.   visible == true: emit_signal("unit_move", [x_coord, y_coord])
 		
-		if $Abilitable.visible == true: emit_signal("unit_ability", [x_coord, y_coord])
+		if $Abilitable.visible == true: emit_signal("entity_ability", [x_coord, y_coord])
 		
 		get_tree().call_group("movable_square_UI"   , "hide")
 		get_tree().call_group("attackable_square_UI", "hide")

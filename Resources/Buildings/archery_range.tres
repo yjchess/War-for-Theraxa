@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://mgduuhilxbkk"]
+[gd_resource type="Resource" script_class="Trainable_Building_Stats" load_steps=2 format=3 uid="uid://b85bqnbst2ih1"]
 
-[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_51dau"]
+[ext_resource type="Script" path="res://levels/map/squares/building/Trainable_Building_Stats.gd" id="1_ucfcc"]
 
 [resource]
-script = ExtResource("1_51dau")
+script = ExtResource("1_ucfcc")
+costs = [{
+"food": 50,
+"gold": 0,
+"unit": "archer"
+}]
+building_types = Array[int]([2])
 building_name = "archery_range"
 health = 15
 base_path = "res://assets/human/buildings/"

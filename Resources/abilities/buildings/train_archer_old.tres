@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Ability_Stats" load_steps=2 format=3 uid="uid://dewl5bhh7j38l"]
+[gd_resource type="Resource" script_class="Ability_Stats" load_steps=2 format=3 uid="uid://cr5w4vpojkg27"]
 
 [ext_resource type="Script" path="res://levels/map/squares/unit/ability/Ability_Stats.gd" id="1_2d2rd"]
 
@@ -10,6 +10,9 @@ ability_range = 1
 ability_aoe = 0
 types_viable = Array[String](["empty"])
 ability_vars = {
+"costs": {
+"food": 50
+},
 "summon_name": "archer"
 }
-ability_types = Array[int]([3])
+ability_types = Array[int]([2])

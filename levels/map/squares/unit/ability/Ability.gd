@@ -20,7 +20,7 @@ signal summon_unit
 signal health_change
 signal destroy
 @onready var unit = get_parent().get_parent()
-
+@onready var building = get_parent().get_parent()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("abilities")
@@ -54,10 +54,26 @@ func use_ability(target:Array):
 							emit_signal("status_effect", status_effect, square)
 				
 			Ability_Stats.ability_type.SUMMON:
+				print("SUMMONING")
 				if ability_vars.conversion == true:
 					emit_signal("destroy", target)
 					
 				emit_signal("summon_unit", unit.unit_color, ability_vars.summon_name, target, {"ai_type":"generic"})
+			
+			Ability_Stats.ability_type.TRAIN:
+				print("TRAINING")
+				var square_coord = affected_squares[0]
+				var building:Building = get_parent().get_parent()
+				print(building.name)
+				var train_component:Train
+				for node:Node2D in building.get_children():
+					print(node.name)
+					if node.has_method("train"):
+						train_component = node
+				if train_component.train(ability_name) == true:
+					print("TRAINING IS A SUCCESS")
+					print(ability_vars.summon_name)
+					emit_signal("summon_unit", building.building_color, ability_vars.summon_name, target, {"ai_type":"generic"})
 			
 			Ability_Stats.ability_type.GATHER:
 				print("GATHERING")
@@ -68,12 +84,12 @@ func use_ability(target:Array):
 						var gather_component:Gather
 						for node:Node2D in building.get_children():
 							if node.has_method("gather_resources"):
-								print(node)
 								gather_component = node
 						if gather_component.has_phases: 
 							print("HAS PHASES")
-							gather_component.advance_phase()
-						gather_component.gather_resources()
+							gather_component.advance_phase() #this will automatically gather_resources
+						else:
+							gather_component.gather_resources()
 				pass
 				
 	cooldown_progress = 0
@@ -94,7 +110,8 @@ func determine_viable_squares():
 func has_viable_placements():
 	determine_viable_squares()
 	if len(viable_squares) > 0 && cooldown_progress == cooldown: return true
-	else: return false
+	else:
+		return false
 
 
 func check_cooldown():

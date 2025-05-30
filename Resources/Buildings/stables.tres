@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="Building_Stats" load_steps=2 format=3 uid="uid://daxg14r2enpni"]
+[gd_resource type="Resource" script_class="Trainable_Building_Stats" load_steps=2 format=3 uid="uid://daxg14r2enpni"]
 
-[ext_resource type="Script" path="res://levels/map/squares/building/Building_Stats.gd" id="1_ckcmm"]
+[ext_resource type="Script" path="res://levels/map/squares/building/Trainable_Building_Stats.gd" id="1_s05qa"]
 
 [resource]
-script = ExtResource("1_ckcmm")
+script = ExtResource("1_s05qa")
+costs = [{
+"food": 50,
+"gold": 50,
+"unit": "cavalry_warrior"
+}]
+building_types = Array[int]([2])
 building_name = "stables"
 health = 15
 base_path = "res://assets/human/buildings/"

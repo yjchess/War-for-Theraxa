@@ -6,7 +6,7 @@
 script = ExtResource("1_x27qw")
 unit_name = "old_man"
 movement_range = 1
-health = 3
+health = 1
 melee_damage = 1
 ranged_damage = 0
 attack_range = 0

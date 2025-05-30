@@ -1,4 +1,4 @@
-class_name Gatherable_Building_Stats
+class_name Gatherable_Building_Stats 
 extends Building_Stats
 
 @export var has_phases: bool          = true

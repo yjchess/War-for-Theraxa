@@ -8,8 +8,8 @@ ability_name = "gather"
 cooldown = 1
 ability_range = 1
 ability_aoe = 0
-types_viable = Array[String](["specific_building"])
+types_viable = Array[String](["specific_buildings"])
 ability_vars = {
-"specific_building": "farm"
+"specific_buildings": ["farm", "gold_mine"]
 }
 ability_types = Array[int]([4])
